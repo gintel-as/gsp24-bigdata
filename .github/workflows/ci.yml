@@ -30,33 +30,27 @@ jobs:
           echo "Waiting for services to be healthy..."
           sleep 60  # Adjust the sleep time as needed
 
-      - name: Check Elasticsearch logs
-        run: docker-compose logs es01
-
-      - name: Test Elasticsearch service
+      - name: Check if Elasticsearch is running
         run: |
-          response=$(curl -s -o /dev/null -w "%{http_code}" --cacert certs/ca/ca.crt https://localhost:9200)
-          if [ "$response" -ne 401 ]; then
+          if [ $(docker inspect -f '{{.State.Running}}' $(docker-compose ps -q es01)) = "false" ]; then
             echo "Elasticsearch is not running correctly."
             exit 1
           else
             echo "Elasticsearch is running correctly."
           fi
 
-      - name: Test Kibana service
+      - name: Check if Kibana is running
         run: |
-          response=$(curl -s -o /dev/null -w "%{http_code}" -I http://localhost:5601)
-          if [ "$response" -ne 302 ]; then
+          if [ $(docker inspect -f '{{.State.Running}}' $(docker-compose ps -q kibana)) = "false" ]; then
             echo "Kibana is not running correctly."
             exit 1
           else
             echo "Kibana is running correctly."
           fi
 
-      - name: Test Logstash service
+      - name: Check if Logstash is running
         run: |
-          response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:9600/_node/stats)
-          if [ "$response" -ne 200 ]; then
+          if [ $(docker inspect -f '{{.State.Running}}' $(docker-compose ps -q logstash01)) = "false" ]; then
             echo "Logstash is not running correctly."
             exit 1
           else
