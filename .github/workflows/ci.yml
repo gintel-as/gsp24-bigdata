@@ -1,0 +1,58 @@
+name: CI for Docker Compose
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Set up Docker Compose
+        run: sudo apt-get update && sudo apt-get install docker-compose -y
+
+      - name: Build and run Docker Compose
+        run: docker-compose up -d --build
+
+      - name: Wait for services to be healthy
+        run: |
+          echo "Waiting for services to be healthy..."
+          sleep 60  # Adjust the sleep time as needed
+
+      - name: Test Elasticsearch service
+        run: |
+          if curl -s --cacert certs/ca/ca.crt https://localhost:9200 | grep -q "missing authentication credentials"; then
+            echo "Elasticsearch is running correctly."
+          else
+            echo "Elasticsearch is not running correctly."
+            exit 1
+          fi
+
+      - name: Test Kibana service
+        run: |
+          if curl -s -I http://localhost:5601 | grep -q 'HTTP/1.1 302 Found'; then
+            echo "Kibana is running correctly."
+          else
+            echo "Kibana is not running correctly."
+            exit 1
+          fi
+
+      - name: Test Logstash service
+        run: |
+          if curl -s http://localhost:9600/_node/stats | grep -q 'logstash'; then
+            echo "Logstash is running correctly."
+          else
+            echo "Logstash is not running correctly."
+            exit 1
+          fi
+
+      - name: Stop Docker Compose
+        run: docker-compose down
