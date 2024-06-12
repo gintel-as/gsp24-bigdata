@@ -16,8 +16,24 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
-      - name: Set up Docker Compose
-        run: sudo apt-get update && sudo apt-get install docker-compose -y
+      - name: Install Docker Compose
+        run: |
+          sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose --version
+
+      - name: Create .env file from GitHub Secrets
+        run: |
+          echo "STACK_VERSION=${{ secrets.STACK_VERSION }}" >> .env
+          echo "ES_PORT=${{ secrets.ES_PORT }}" >> .env
+          echo "KIBANA_PORT=${{ secrets.KIBANA_PORT }}" >> .env
+          echo "ELASTIC_PASSWORD=${{ secrets.ELASTIC_PASSWORD }}" >> .env
+          echo "KIBANA_PASSWORD=${{ secrets.KIBANA_PASSWORD }}" >> .env
+          echo "LICENSE=${{ secrets.LICENSE }}" >> .env
+          echo "CLUSTER_NAME=${{ secrets.CLUSTER_NAME }}" >> .env
+          echo "ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}" >> .env
+          echo "ES_MEM_LIMIT=${{ secrets.ES_MEM_LIMIT }}" >> .env
+          echo "KB_MEM_LIMIT=${{ secrets.KB_MEM_LIMIT }}" >> .env
 
       - name: Build and run Docker Compose
         run: docker-compose up -d --build
@@ -27,31 +43,37 @@ jobs:
           echo "Waiting for services to be healthy..."
           sleep 60  # Adjust the sleep time as needed
 
+      - name: Check Elasticsearch logs
+        run: docker-compose logs es01
+
       - name: Test Elasticsearch service
         run: |
-          if curl -s --cacert certs/ca/ca.crt https://localhost:9200 | grep -q "missing authentication credentials"; then
-            echo "Elasticsearch is running correctly."
-          else
+          response=$(curl -s -o /dev/null -w "%{http_code}" --cacert certs/ca/ca.crt https://localhost:9200)
+          if [ "$response" -ne 401 ]; then
             echo "Elasticsearch is not running correctly."
             exit 1
+          else
+            echo "Elasticsearch is running correctly."
           fi
 
       - name: Test Kibana service
         run: |
-          if curl -s -I http://localhost:5601 | grep -q 'HTTP/1.1 302 Found'; then
-            echo "Kibana is running correctly."
-          else
+          response=$(curl -s -o /dev/null -w "%{http_code}" -I http://localhost:5601)
+          if [ "$response" -ne 302 ]; then
             echo "Kibana is not running correctly."
             exit 1
+          else
+            echo "Kibana is running correctly."
           fi
 
       - name: Test Logstash service
         run: |
-          if curl -s http://localhost:9600/_node/stats | grep -q 'logstash'; then
-            echo "Logstash is running correctly."
-          else
+          response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:9600/_node/stats)
+          if [ "$response" -ne 200 ]; then
             echo "Logstash is not running correctly."
             exit 1
+          else
+            echo "Logstash is running correctly."
           fi
 
       - name: Stop Docker Compose
