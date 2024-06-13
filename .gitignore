@@ -1,2 +1,5 @@
 *.csv
 *.env
+server.log*
+access*
+logstash_completed.log

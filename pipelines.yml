@@ -1,0 +1,8 @@
+- pipeline.id: api-logs-pipeline
+  path.config: "/usr/share/logstash/config/api_logs_pipeline.conf"
+
+- pipeline.id: server-logs-pipeline
+  path.config: "/usr/share/logstash/config/server_logs_pipeline.conf"
+
+- pipeline.id: access-logs-pipeline
+  path.config: "/usr/share/logstash/config/access_logs_pipeline.conf"
