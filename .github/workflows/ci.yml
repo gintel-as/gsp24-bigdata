@@ -22,6 +22,20 @@ jobs:
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose --version
 
+      - name: Create .env file from GitHub Secrets
+        run: |
+          echo "STACK_VERSION=${{ secrets.STACK_VERSION }}" >> .env
+          echo "ES_PORT=${{ secrets.ES_PORT }}" >> .env
+          echo "KIBANA_PORT=${{ secrets.KIBANA_PORT }}" >> .env
+          echo "ELASTIC_PASSWORD=${{ secrets.ELASTIC_PASSWORD }}" >> .env
+          echo "KIBANA_PASSWORD=${{ secrets.KIBANA_PASSWORD }}" >> .env
+          echo "LICENSE=${{ secrets.LICENSE }}" >> .env
+          echo "CLUSTER_NAME=${{ secrets.CLUSTER_NAME }}" >> .env
+          echo "ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}" >> .env
+          echo "ES_MEM_LIMIT=${{ secrets.ES_MEM_LIMIT }}" >> .env
+          echo "KB_MEM_LIMIT=${{ secrets.KB_MEM_LIMIT }}" >> .env
+          echo "LS_MEM_LIMIT=${{ secrets.LS_MEM_LIMIT }}" >> .env
+
       - name: Build and run Docker Compose
         run: docker-compose up -d --build
 
