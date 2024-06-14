@@ -212,6 +212,10 @@ services:
       - certs:/usr/share/logstash/certs
       - logstashdata01:/usr/share/logstash/data
       - "./logstash_ingest_data/:/usr/share/logstash/ingest_data/"
+      - ./pipelines.yml:/usr/share/logstash/config/pipelines.yml:ro 
+      - ./logstash_pipelines/api_logs_pipeline.conf:/usr/share/logstash/config/api_logs_pipeline.conf:ro
+      - ./logstash_pipelines/server_logs_pipeline.conf:/usr/share/logstash/config/server_logs_pipeline.conf:ro
+      - ./logstash_pipelines/access_logs_pipeline.conf:/usr/share/logstash/config/access_logs_pipeline.conf:ro
       - "./logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro"
     environment:
       - xpack.monitoring.enabled=false
