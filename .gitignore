@@ -1,5 +1,6 @@
 *.csv
 *.env
 server*
+core*
 access*
 logstash_completed.log

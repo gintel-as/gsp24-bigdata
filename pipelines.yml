@@ -6,3 +6,6 @@
 
 - pipeline.id: access-logs-pipeline
   path.config: "/usr/share/logstash/config/access_logs_pipeline.conf"
+
+- pipeline.id: cdr-logs-pipeline
+  path.config: "/usr/share/logstash/config/cdr_logs_pipeline.conf"

@@ -216,6 +216,7 @@ services:
       - ./logstash_pipelines/api_logs_pipeline.conf:/usr/share/logstash/config/api_logs_pipeline.conf:ro
       - ./logstash_pipelines/server_logs_pipeline.conf:/usr/share/logstash/config/server_logs_pipeline.conf:ro
       - ./logstash_pipelines/access_logs_pipeline.conf:/usr/share/logstash/config/access_logs_pipeline.conf:ro
+      - ./logstash_pipelines/cdr_logs_pipeline.conf:/usr/share/logstash/config/cdr_logs_pipeline.conf:ro
       - "./logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro"
     environment:
       - xpack.monitoring.enabled=false
