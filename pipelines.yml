@@ -9,3 +9,9 @@
 
 - pipeline.id: cdr-logs-pipeline
   path.config: "/usr/share/logstash/config/cdr_logs_pipeline.conf"
+
+- pipeline.id: at-logs-pipeline
+  path.config: "/usr/share/logstash/config/at_logs_pipeline.conf"
+
+- pipeline.id: adapter-logs-pipeline
+  path.config: "/usr/share/logstash/config/adapter_logs_pipeline.conf"
