@@ -15,3 +15,6 @@
 
 - pipeline.id: adapter-logs-pipeline
   path.config: "/usr/share/logstash/config/adapter_logs_pipeline.conf"
+
+- pipeline.id: sip-logs-pipeline
+  path.config: "/usr/share/logstash/config/sip_logs_pipeline.conf"
