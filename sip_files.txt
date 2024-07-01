@@ -1,0 +1,70 @@
+2024-06-18 09:54:23.196 INFO  [gen.TraceSipMessages]  104936297: (          LegA) |--->|    |    | INVITE	SDP	10.211.68.87:31762 sip:+4722390213@mbn-icscf.ngv.nsc.no;orig +4746180783 +4746180783 a33fadcab7f21b37145607c9555740ba@10.211.76.54 INITIAL
+2024-06-18 09:54:23.196 INFO  [gen.TraceSipMessages]  104936297: (          LegA) |<---|    |    | 100(INVITE) INITIAL 
+2024-06-18 09:54:23.209 INFO  [gen.TraceSipMessages]  104936297: (          LegB) |    |--->|    | INVITE	SDP	10.211.68.87:31762 sip:+4722390213@mbn-icscf.ngv.nsc.no;orig;user=phone +4722390213 +4722390213 8c3c8f60a3cef0acd8118ff142cbdaf1@10.211.76.54 INITIAL
+2024-06-18 09:54:23.219 INFO  [gen.TraceSipMessages]  104936297: (          LegB) |    |<---|    | 100(INVITE) EARLY +4722390213
+2024-06-18 09:54:23.220 INFO  [gen.TraceSipMessages]  104936297: (          LegA) |<---|    |    | 100(INVITE) EARLY +4722390213
+2024-06-18 09:54:23.409 INFO  [gen.TraceSipMessages]  204936540: (          LegA) |--->|    |    | INVITE	SDP	10.211.68.87:31762 tel:+4722390213 +4722390213 +4722390213 8c3c8f60a3cef0acd8118ff142cbdaf1@10.211.76.54 INITIAL
+2024-06-18 09:54:23.417 INFO  [gen.TraceSipMessages]  204936540: (          LegB) |    |--->|    | INVITE	SDP	10.211.68.87:31762 tel:+4722390213 +4722390213 +4722390213 0f5d8609c57ce49df3c52fe954283a03@10.211.76.55 INITIAL
+2024-06-18 09:54:23.426 INFO  [gen.TraceSipMessages]  204936540: (          LegB) |    |<---|    | 100(INVITE) EARLY +4722390213
+2024-06-18 09:54:23.451 INFO  [gen.TraceSipMessages] 1104936943: (          LegA) |--->|    |    | INVITE	SDP	10.211.68.87:31762 tel:+4722390213 +4722390213 +4722390213 0f5d8609c57ce49df3c52fe954283a03@10.211.76.55 INITIAL
+2024-06-18 09:54:23.477 INFO  [gen.TraceSipMessages] 1104936943: (          LegA) |<---|    |    | 100(INVITE) INITIAL 
+2024-06-18 09:54:23.487 INFO  [gen.TraceSipMessages] 1104936943: (          LegB) |    |--->|    | INVITE	  SDP	10.7.76.91:11898 tel:+4722390213 +4722390213 +4722390213 f3ec27ecff9473f0f19d6f93ed017911@10.211.76.58 INITIAL
+2024-06-18 09:54:23.501 INFO  [gen.TraceSipMessages] 1104936943: (          LegB) |    |<---|    | 100(INVITE) EARLY +4722390213
+2024-06-18 09:54:24.863 INFO  [gen.TraceSipMessages] 1104936943: (          LegB) |    |<---|    | 180(INVITE) EARLY +4722390213
+2024-06-18 09:54:24.891 INFO  [gen.TraceSipMessages] 1104936943: (          LegA) |<---|    |    | 180(INVITE) EARLY +4722390213
+2024-06-18 09:54:24.897 INFO  [gen.TraceSipMessages]  204936540: (          LegB) |    |<---|    | 180(INVITE) EARLY +4722390213
+2024-06-18 09:54:24.905 INFO  [gen.TraceSipMessages]  204936540: (          LegA) |<---|    |    | 180(INVITE) INITIAL +4722390213
+2024-06-18 09:54:24.920 INFO  [gen.TraceSipMessages]  104936297: (          LegB) |    |<---|    | 180(INVITE) EARLY +4722390213
+2024-06-18 09:54:24.921 INFO  [gen.TraceSipMessages]  104936297: (          LegA) |<---|    |    | 180(INVITE) EARLY +4722390213
+2024-06-18 09:54:26.621 INFO  [gen.TraceSipMessages] 1104936943: (          LegB) |    |<---|    | 183(INVITE) EARLY +4722390213
+2024-06-18 09:54:26.631 INFO  [gen.TraceSipMessages] 1104936943: (          LegA) |<---|    |    | 183(INVITE) EARLY +4722390213
+2024-06-18 09:54:26.637 INFO  [gen.TraceSipMessages]  204936540: (          LegB) |    |<---|    | 183(INVITE) EARLY +4722390213
+2024-06-18 09:54:26.639 INFO  [gen.TraceSipMessages]  204936540: (          LegA) |<---|    |    | 183(INVITE) EARLY +4722390213
+2024-06-18 09:54:26.650 INFO  [gen.TraceSipMessages]  104936297: (          LegB) |    |<---|    | 183(INVITE) EARLY +4722390213
+2024-06-18 09:54:26.651 INFO  [gen.TraceSipMessages]  104936297: (          LegA) |<---|    |    | 183(INVITE) EARLY +4722390213
+2024-06-18 09:54:27.138 INFO  [gen.TraceSipMessages] 1104936943: (          LegB) |    |<---|    | 200(INVITE)	SDP	10.7.76.87:11410 CONFIRMED +4722390213
+2024-06-18 09:54:27.159 INFO  [gen.TraceSipMessages] 1104936943: (          LegA) |<---|    |    | 200(INVITE)	SDP	10.7.76.91:10898 EARLY +4722390213
+2024-06-18 09:54:27.168 INFO  [gen.TraceSipMessages]  204936540: (          LegB) |    |<---|    | 200(INVITE)	SDP	10.7.76.91:10898 CONFIRMED +4722390213
+2024-06-18 09:54:27.171 INFO  [gen.TraceSipMessages]  204936540: (          LegA) |<---|    |    | 200(INVITE)	SDP	10.7.76.91:10898 EARLY +4722390213
+2024-06-18 09:54:27.190 INFO  [gen.TraceSipMessages]  104936297: (          LegB) |    |<---|    | 200(INVITE)	SDP	10.7.76.91:10898 CONFIRMED +4722390213
+2024-06-18 09:54:27.192 INFO  [gen.TraceSipMessages]  104936297: (          LegA) |<---|    |    | 200(INVITE)	SDP	10.7.76.91:10898 EARLY +4722390213
+2024-06-18 09:54:27.198 INFO  [gen.TraceSipMessages]  104936297: (          LegA) |--->|    |    | ACK     CONFIRMED
+2024-06-18 09:54:27.199 INFO  [gen.TraceSipMessages]  104936297: (          LegB) |    |--->|    | ACK     CONFIRMED
+2024-06-18 09:54:27.208 INFO  [gen.TraceSipMessages]  204936540: (          LegA) |--->|    |    | ACK     CONFIRMED
+2024-06-18 09:54:27.211 INFO  [gen.TraceSipMessages]  204936540: (          LegB) |    |--->|    | ACK     CONFIRMED
+2024-06-18 09:54:27.216 INFO  [gen.TraceSipMessages] 1104936943: (          LegA) |--->|    |    | ACK     CONFIRMED
+2024-06-18 09:54:27.218 INFO  [gen.TraceSipMessages] 1104936943: (          LegB) |    |--->|    | ACK     CONFIRMED
+2024-06-18 09:54:27.298 INFO  [gen.TraceSipMessages]  104936297: (          LegA) |--->|    |    | INVITE sip:10.211.76.54:5060;transport=tcp   a33fadcab7f21b37145607c9555740ba@10.211.76.54 CONFIRMED
+2024-06-18 09:54:27.299 INFO  [gen.TraceSipMessages]  104936297: (          LegB) |    |--->|    | INVITE sip:10.211.76.55:5060;transport=tcp   8c3c8f60a3cef0acd8118ff142cbdaf1@10.211.76.54 CONFIRMED
+2024-06-18 09:54:27.306 INFO  [gen.TraceSipMessages]  104936297: (          LegB) |    |<---|    | 100(INVITE) CONFIRMED +4722390213
+2024-06-18 09:54:27.313 INFO  [gen.TraceSipMessages]  204936540: (          LegA) |--->|    |    | INVITE sip:10.211.76.55:5060;transport=tcp   8c3c8f60a3cef0acd8118ff142cbdaf1@10.211.76.54 CONFIRMED
+2024-06-18 09:54:27.316 INFO  [gen.TraceSipMessages]  204936540: (          LegB) |    |--->|    | INVITE sip:10.211.76.58:5060;transport=tcp   0f5d8609c57ce49df3c52fe954283a03@10.211.76.55 CONFIRMED
+2024-06-18 09:54:27.323 INFO  [gen.TraceSipMessages]  204936540: (          LegB) |    |<---|    | 100(INVITE) CONFIRMED +4722390213
+2024-06-18 09:54:27.324 INFO  [gen.TraceSipMessages] 1104936943: (          LegA) |--->|    |    | INVITE sip:10.211.76.58:5060;transport=tcp   0f5d8609c57ce49df3c52fe954283a03@10.211.76.55 CONFIRMED
+2024-06-18 09:54:27.332 INFO  [gen.TraceSipMessages] 1104936943: (          LegA) |<---|    |    | 100(INVITE) CONFIRMED +4722390213
+2024-06-18 09:54:27.333 INFO  [gen.TraceSipMessages] 1104936943: (          LegB) |    |--->|    | INVITE sip:p65539t1718697263m686722c8232s1@10.226.216.124:5090;transport=tcp   f3ec27ecff9473f0f19d6f93ed017911@10.211.76.58 CONFIRMED
+2024-06-18 09:54:27.342 INFO  [gen.TraceSipMessages] 1104936943: (          LegB) |    |<---|    | 100(INVITE) CONFIRMED +4722390213
+2024-06-18 09:54:27.530 INFO  [gen.TraceSipMessages] 1104936943: (          LegB) |    |<---|    | 200(INVITE)	SDP	10.7.76.87:11410 CONFIRMED +4722390213
+2024-06-18 09:54:27.557 INFO  [gen.TraceSipMessages] 1104936943: (          LegA) |<---|    |    | 200(INVITE)	SDP	10.7.76.91:10898 CONFIRMED +4722390213
+2024-06-18 09:54:27.565 INFO  [gen.TraceSipMessages]  204936540: (          LegB) |    |<---|    | 200(INVITE)	SDP	10.7.76.91:10898 CONFIRMED +4722390213
+2024-06-18 09:54:27.569 INFO  [gen.TraceSipMessages]  204936540: (          LegA) |<---|    |    | 200(INVITE)	SDP	10.7.76.91:10898 CONFIRMED +4722390213
+2024-06-18 09:54:27.579 INFO  [gen.TraceSipMessages]  104936297: (          LegB) |    |<---|    | 200(INVITE)	SDP	10.7.76.91:10898 CONFIRMED +4722390213
+2024-06-18 09:54:27.581 INFO  [gen.TraceSipMessages]  104936297: (          LegA) |<---|    |    | 200(INVITE)	SDP	10.7.76.91:10898 CONFIRMED +4722390213
+2024-06-18 09:54:27.636 INFO  [gen.TraceSipMessages]  104936297: (          LegA) |--->|    |    | ACK	SDP	10.211.68.87:31762     CONFIRMED
+2024-06-18 09:54:27.636 INFO  [gen.TraceSipMessages]  104936297: (          LegB) |    |--->|    | ACK	SDP	10.211.68.87:31762     CONFIRMED
+2024-06-18 09:54:27.688 INFO  [gen.TraceSipMessages]  204936540: (          LegA) |--->|    |    | ACK	SDP	10.211.68.87:31762     CONFIRMED
+2024-06-18 09:54:27.691 INFO  [gen.TraceSipMessages]  204936540: (          LegB) |    |--->|    | ACK	SDP	10.211.68.87:31762     CONFIRMED
+2024-06-18 09:54:27.697 INFO  [gen.TraceSipMessages] 1104936943: (          LegA) |--->|    |    | ACK	SDP	10.211.68.87:31762     CONFIRMED
+2024-06-18 09:54:27.728 INFO  [gen.TraceSipMessages] 1104936943: (          LegB) |    |--->|    | ACK	SDP	10.7.76.91:11898     CONFIRMED
+2024-06-18 09:54:30.139 INFO  [gen.TraceSipMessages]  104936297: (          LegA) |--->|    |    | BYE     CONFIRMED
+2024-06-18 09:54:30.140 INFO  [gen.TraceSipMessages]  104936297: (          LegA) |<---|    |    | 200(BYE) CONFIRMED +4722390213
+2024-06-18 09:54:30.148 INFO  [gen.TraceSipMessages]  104936297: (          LegB) |    |--->|    | BYE     CONFIRMED
+2024-06-18 09:54:30.163 INFO  [gen.TraceSipMessages]  204936540: (          LegA) |--->|    |    | BYE     CONFIRMED
+2024-06-18 09:54:30.164 INFO  [gen.TraceSipMessages]  204936540: (          LegA) |<---|    |    | 200(BYE) CONFIRMED +4722390213
+2024-06-18 09:54:30.173 INFO  [gen.TraceSipMessages]  104936297: (          LegB) |    |<---|    | 200(BYE) TERMINATED +4722390213
+2024-06-18 09:54:30.178 INFO  [gen.TraceSipMessages]  204936540: (          LegB) |    |--->|    | BYE     CONFIRMED
+2024-06-18 09:54:30.186 INFO  [gen.TraceSipMessages] 1104936943: (          LegA) |--->|    |    | BYE     CONFIRMED
+2024-06-18 09:54:30.186 INFO  [gen.TraceSipMessages] 1104936943: (          LegA) |<---|    |    | 200(BYE) CONFIRMED +4722390213
+2024-06-18 09:54:30.194 INFO  [gen.TraceSipMessages]  204936540: (          LegB) |    |<---|    | 200(BYE) TERMINATED +4722390213
+2024-06-18 09:54:30.196 INFO  [gen.TraceSipMessages] 1104936943: (          LegB) |    |--->|    | BYE     CONFIRMED
+2024-06-18 09:54:30.312 INFO  [gen.TraceSipMessages] 1104936943: (          LegB) |    |<---|    | 200(BYE) TERMINATED +4722390213
