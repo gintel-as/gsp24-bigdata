@@ -7,3 +7,4 @@ access*
 logstash_completed.log
 logstash_ingest_data
 *.crt
+*.7z
