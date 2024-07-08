@@ -45,7 +45,7 @@ app.get('/correlation-ids/:sessionID', async (req, res) => {
   const { sessionID } = req.params;
   try {
     const result = await client.search({
-      index: 'cdr_logs-2024.07.08', // Replace with your actual index
+      index: 'cdr_logs-2024.07.08',
       body: {
         query: {
           match: { sessionID }
@@ -60,6 +60,6 @@ app.get('/correlation-ids/:sessionID', async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`, fs.readFileSync(path.join(__dirname, 'certs', 'ca', 'ca.crt')));
+  console.log(`Server is running on http://localhost:${port}`);
   
 });
