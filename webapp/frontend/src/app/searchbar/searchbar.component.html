@@ -1,0 +1,61 @@
+<div>
+  <input type="text" [(ngModel)]="searchQuery" placeholder="Enter search query">
+  <button (click)="performSearch()">Search</button>
+</div>
+
+<div>
+  <h4>Filter by Log Level</h4>
+  <label *ngFor="let level of logLevels">
+    <input type="checkbox" [checked]="selectedLogLevels.includes(level)" (change)="toggleLogLevel(level)"> {{ level }}
+  </label>
+</div>
+
+<div>
+  <h4>Filter by Source</h4>
+  <label>
+    <input type="checkbox" [checked]="showAdapterLogs" (change)="toggleSource('adapter')"> Show Adapter Logs
+  </label>
+  <label>
+    <input type="checkbox" [checked]="showServerLogs" (change)="toggleSource('server')"> Show Server Logs
+  </label>
+  <label>
+    <input type="checkbox" [checked]="showSIPLogs" (change)="toggleSource('sip')"> Show SIP Logs
+  </label>
+</div>
+
+<div>
+  <label>
+    <input type="checkbox" [checked]="removeFluff" (change)="toggleRemoveFluff()"> Remove adapter log details
+  </label>
+  <label>
+    <input type="checkbox" [checked]="showCorrelationLogs" (change)="toggleCorrelationLogs()"> Include Correlation Logs
+  </label>
+  <span *ngIf="correlationIDs.length > 0">
+    <span *ngFor="let id of correlationIDs; let isLast = last">
+      <span [ngStyle]="{ 'font-weight': isLast ? 'bold' : 'normal' }">{{ id }}</span><span *ngIf="!isLast">, </span>
+    </span>
+  </span>
+</div>
+
+<div>
+  <h4>Results: {{ filteredResults.length }}</h4>
+</div>
+
+<!--<table class="log-table" *ngIf="filteredResults.length > 0">
+  <thead>
+  <tr>
+    <th>Timestamp</th>
+    <th>Log Level</th>
+    <th>Session ID</th>
+    <th>Log Message</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let result of filteredResults" [ngStyle]="{'background-color': getBackgroundColor(result.source)}">
+    <td>{{ result.timestamp }}</td>
+    <td>{{ result.log_level }}</td>
+    <td>{{ result.sessionID }}</td>
+    <td>{{ result.log_message }}</td>
+  </tr>
+  </tbody>
+</table> -->

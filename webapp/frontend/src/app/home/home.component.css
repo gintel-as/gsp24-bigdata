@@ -1,0 +1,36 @@
+section {
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  input[type="text"] {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 500px;
+  }
+  
+  button.primary {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button.primary:hover {
+    background-color: #0056b3;
+  }
+  
+  .plot-sections {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 400px; /* Fixed height for each grid item */
+    gap: 20px;
+    justify-content: center;
+  }
+  

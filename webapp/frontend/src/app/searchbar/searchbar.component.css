@@ -1,0 +1,10 @@
+.log-table {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.log-table th, .log-table td {
+  white-space: pre-wrap; /* Preserve spaces and line breaks */
+  word-wrap: break-word; /* Ensure words break to fit within the container */
+}
+
+

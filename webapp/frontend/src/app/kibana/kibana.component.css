@@ -1,0 +1,47 @@
+main {
+  width: 100%;
+  height: 100vh;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+}
+:host {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.kibana-container {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.kibana-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 8px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+@media (max-width: 1024px) {
+  .kibana-container {
+    padding: 10px;
+  }
+
+  .kibana-iframe {
+    height: 60vh; /* Adjust for smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .brand-logo {
+    width: 100px; /* Smaller logo for mobile */
+  }
+
+  .kibana-iframe {
+    height: 50vh; 
+  }
+}
