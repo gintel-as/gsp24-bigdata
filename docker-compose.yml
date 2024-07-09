@@ -180,6 +180,8 @@ services:
     depends_on:
       es01:
         condition: service_healthy
+      logstash01:
+        condition: service_healthy
     build:
       context: ./webapp/frontend
       dockerfile: Dockerfile
@@ -193,6 +195,8 @@ services:
     depends_on:
       es01:
         condition: service_healthy
+    logstash01:
+      condition: service_healthy    
     build:
       context: ./webapp/backend
       dockerfile: Dockerfile
@@ -202,6 +206,7 @@ services:
       - ./webapp/backend:/usr/src/app
       - /usr/src/app/node_modules
       - certs:/usr/src/app/certs
-
     environment:
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+      - CHOKIDAR_USEPOLLING=true
+
