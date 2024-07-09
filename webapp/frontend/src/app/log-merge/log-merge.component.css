@@ -57,7 +57,7 @@
   }
   
   .timestamp, .header.timestamp {
-    width: 70px;
+    width: 80px;
     color: #888;
     font-size: 0.9em;
     border-right: 1px solid #ddd;

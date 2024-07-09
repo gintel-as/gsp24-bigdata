@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ElasticsearchService } from './elastic.service';
+import { ElasticService } from './elastic.service';
 
 describe('ElasticService', () => {
-  let service: ElasticsearchService;
+  let service: ElasticService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ElasticsearchService);
+    service = TestBed.inject(ElasticService);
   });
 
   it('should be created', () => {

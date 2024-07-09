@@ -12,8 +12,8 @@ export class PlotMethodService {
       "id"  : 0
     },
     {
-      "name": "Logmerge",
-      "photo": "",
+      "name": "Logs",
+      "photo": "assets/logs.png",
       "id"  : 1
     }
   ];

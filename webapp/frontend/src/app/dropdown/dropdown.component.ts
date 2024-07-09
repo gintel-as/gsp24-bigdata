@@ -20,9 +20,9 @@ import { CommonModule } from '@angular/common';
 })
 export class DropdownComponent {
   dropdownItems: { name: string, url: string }[] = [
-    { name: 'Discover', url: 'http://localhost:5601/app/r/s/U73Hn' },
-    { name: 'Barchart', url: 'http://localhost:5601/app/r/s/NpGbU' },
-    { name: 'Piechart', url: 'http://localhost:5601/app/r/s/p5cJq' }
+    { name: 'Discover', url: "http://localhost:5601/app/r/s/kJ19r"},
+    { name: 'Barchart', url: 'http://localhost:5601/app/r/s/BnFti' },
+    { name: 'Piechart', url: 'http://localhost:5601/app/r/s/OWXcd' }
   ];
   selectedItem: string = "";
 

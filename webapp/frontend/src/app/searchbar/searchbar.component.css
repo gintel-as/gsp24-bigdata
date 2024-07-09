@@ -7,4 +7,45 @@
   word-wrap: break-word; /* Ensure words break to fit within the container */
 }
 
+/* Remove the common container styling */
+.filter-container, .log-level-container, .total-filtering-container {
+  margin-bottom: 20px;
+}
+
+/* Heading styling */
+.filter-container h4, .log-level-container h4, .total-filtering-container h4 {
+  margin-top: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+/* Label styling */
+.filter-container label, .log-level-container label, .total-filtering-container label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 16px;
+  margin-right: 20px; /* Add spacing between label groups */
+}
+
+/* Checkbox styling */
+.filter-container input[type="checkbox"], 
+.total-filtering-container input[type="checkbox"] {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+
+.total-filtering-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+}
 

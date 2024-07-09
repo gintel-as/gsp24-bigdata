@@ -26,7 +26,6 @@ export class LogMergeComponent implements OnInit {
   constructor(private http: HttpClient, private eRef: ElementRef) { }
 
   ngOnInit(): void {
-    // Call this to initialize pagination if filteredResults has initial data
     this.calculatePageSize();
   }
 
@@ -40,6 +39,7 @@ export class LogMergeComponent implements OnInit {
     if (!this.eRef.nativeElement.contains(event.target)) {
       this.isDropdownOpen = false;
     }
+    console.log("Filtered results: ",this.filteredResults);
   }
 
   calculatePageSize(): void {
@@ -48,7 +48,7 @@ export class LogMergeComponent implements OnInit {
       this.currentPage = this.totalPages;
     }
     this.updatePaginatedLogs();
-  }
+    console.log("Current page: ",this.currentPage);  }
 
   updatePaginatedLogs(): void {
     const start = (this.currentPage - 1) * this.pageSize;
@@ -83,7 +83,7 @@ export class LogMergeComponent implements OnInit {
 
   handleFilteredResults(results: any[]) {
     this.filteredResults = results;
-    this.currentPage = 1; // Reset to first page on new data
+    this.currentPage = 1; 
     this.calculatePageSize();
   }
 

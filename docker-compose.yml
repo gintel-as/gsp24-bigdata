@@ -197,7 +197,7 @@ services:
       context: ./webapp/backend
       dockerfile: Dockerfile
     ports:
-      - "3002:3002"
+      - "3000:3000"
     volumes:
       - ./webapp/backend:/usr/src/app
       - /usr/src/app/node_modules

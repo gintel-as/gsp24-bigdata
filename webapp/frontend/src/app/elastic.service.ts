@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ElasticsearchService {
-  private apiUrl = 'http://localhost:3002';
+  private apiUrl = 'http://localhost:3000';
 
   constructor(private http: HttpClient) {}
 

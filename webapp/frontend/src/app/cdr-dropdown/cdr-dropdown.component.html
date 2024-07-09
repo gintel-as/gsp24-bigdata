@@ -1,0 +1,9 @@
+<div class="dropdown">
+  <button class="dropbtn">Select Fields</button>
+  <div class="dropdown-content">
+    <label *ngFor="let field of fields">
+      <input type="checkbox" [checked]="isSelected(field)" (change)="toggleField(field)">
+      {{ field }}
+    </label>
+  </div>
+</div>
