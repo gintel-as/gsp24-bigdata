@@ -217,6 +217,7 @@ services:
       - ./logstash_pipelines/server_logs_pipeline.conf:/usr/share/logstash/config/server_logs_pipeline.conf:ro
       - ./logstash_pipelines/access_logs_pipeline.conf:/usr/share/logstash/config/access_logs_pipeline.conf:ro
       - ./logstash_pipelines/cdr_logs_pipeline.conf:/usr/share/logstash/config/cdr_logs_pipeline.conf:ro
+      - ./logstash_pipelines/edr_logs_pipeline.conf:/usr/share/logstash/config/edr_logs_pipeline.conf:ro
       - ./logstash_pipelines/at_logs_pipeline.conf:/usr/share/logstash/config/at_logs_pipeline.conf:ro
       - ./logstash_pipelines/adapter_logs_pipeline.conf:/usr/share/logstash/config/adapter_logs_pipeline.conf:ro
       - ./logstash_pipelines/sip_logs_pipeline.conf:/usr/share/logstash/config/sip_logs_pipeline.conf:ro
