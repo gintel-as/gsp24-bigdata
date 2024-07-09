@@ -1,5 +1,5 @@
 <div class="dropdown">
-  <button class="dropbtn">Select Fields</button>
+  <button class="dropbtn">Select CDR Fields <span class="arrow">&#9662;</span></button>
   <div class="dropdown-content">
     <label *ngFor="let field of fields">
       <input type="checkbox" [checked]="isSelected(field)" (change)="toggleField(field)">

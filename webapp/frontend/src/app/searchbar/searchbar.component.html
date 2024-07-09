@@ -26,6 +26,8 @@
   </div>
 </div>
 
+<app-cdr-dropdown [fields]="fields" (selectedFieldsChange)="onSelectedFieldsChange($event)"></app-cdr-dropdown>
+
 <app-session-tree [incomingEvents]="incomingEvents"></app-session-tree>
 
 
