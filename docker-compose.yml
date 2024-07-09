@@ -7,10 +7,6 @@ volumes:
     driver: local
   kibanadata:
     driver: local
-  metricbeatdata01:
-    driver: local
-  filebeatdata01:
-    driver: local
   logstashdata01:
     driver: local
 
@@ -151,53 +147,6 @@ services:
       timeout: 10s
       retries: 120
 
-  metricbeat01:
-    depends_on:
-      es01:
-        condition: service_healthy
-      kibana:
-        condition: service_healthy
-    image: docker.elastic.co/beats/metricbeat:${STACK_VERSION}
-    user: root
-    volumes:
-      - certs:/usr/share/metricbeat/certs
-      - metricbeatdata01:/usr/share/metricbeat/data
-      - "./metricbeat.yml:/usr/share/metricbeat/metricbeat.yml:ro"
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      - "/sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro"
-      - "/proc:/hostfs/proc:ro"
-      - "/:/hostfs:ro"
-    environment:
-      - ELASTIC_USER=elastic
-      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
-      - ELASTIC_HOSTS=https://es01:9200
-      - KIBANA_HOSTS=http://kibana:5601
-      - LOGSTASH_HOSTS=http://logstash01:9600
-    command:
-      - --strict.perms=false
-
-  filebeat01:
-    depends_on:
-      es01:
-        condition: service_healthy
-    image: docker.elastic.co/beats/filebeat:${STACK_VERSION}
-    user: root
-    volumes:
-      - certs:/usr/share/filebeat/certs
-      - filebeatdata01:/usr/share/filebeat/data
-      - "./filebeat_ingest_data/:/usr/share/filebeat/ingest_data/"
-      - "./filebeat.yml:/usr/share/filebeat/filebeat.yml:ro"
-      - "/var/lib/docker/containers:/var/lib/docker/containers:ro"
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-    environment:
-      - ELASTIC_USER=elastic
-      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
-      - ELASTIC_HOSTS=https://es01:9200
-      - KIBANA_HOSTS=http://kibana:5601
-      - LOGSTASH_HOSTS=http://logstash01:9600
-    command:
-      - --strict.perms=false
-
   logstash01:
     depends_on:
       es01:
@@ -211,10 +160,49 @@ services:
     volumes:
       - certs:/usr/share/logstash/certs
       - logstashdata01:/usr/share/logstash/data
-      - "./logstash_ingest_data/:/usr/share/logstash/ingest_data/"
-      - "./logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro"
+      - "./elk/logstash_ingest_data/:/usr/share/logstash/ingest_data/"
+      - ./elk/pipelines.yml:/usr/share/logstash/config/pipelines.yml:ro 
+      - ./elk/logstash_pipelines/api_logs_pipeline.conf:/usr/share/logstash/config/api_logs_pipeline.conf:ro
+      - ./elk/logstash_pipelines/server_logs_pipeline.conf:/usr/share/logstash/config/server_logs_pipeline.conf:ro
+      - ./elk/logstash_pipelines/access_logs_pipeline.conf:/usr/share/logstash/config/access_logs_pipeline.conf:ro
+      - ./elk/logstash_pipelines/cdr_logs_pipeline.conf:/usr/share/logstash/config/cdr_logs_pipeline.conf:ro
+      - ./elk/logstash_pipelines/at_logs_pipeline.conf:/usr/share/logstash/config/at_logs_pipeline.conf:ro
+      - ./elk/logstash_pipelines/adapter_logs_pipeline.conf:/usr/share/logstash/config/adapter_logs_pipeline.conf:ro
+      - ./elk/logstash_pipelines/sip_logs_pipeline.conf:/usr/share/logstash/config/sip_logs_pipeline.conf:ro
+      - "./elk/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro"
     environment:
       - xpack.monitoring.enabled=false
       - ELASTIC_USER=elastic
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
       - ELASTIC_HOSTS=https://es01:9200
+
+  angular-app:
+    depends_on:
+      es01:
+        condition: service_healthy
+    build:
+      context: ./webapp/frontend
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./webapp/frontend:/usr/src/app
+      - /usr/src/app/node_modules
+
+  node-server:
+    depends_on:
+      es01:
+        condition: service_healthy  
+    build:
+      context: ./webapp/backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./webapp/backend:/usr/src/app
+      - /usr/src/app/node_modules
+      - certs:/usr/src/app/certs
+    environment:
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+      - CHOKIDAR_USEPOLLING=true
+

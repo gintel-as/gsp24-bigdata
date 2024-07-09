@@ -1,0 +1,35 @@
+<app-search-input (search)="onSearch($event)"></app-search-input>
+
+<div class="total-filtering-container">
+  <app-log-level-filters
+    [logLevels]="logLevels"
+    [selectedAdapterLogLevels]="selectedAdapterLogLevels"
+    [selectedServerLogLevels]="selectedServerLogLevels"
+    [selectedSIPLogLevels]="selectedSIPLogLevels"
+    (filterChange)="onFilterChange($event)"
+  ></app-log-level-filters>
+
+  <app-source-filters
+    [showAdapterLogs]="showAdapterLogs"
+    [showServerLogs]="showServerLogs"
+    [showSIPLogs]="showSIPLogs"
+    (sourceToggle)="toggleSource($event)"
+  ></app-source-filters>
+
+  <div>
+    <label>
+      <input type="checkbox" [checked]="removeFluff" (change)="toggleRemoveFluff()"> Remove Fluff
+    </label>
+    <label>
+      <input type="checkbox" [checked]="showCorrelationLogs" (change)="toggleCorrelationLogs()"> Include Correlation Logs
+    </label>
+  </div>
+</div>
+
+<app-cdr-dropdown [fields]="fields" (selectedFieldsChange)="onSelectedFieldsChange($event)"></app-cdr-dropdown>
+
+<app-session-tree [incomingEvents]="incomingEvents"></app-session-tree>
+
+
+<app-results-display [results]="filteredResults" [getBackgroundColor]="getBackgroundColor"></app-results-display>
+

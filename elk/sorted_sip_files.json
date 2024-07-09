@@ -1,0 +1,1598 @@
+[
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "TUbGWZAB0Hn8tA0DEqIN",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "204936496",
+      "time_parsed": "2024-06-18T07:13:12.034Z",
+      "leg": "LegB",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |--->|    | BYE     CONFIRMED",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS02/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:50.223313124Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:13:12.034",
+      "event": {
+        "original": "2024-06-18 09:13:12.034 INFO  [gen.TraceSipMessages] 204936496: (          LegB) |    |--->|    | BYE     CONFIRMED"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "TkbGWZAB0Hn8tA0DEqIN",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "204936496",
+      "time_parsed": "2024-06-18T07:13:12.060Z",
+      "leg": "LegB",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |<---|    | 200(BYE) TERMINATED +4746180208",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS02/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:50.223505840Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:13:12.060",
+      "event": {
+        "original": "2024-06-18 09:13:12.060 INFO  [gen.TraceSipMessages] 204936496: (          LegB) |    |<---|    | 200(BYE) TERMINATED +4746180208"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "XkbGWZAB0Hn8tA0DEqd9",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "204936496",
+      "time_parsed": "2024-06-18T07:12:55.928Z",
+      "leg": "LegA",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|--->|    |    | INVITE\tSDP\t10.7.76.91:10854 sip:+4722391310@ipt.telenor.com +4746180607 +4746180607 13ebe59cbe2983258af8a33a72a2a60e@10.211.76.54 INITIAL",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS02/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:50.183981514Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:55.928",
+      "event": {
+        "original": "2024-06-18 09:12:55.928 INFO  [gen.TraceSipMessages] 204936496: (          LegA) |--->|    |    | INVITE\tSDP\t10.7.76.91:10854 sip:+4722391310@ipt.telenor.com +4746180607 +4746180607 13ebe59cbe2983258af8a33a72a2a60e@10.211.76.54 INITIAL"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "X0bGWZAB0Hn8tA0DEqd9",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "204936496",
+      "time_parsed": "2024-06-18T07:12:55.962Z",
+      "leg": "LegB",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |--->|    | INVITE\tSDP\t10.7.76.91:10854 sip:+4746180208@ipt.telenor.com;user=phone +4746180607 +4746180607 7319292eeed244affe008faa0366d62c@10.211.76.55 INITIAL",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS02/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:50.184182830Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:55.962",
+      "event": {
+        "original": "2024-06-18 09:12:55.962 INFO  [gen.TraceSipMessages] 204936496: (          LegB) |    |--->|    | INVITE\tSDP\t10.7.76.91:10854 sip:+4746180208@ipt.telenor.com;user=phone +4746180607 +4746180607 7319292eeed244affe008faa0366d62c@10.211.76.55 INITIAL"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "YEbGWZAB0Hn8tA0DEqd9",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "204936496",
+      "time_parsed": "2024-06-18T07:12:55.977Z",
+      "leg": "LegB",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |<---|    | 100(INVITE) EARLY +4746180208",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS02/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:50.184476754Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:55.977",
+      "event": {
+        "original": "2024-06-18 09:12:55.977 INFO  [gen.TraceSipMessages] 204936496: (          LegB) |    |<---|    | 100(INVITE) EARLY +4746180208"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "YUbGWZAB0Hn8tA0DEqd9",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "204936496",
+      "time_parsed": "2024-06-18T07:12:56.645Z",
+      "leg": "LegB",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |<---|    | 200(INVITE)\tSDP\t10.211.68.87:31730 CONFIRMED +4746180208",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS02/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:50.184709672Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:56.645",
+      "event": {
+        "original": "2024-06-18 09:12:56.645 INFO  [gen.TraceSipMessages] 204936496: (          LegB) |    |<---|    | 200(INVITE)\tSDP\t10.211.68.87:31730 CONFIRMED +4746180208"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "YkbGWZAB0Hn8tA0DEqd9",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "204936496",
+      "time_parsed": "2024-06-18T07:12:56.651Z",
+      "leg": "LegA",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|<---|    |    | 200(INVITE)\tSDP\t10.211.68.87:31730 INITIAL +4746180208",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS02/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:50.184918688Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:56.651",
+      "event": {
+        "original": "2024-06-18 09:12:56.651 INFO  [gen.TraceSipMessages] 204936496: (          LegA) |<---|    |    | 200(INVITE)\tSDP\t10.211.68.87:31730 INITIAL +4746180208"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "ZkbGWZAB0Hn8tA0DEqd9",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "204936496",
+      "time_parsed": "2024-06-18T07:12:56.729Z",
+      "leg": "LegA",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|--->|    |    | ACK     CONFIRMED",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS02/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:50.185683249Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:56.729",
+      "event": {
+        "original": "2024-06-18 09:12:56.729 INFO  [gen.TraceSipMessages] 204936496: (          LegA) |--->|    |    | ACK     CONFIRMED"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "Z0bGWZAB0Hn8tA0DEqd9",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "204936496",
+      "time_parsed": "2024-06-18T07:12:56.731Z",
+      "leg": "LegB",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |--->|    | ACK     CONFIRMED",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS02/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:50.185858163Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:56.731",
+      "event": {
+        "original": "2024-06-18 09:12:56.731 INFO  [gen.TraceSipMessages] 204936496: (          LegB) |    |--->|    | ACK     CONFIRMED"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "fUbGWZAB0Hn8tA0DEqd9",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "204936496",
+      "time_parsed": "2024-06-18T07:13:12.022Z",
+      "leg": "LegA",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|--->|    |    | BYE     CONFIRMED",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS02/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:50.222927194Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:13:12.022",
+      "event": {
+        "original": "2024-06-18 09:13:12.022 INFO  [gen.TraceSipMessages] 204936496: (          LegA) |--->|    |    | BYE     CONFIRMED"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "y0bFWZAB0Hn8tA0D_kgx",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936256",
+      "time_parsed": "2024-06-18T07:13:12.050Z",
+      "leg": "LegA",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|<---|    |    | 200(BYE) CONFIRMED +4746180094",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.463194561Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:13:12.050",
+      "event": {
+        "original": "2024-06-18 09:13:12.050 INFO  [gen.TraceSipMessages] 104936256: (          LegA) |<---|    |    | 200(BYE) CONFIRMED +4746180094"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "zEbFWZAB0Hn8tA0D_kgx",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936256",
+      "time_parsed": "2024-06-18T07:13:12.060Z",
+      "leg": "LegB",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |--->|    | BYE     CONFIRMED",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.463452086Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:13:12.060",
+      "event": {
+        "original": "2024-06-18 09:13:12.060 INFO  [gen.TraceSipMessages] 104936256: (          LegB) |    |--->|    | BYE     CONFIRMED"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "fkbGWZAB0Hn8tA0DEqd9",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "204936496",
+      "time_parsed": "2024-06-18T07:13:12.023Z",
+      "leg": "LegA",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|<---|    |    | 200(BYE) CONFIRMED +4746180208",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS02/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:50.223117309Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:13:12.023",
+      "event": {
+        "original": "2024-06-18 09:13:12.023 INFO  [gen.TraceSipMessages] 204936496: (          LegA) |<---|    |    | 200(BYE) CONFIRMED +4746180208"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "wUbFWZAB0Hn8tA0D_kgx",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936252",
+      "time_parsed": "2024-06-18T07:13:11.965Z",
+      "leg": "LegA",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|<---|    |    | 200(BYE) CONFIRMED +4746180783",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.371084680Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:13:11.965",
+      "event": {
+        "original": "2024-06-18 09:13:11.965 INFO  [gen.TraceSipMessages] 104936252: (          LegA) |<---|    |    | 200(BYE) CONFIRMED +4746180783"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "xUbFWZAB0Hn8tA0D_kgx",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936253",
+      "time_parsed": "2024-06-18T07:13:11.994Z",
+      "leg": "LegA",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|--->|    |    | BYE     CONFIRMED",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.422253614Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:13:11.994",
+      "event": {
+        "original": "2024-06-18 09:13:11.994 INFO  [gen.TraceSipMessages] 104936253: (          LegA) |--->|    |    | BYE     CONFIRMED"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "yEbFWZAB0Hn8tA0D_kgx",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936252",
+      "time_parsed": "2024-06-18T07:13:12.009Z",
+      "leg": "LegB",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |<---|    | 200(BYE) TERMINATED +4746180783",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.462083254Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:13:12.009",
+      "event": {
+        "original": "2024-06-18 09:13:12.009 INFO  [gen.TraceSipMessages] 104936252: (          LegB) |    |<---|    | 200(BYE) TERMINATED +4746180783"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "ykbFWZAB0Hn8tA0D_kgx",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936256",
+      "time_parsed": "2024-06-18T07:13:12.049Z",
+      "leg": "LegA",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|--->|    |    | BYE     CONFIRMED",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.462882031Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:13:12.049",
+      "event": {
+        "original": "2024-06-18 09:13:12.049 INFO  [gen.TraceSipMessages] 104936256: (          LegA) |--->|    |    | BYE     CONFIRMED"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "xUbFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936252",
+      "time_parsed": "2024-06-18T07:12:47.912Z",
+      "leg": "LegA",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|--->|    |    | INVITE\tSDP\t10.7.76.91:10854 sip:+4746180783@mbn-icscf.ngv.nsc.no;orig +4746180607 +4722390213 5b4b9f1724488205314d97586e81d563@10.211.76.54 INITIAL",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.236822936Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:47.912",
+      "event": {
+        "original": "2024-06-18 09:12:47.912 INFO  [gen.TraceSipMessages] 104936252: (          LegA) |--->|    |    | INVITE\tSDP\t10.7.76.91:10854 sip:+4746180783@mbn-icscf.ngv.nsc.no;orig +4746180607 +4722390213 5b4b9f1724488205314d97586e81d563@10.211.76.54 INITIAL"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "xkbFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936252",
+      "time_parsed": "2024-06-18T07:12:47.912Z",
+      "leg": "LegA",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|<---|    |    | 100(INVITE) INITIAL ",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.237058259Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:47.912",
+      "event": {
+        "original": "2024-06-18 09:12:47.912 INFO  [gen.TraceSipMessages] 104936252: (          LegA) |<---|    |    | 100(INVITE) INITIAL "
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "x0bFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936252",
+      "time_parsed": "2024-06-18T07:12:47.931Z",
+      "leg": "LegB",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |--->|    | INVITE\tSDP\t10.7.76.91:10854 sip:+4746180783@mbn-icscf.ngv.nsc.no;orig;user=phone +4746180607 +4746180607 c4f17ceb3b94314b228c605d756683cd@10.211.76.54 INITIAL",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.237294482Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:47.931",
+      "event": {
+        "original": "2024-06-18 09:12:47.931 INFO  [gen.TraceSipMessages] 104936252: (          LegB) |    |--->|    | INVITE\tSDP\t10.7.76.91:10854 sip:+4746180783@mbn-icscf.ngv.nsc.no;orig;user=phone +4746180607 +4746180607 c4f17ceb3b94314b228c605d756683cd@10.211.76.54 INITIAL"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "yUbFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936252",
+      "time_parsed": "2024-06-18T07:12:47.940Z",
+      "leg": "LegB",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |<---|    | 100(INVITE) EARLY +4746180783",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.237755026Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:47.940",
+      "event": {
+        "original": "2024-06-18 09:12:47.940 INFO  [gen.TraceSipMessages] 104936252: (          LegB) |    |<---|    | 100(INVITE) EARLY +4746180783"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "ykbFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936252",
+      "time_parsed": "2024-06-18T07:12:47.941Z",
+      "leg": "LegA",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|<---|    |    | 100(INVITE) EARLY +4746180783",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.237995649Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:47.941",
+      "event": {
+        "original": "2024-06-18 09:12:47.941 INFO  [gen.TraceSipMessages] 104936252: (          LegA) |<---|    |    | 100(INVITE) EARLY +4746180783"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "y0bFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936253",
+      "time_parsed": "2024-06-18T07:12:48.043Z",
+      "leg": "LegA",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|--->|    |    | INVITE\tSDP\t10.7.76.91:10854 tel:+4746180783 +4746180607 +4746180607 c4f17ceb3b94314b228c605d756683cd@10.211.76.54 INITIAL",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.238262175Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:48.043",
+      "event": {
+        "original": "2024-06-18 09:12:48.043 INFO  [gen.TraceSipMessages] 104936253: (          LegA) |--->|    |    | INVITE\tSDP\t10.7.76.91:10854 tel:+4746180783 +4746180607 +4746180607 c4f17ceb3b94314b228c605d756683cd@10.211.76.54 INITIAL"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "zEbFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936253",
+      "time_parsed": "2024-06-18T07:12:48.264Z",
+      "leg": "LegB",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |--->|    | INVITE\tSDP\t10.7.76.91:10854 tel:+4746180784 +4746180607 +4746180607 9cdf3bd778c1a677705c5781395190c7@10.211.76.54 INITIAL",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.238498198Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:48.264",
+      "event": {
+        "original": "2024-06-18 09:12:48.264 INFO  [gen.TraceSipMessages] 104936253: (          LegB) |    |--->|    | INVITE\tSDP\t10.7.76.91:10854 tel:+4746180784 +4746180607 +4746180607 9cdf3bd778c1a677705c5781395190c7@10.211.76.54 INITIAL"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "zUbFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936253",
+      "time_parsed": "2024-06-18T07:12:48.269Z",
+      "leg": "LegB1",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |--->|    | INVITE\tSDP\t10.7.76.91:10854 tel:+4746180783 +4746180607 +4746180607 db4bed250d5b3280766a336c71c16a31@10.211.76.54 INITIAL",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.238725820Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:48.269",
+      "event": {
+        "original": "2024-06-18 09:12:48.269 INFO  [gen.TraceSipMessages] 104936253: (         LegB1) |    |--->|    | INVITE\tSDP\t10.7.76.91:10854 tel:+4746180783 +4746180607 +4746180607 db4bed250d5b3280766a336c71c16a31@10.211.76.54 INITIAL"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "zkbFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936253",
+      "time_parsed": "2024-06-18T07:12:48.278Z",
+      "leg": "LegB",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |<---|    | 100(INVITE) EARLY 4746180784",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.239017348Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:48.278",
+      "event": {
+        "original": "2024-06-18 09:12:48.278 INFO  [gen.TraceSipMessages] 104936253: (          LegB) |    |<---|    | 100(INVITE) EARLY 4746180784"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "z0bFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936253",
+      "time_parsed": "2024-06-18T07:12:48.281Z",
+      "leg": "LegB1",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |<---|    | 100(INVITE) EARLY 4746180783",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.239268272Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:48.281",
+      "event": {
+        "original": "2024-06-18 09:12:48.281 INFO  [gen.TraceSipMessages] 104936253: (         LegB1) |    |<---|    | 100(INVITE) EARLY 4746180783"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "1UbFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936253",
+      "time_parsed": "2024-06-18T07:12:48.735Z",
+      "leg": "LegB",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |<---|    | 408(INVITE) INITIAL 4746180784",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.240844224Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:48.735",
+      "event": {
+        "original": "2024-06-18 09:12:48.735 INFO  [gen.TraceSipMessages] 104936253: (          LegB) |    |<---|    | 408(INVITE) INITIAL 4746180784"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "1kbFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936253",
+      "time_parsed": "2024-06-18T07:12:48.899Z",
+      "leg": "LegB1",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |<---|    | 180(INVITE) EARLY 4746180783",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.241100048Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:48.899",
+      "event": {
+        "original": "2024-06-18 09:12:48.899 INFO  [gen.TraceSipMessages] 104936253: (         LegB1) |    |<---|    | 180(INVITE) EARLY 4746180783"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "10bFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936253",
+      "time_parsed": "2024-06-18T07:12:48.901Z",
+      "leg": "LegA",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|<---|    |    | 180(INVITE) INITIAL ",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.241340272Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:48.901",
+      "event": {
+        "original": "2024-06-18 09:12:48.901 INFO  [gen.TraceSipMessages] 104936253: (          LegA) |<---|    |    | 180(INVITE) INITIAL "
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "2EbFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936252",
+      "time_parsed": "2024-06-18T07:12:48.912Z",
+      "leg": "LegB",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |<---|    | 180(INVITE) EARLY +4746180783",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.252059905Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:48.912",
+      "event": {
+        "original": "2024-06-18 09:12:48.912 INFO  [gen.TraceSipMessages] 104936252: (          LegB) |    |<---|    | 180(INVITE) EARLY +4746180783"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "2UbFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936252",
+      "time_parsed": "2024-06-18T07:12:48.914Z",
+      "leg": "LegA",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|<---|    |    | 180(INVITE) EARLY +4746180783",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.253111607Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:48.914",
+      "event": {
+        "original": "2024-06-18 09:12:48.914 INFO  [gen.TraceSipMessages] 104936252: (          LegA) |<---|    |    | 180(INVITE) EARLY +4746180783"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "40bFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936253",
+      "time_parsed": "2024-06-18T07:12:55.740Z",
+      "leg": "LegB1",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |<---|    | 486(INVITE) INITIAL 4746180783",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.256950877Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:55.740",
+      "event": {
+        "original": "2024-06-18 09:12:55.740 INFO  [gen.TraceSipMessages] 104936253: (         LegB1) |    |<---|    | 486(INVITE) INITIAL 4746180783"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "5EbFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936253",
+      "time_parsed": "2024-06-18T07:12:55.754Z",
+      "leg": "LegA",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|<---|    |    | 181(INVITE) EARLY +4722391310",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.258067284Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:55.754",
+      "event": {
+        "original": "2024-06-18 09:12:55.754 INFO  [gen.TraceSipMessages] 104936253: (          LegA) |<---|    |    | 181(INVITE) EARLY +4722391310"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "5UbFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936253",
+      "time_parsed": "2024-06-18T07:12:55.757Z",
+      "leg": "LegB2",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |--->|    | INVITE\tSDP\t10.7.76.91:10854 tel:+4722391310 +4746180607 +4746180607 13ebe59cbe2983258af8a33a72a2a60e@10.211.76.54 INITIAL",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.271682797Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:55.757",
+      "event": {
+        "original": "2024-06-18 09:12:55.757 INFO  [gen.TraceSipMessages] 104936253: (         LegB2) |    |--->|    | INVITE\tSDP\t10.7.76.91:10854 tel:+4722391310 +4746180607 +4746180607 13ebe59cbe2983258af8a33a72a2a60e@10.211.76.54 INITIAL"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "5kbFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936252",
+      "time_parsed": "2024-06-18T07:12:55.764Z",
+      "leg": "LegB",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |<---|    | 181(INVITE) EARLY +4746180783",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.272020630Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:55.764",
+      "event": {
+        "original": "2024-06-18 09:12:55.764 INFO  [gen.TraceSipMessages] 104936252: (          LegB) |    |<---|    | 181(INVITE) EARLY +4746180783"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "50bFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936252",
+      "time_parsed": "2024-06-18T07:12:55.765Z",
+      "leg": "LegA",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|<---|    |    | 181(INVITE) EARLY +4746180783",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.272284655Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:55.765",
+      "event": {
+        "original": "2024-06-18 09:12:55.765 INFO  [gen.TraceSipMessages] 104936252: (          LegA) |<---|    |    | 181(INVITE) EARLY +4746180783"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "6UbFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936253",
+      "time_parsed": "2024-06-18T07:12:55.768Z",
+      "leg": "LegB2",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |<---|    | 100(INVITE) EARLY +4722391310",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.272832108Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:55.768",
+      "event": {
+        "original": "2024-06-18 09:12:55.768 INFO  [gen.TraceSipMessages] 104936253: (         LegB2) |    |<---|    | 100(INVITE) EARLY +4722391310"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "6kbFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936256",
+      "time_parsed": "2024-06-18T07:12:56.090Z",
+      "leg": "LegA",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|--->|    |    | INVITE\tSDP\t10.7.76.91:10854 sip:+4746180208@ims.mnc001.mcc242.3gppnetwork.org +4746180607 +4746180607 7319292eeed244affe008faa0366d62c@10.211.76.55 INITIAL",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.273134637Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:56.090",
+      "event": {
+        "original": "2024-06-18 09:12:56.090 INFO  [gen.TraceSipMessages] 104936256: (          LegA) |--->|    |    | INVITE\tSDP\t10.7.76.91:10854 sip:+4746180208@ims.mnc001.mcc242.3gppnetwork.org +4746180607 +4746180607 7319292eeed244affe008faa0366d62c@10.211.76.55 INITIAL"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "60bFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_ignored": [
+      "event.original.keyword"
+    ],
+    "_source": {
+      "sessionID": "104936256",
+      "time_parsed": "2024-06-18T07:12:56.132Z",
+      "leg": "LegB",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |--->|    | INVITE\tSDP\t10.7.76.91:10854 sip:+4746180094@ims.mnc001.mcc242.3gppnetwork.org;user=phone +4746180607 +4746180607 73eef7a0953c4307dfbdf04d2ecca440@10.211.76.54 INITIAL",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.273375960Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:56.132",
+      "event": {
+        "original": "2024-06-18 09:12:56.132 INFO  [gen.TraceSipMessages] 104936256: (          LegB) |    |--->|    | INVITE\tSDP\t10.7.76.91:10854 sip:+4746180094@ims.mnc001.mcc242.3gppnetwork.org;user=phone +4746180607 +4746180607 73eef7a0953c4307dfbdf04d2ecca440@10.211.76.54 INITIAL"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "7EbFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936256",
+      "time_parsed": "2024-06-18T07:12:56.140Z",
+      "leg": "LegB",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |<---|    | 100(INVITE) EARLY +4746180094",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.273662588Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:56.140",
+      "event": {
+        "original": "2024-06-18 09:12:56.140 INFO  [gen.TraceSipMessages] 104936256: (          LegB) |    |<---|    | 100(INVITE) EARLY +4746180094"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "80bFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936256",
+      "time_parsed": "2024-06-18T07:12:56.624Z",
+      "leg": "LegB",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |<---|    | 200(INVITE)\tSDP\t10.211.68.87:31730 CONFIRMED +4746180094",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.275457361Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:56.624",
+      "event": {
+        "original": "2024-06-18 09:12:56.624 INFO  [gen.TraceSipMessages] 104936256: (          LegB) |    |<---|    | 200(INVITE)\tSDP\t10.211.68.87:31730 CONFIRMED +4746180094"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "9EbFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936256",
+      "time_parsed": "2024-06-18T07:12:56.626Z",
+      "leg": "LegA",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|<---|    |    | 200(INVITE)\tSDP\t10.211.68.87:31730 INITIAL +4746180094",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.276200232Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:56.626",
+      "event": {
+        "original": "2024-06-18 09:12:56.626 INFO  [gen.TraceSipMessages] 104936256: (          LegA) |<---|    |    | 200(INVITE)\tSDP\t10.211.68.87:31730 INITIAL +4746180094"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "9UbFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936253",
+      "time_parsed": "2024-06-18T07:12:56.668Z",
+      "leg": "LegB2",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |<---|    | 200(INVITE)\tSDP\t10.211.68.87:31730 CONFIRMED +4722391310",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.276471359Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:56.668",
+      "event": {
+        "original": "2024-06-18 09:12:56.668 INFO  [gen.TraceSipMessages] 104936253: (         LegB2) |    |<---|    | 200(INVITE)\tSDP\t10.211.68.87:31730 CONFIRMED +4722391310"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "9kbFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936253",
+      "time_parsed": "2024-06-18T07:12:56.671Z",
+      "leg": "LegA",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|<---|    |    | 200(INVITE)\tSDP\t10.211.68.87:31730 EARLY +4722391310",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.276731184Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:56.671",
+      "event": {
+        "original": "2024-06-18 09:12:56.671 INFO  [gen.TraceSipMessages] 104936253: (          LegA) |<---|    |    | 200(INVITE)\tSDP\t10.211.68.87:31730 EARLY +4722391310"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "90bFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936252",
+      "time_parsed": "2024-06-18T07:12:56.688Z",
+      "leg": "LegB",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |<---|    | 200(INVITE)\tSDP\t10.211.68.87:31730 CONFIRMED +4746180783",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.276970607Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:56.688",
+      "event": {
+        "original": "2024-06-18 09:12:56.688 INFO  [gen.TraceSipMessages] 104936252: (          LegB) |    |<---|    | 200(INVITE)\tSDP\t10.211.68.87:31730 CONFIRMED +4746180783"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "-EbFWZAB0Hn8tA0D_kk1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936252",
+      "time_parsed": "2024-06-18T07:12:56.690Z",
+      "leg": "LegA",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|<---|    |    | 200(INVITE)\tSDP\t10.211.68.87:31730 EARLY +4746180783",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.277228932Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:56.690",
+      "event": {
+        "original": "2024-06-18 09:12:56.690 INFO  [gen.TraceSipMessages] 104936252: (          LegA) |<---|    |    | 200(INVITE)\tSDP\t10.211.68.87:31730 EARLY +4746180783"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "AEbFWZAB0Hn8tA0D_ko1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936252",
+      "time_parsed": "2024-06-18T07:12:56.699Z",
+      "leg": "LegA",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|--->|    |    | ACK     CONFIRMED",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.279177920Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:56.699",
+      "event": {
+        "original": "2024-06-18 09:12:56.699 INFO  [gen.TraceSipMessages] 104936252: (          LegA) |--->|    |    | ACK     CONFIRMED"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "AUbFWZAB0Hn8tA0D_ko1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936252",
+      "time_parsed": "2024-06-18T07:12:56.700Z",
+      "leg": "LegB",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |--->|    | ACK     CONFIRMED",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.279412542Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:56.700",
+      "event": {
+        "original": "2024-06-18 09:12:56.700 INFO  [gen.TraceSipMessages] 104936252: (          LegB) |    |--->|    | ACK     CONFIRMED"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "BEbFWZAB0Hn8tA0D_ko1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936253",
+      "time_parsed": "2024-06-18T07:12:56.714Z",
+      "leg": "LegA",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|--->|    |    | ACK     CONFIRMED",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.280628659Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:56.714",
+      "event": {
+        "original": "2024-06-18 09:12:56.714 INFO  [gen.TraceSipMessages] 104936253: (          LegA) |--->|    |    | ACK     CONFIRMED"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "BUbFWZAB0Hn8tA0D_ko1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936253",
+      "time_parsed": "2024-06-18T07:12:56.719Z",
+      "leg": "LegB2",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |--->|    | ACK     CONFIRMED",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.280880784Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:56.719",
+      "event": {
+        "original": "2024-06-18 09:12:56.719 INFO  [gen.TraceSipMessages] 104936253: (         LegB2) |    |--->|    | ACK     CONFIRMED"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "BkbFWZAB0Hn8tA0D_ko1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936256",
+      "time_parsed": "2024-06-18T07:12:56.754Z",
+      "leg": "LegA",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|--->|    |    | ACK     CONFIRMED",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.281238918Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:56.754",
+      "event": {
+        "original": "2024-06-18 09:12:56.754 INFO  [gen.TraceSipMessages] 104936256: (          LegA) |--->|    |    | ACK     CONFIRMED"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "B0bFWZAB0Hn8tA0D_ko1",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936256",
+      "time_parsed": "2024-06-18T07:12:56.756Z",
+      "leg": "LegB",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |--->|    | ACK     CONFIRMED",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.311484234Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:12:56.756",
+      "event": {
+        "original": "2024-06-18 09:12:56.756 INFO  [gen.TraceSipMessages] 104936256: (          LegB) |    |--->|    | ACK     CONFIRMED"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "wEbFWZAB0Hn8tA0D_kgx",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936252",
+      "time_parsed": "2024-06-18T07:13:11.964Z",
+      "leg": "LegA",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|--->|    |    | BYE     CONFIRMED",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.369723749Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:13:11.964",
+      "event": {
+        "original": "2024-06-18 09:13:11.964 INFO  [gen.TraceSipMessages] 104936252: (          LegA) |--->|    |    | BYE     CONFIRMED"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "w0bFWZAB0Hn8tA0D_kgx",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936252",
+      "time_parsed": "2024-06-18T07:13:11.977Z",
+      "leg": "LegB",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |--->|    | BYE     CONFIRMED",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.408169256Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:13:11.977",
+      "event": {
+        "original": "2024-06-18 09:13:11.977 INFO  [gen.TraceSipMessages] 104936252: (          LegB) |    |--->|    | BYE     CONFIRMED"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "xkbFWZAB0Hn8tA0D_kgx",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936253",
+      "time_parsed": "2024-06-18T07:13:11.994Z",
+      "leg": "LegA",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|<---|    |    | 200(BYE) CONFIRMED +4722391310",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.460972547Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:13:11.994",
+      "event": {
+        "original": "2024-06-18 09:13:11.994 INFO  [gen.TraceSipMessages] 104936253: (          LegA) |<---|    |    | 200(BYE) CONFIRMED +4722391310"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "x0bFWZAB0Hn8tA0D_kgx",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936253",
+      "time_parsed": "2024-06-18T07:13:12.007Z",
+      "leg": "LegB2",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |--->|    | BYE     CONFIRMED",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.461715718Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:13:12.007",
+      "event": {
+        "original": "2024-06-18 09:13:12.007 INFO  [gen.TraceSipMessages] 104936253: (         LegB2) |    |--->|    | BYE     CONFIRMED"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "yUbFWZAB0Hn8tA0D_kgx",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936253",
+      "time_parsed": "2024-06-18T07:13:12.038Z",
+      "leg": "LegB2",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |<---|    | 200(BYE) TERMINATED +4722391310",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.462403284Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:13:12.038",
+      "event": {
+        "original": "2024-06-18 09:13:12.038 INFO  [gen.TraceSipMessages] 104936253: (         LegB2) |    |<---|    | 200(BYE) TERMINATED +4722391310"
+      }
+    }
+  },
+  {
+    "_index": "sip_logs-2024.06.27",
+    "_id": "0EbFWZAB0Hn8tA0D_kgx",
+    "_score": 1.0,
+    "_source": {
+      "sessionID": "104936256",
+      "time_parsed": "2024-06-18T07:13:12.089Z",
+      "leg": "LegB",
+      "@version": "1",
+      "log_level": "INFO",
+      "host": {
+        "name": "64340e381194"
+      },
+      "text": "|    |<---|    | 200(BYE) TERMINATED +4746180094",
+      "log": {
+        "file": {
+          "path": "/usr/share/logstash/ingest_data/adaptorlogs/AT-AS01/siptrace/SipTrace.log.2024-06-18-09.gz"
+        }
+      },
+      "@timestamp": "2024-06-27T12:57:42.464862922Z",
+      "ip": "gen.TraceSipMessages",
+      "timestamp": "2024-06-18 09:13:12.089",
+      "event": {
+        "original": "2024-06-18 09:13:12.089 INFO  [gen.TraceSipMessages] 104936256: (          LegB) |    |<---|    | 200(BYE) TERMINATED +4746180094"
+      }
+    }
+  }
+]

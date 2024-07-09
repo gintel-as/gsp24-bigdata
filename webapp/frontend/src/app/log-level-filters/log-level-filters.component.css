@@ -1,0 +1,22 @@
+.log-level-container {
+    display: flex;
+    flex-direction: column;
+    color: black;
+  }
+  
+  .log-levels{
+    display: flex;
+    gap: 16px; /* Adjust the gap value as needed */
+  }
+  
+  .log-level-label {
+    display: flex;
+    align-items: center;
+  }
+
+
+
+
+
+
+ 
