@@ -1,9 +1,4 @@
-*.csv
 *.env
-server*
-core*
-*-mbn-at*
-access*
 logstash_completed.log
 logstash_ingest_data
 *.crt

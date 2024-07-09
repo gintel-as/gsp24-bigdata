@@ -45,7 +45,7 @@ app.get('/correlation-ids/:sessionID', async (req, res) => {
   const { sessionID } = req.params;
   try {
     const result = await client.search({
-      index: 'cdr_logs-2024.07.08',
+      index: 'cdr_logs-2024.07.09',
       body: {
         query: {
           match: { sessionID }

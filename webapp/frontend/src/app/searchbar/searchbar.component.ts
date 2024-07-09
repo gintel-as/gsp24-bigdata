@@ -64,7 +64,7 @@ export class SearchbarComponent {
   }
 
   searchLogs(query: string) {
-    this.elasticsearchService.search('adapter_logs-2024.07.08', 'sessionID', query).subscribe(
+    this.elasticsearchService.search('adapter_logs-2024.07.09', 'sessionID', query).subscribe(
       response => {
         this.processResults(response, 'adapter_logs');
       },
@@ -73,7 +73,7 @@ export class SearchbarComponent {
       }
     );
 
-    this.elasticsearchService.search('server_logs-2024.07.08', 'log_message', query).subscribe(
+    this.elasticsearchService.search('server_logs-2024.07.09', 'log_message', query).subscribe(
       response => {
         this.processResults(response, 'server_logs');
       },
@@ -82,7 +82,7 @@ export class SearchbarComponent {
       }
     );
 
-    this.elasticsearchService.search('sip_logs-2024.07.08', 'sessionID', query).subscribe(
+    this.elasticsearchService.search('sip_logs-2024.07.09', 'sessionID', query).subscribe(
       response => {
         this.processResults(response, 'sip_logs');
       },
