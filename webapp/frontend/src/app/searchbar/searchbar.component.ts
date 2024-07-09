@@ -48,6 +48,7 @@ export class SearchbarComponent {
   showAdapterLogs: boolean = true;
   showServerLogs: boolean = true;
   showSIPLogs: boolean = true;
+  showCDRLogs: boolean = true;
   removeFluff: boolean = false;
   removeCSTAFluff: boolean = false;
 
@@ -249,7 +250,7 @@ export class SearchbarComponent {
         (this.showAdapterLogs && result.source === 'adapter_logs') ||
         (this.showServerLogs && result.source === 'server_logs') ||
         (this.showSIPLogs && result.source === 'sip_logs') ||
-        (result.source === 'cdr_logs') ||
+        (this.showCDRLogs && result.source === 'cdr_logs') ||
         (this.showCorrelationLogs && result.source === 'correlation_logs'))
       .filter(result => {
         return this.searchTerms.every(term => {
@@ -286,6 +287,8 @@ export class SearchbarComponent {
       this.showServerLogs = !this.showServerLogs;
     } else if (source === 'sip') {
       this.showSIPLogs = !this.showSIPLogs;
+    } else if (source === 'cdr') {
+      this.showCDRLogs = !this.showCDRLogs;
     }
     this.applyFilters();
   }
