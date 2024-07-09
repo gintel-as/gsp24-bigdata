@@ -1,0 +1,23 @@
+- pipeline.id: api-logs-pipeline
+  path.config: "/usr/share/logstash/config/api_logs_pipeline.conf"
+
+- pipeline.id: server-logs-pipeline
+  path.config: "/usr/share/logstash/config/server_logs_pipeline.conf"
+
+- pipeline.id: access-logs-pipeline
+  path.config: "/usr/share/logstash/config/access_logs_pipeline.conf"
+
+- pipeline.id: cdr-logs-pipeline
+  path.config: "/usr/share/logstash/config/cdr_logs_pipeline.conf"
+
+- pipeline.id: at-logs-pipeline
+  path.config: "/usr/share/logstash/config/at_logs_pipeline.conf"
+
+- pipeline.id: adapter-logs-pipeline
+  path.config: "/usr/share/logstash/config/adapter_logs_pipeline.conf"
+
+- pipeline.id: sip-logs-pipeline
+  path.config: "/usr/share/logstash/config/sip_logs_pipeline.conf"
+
+- pipeline.id: edr-logs-pipeline
+  path.config: "/usr/share/logstash/config/edr_logs_pipeline.conf"

@@ -1,0 +1,39 @@
+<app-searchbar (filteredResultsChange)="handleFilteredResults($event)"></app-searchbar>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Viewer</title>
+  </head>
+  <body>
+    <div class="controls">
+      <label for="rowsPerPage">Rows per page:</label>
+      <select id="rowsPerPage" [(ngModel)]="pageSize" (change)="onPageSizeChange()">
+        <option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }}</option>
+      </select>
+    </div>
+    <div class="log-container">
+      <h1>Log Viewer</h1>
+      <div class="log-header">
+        <span class="header timestamp">Timestamp</span>
+        <span class="header type">Type</span>
+        <span class="header log_level">Log Level</span>
+        <span class="header session_id">Session ID</span>
+        <span class="header message">Message</span>
+      </div>
+      <div class="log">
+        <div *ngFor="let log of paginatedLogs" class="log-line">
+          <span class="timestamp">{{ log.timestamp }}</span>
+          <span class="type" [ngClass]="log.source">{{ getDisplayType(log.source) }}</span>
+          <span class="log_level">{{ log.log_level }}</span>
+          <span class="session_id">{{ log.sessionID }}</span>
+          <span class="message">{{ log.log_message }}</span>
+        </div>
+      </div>
+      <div class="pagination">
+        <button (click)="prevPage()" [disabled]="currentPage === 0 || currentPage === 1">Previous</button>
+        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+      </div>
+    </div>
+  </body>

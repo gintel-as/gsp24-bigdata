@@ -1,0 +1,43 @@
+<div class="log-level-container">
+  <h4>Filter by Log Level</h4>
+  <div class="log-levels">
+    <label class="log-level-label">
+      <mat-form-field appearance="fill" class="custom-dropdown">
+        <mat-select [(ngModel)]="selectedAdapterLogLevels" multiple (selectionChange)="onFilterChange('adapter', selectedAdapterLogLevels)">
+          <mat-select-trigger>
+            Adapter Logs
+          </mat-select-trigger>
+          <mat-option *ngFor="let level of logLevels" [value]="level">
+            {{ level }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </label>
+  
+    <label class="log-level-label">
+      <mat-form-field appearance="fill" class="custom-dropdown">
+        <mat-select [(ngModel)]="selectedServerLogLevels" multiple (selectionChange)="onFilterChange('server', selectedServerLogLevels)">
+          <mat-select-trigger>
+            Server Logs
+          </mat-select-trigger>
+          <mat-option *ngFor="let level of logLevels" [value]="level">
+            {{ level }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </label>
+  
+    <label class="log-level-label">
+      <mat-form-field appearance="fill" class="custom-dropdown">
+        <mat-select [(ngModel)]="selectedSIPLogLevels" multiple (selectionChange)="onFilterChange('sip', selectedSIPLogLevels)">
+          <mat-select-trigger>
+            SIP Logs
+          </mat-select-trigger>
+          <mat-option *ngFor="let level of logLevels" [value]="level">
+            {{ level }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </label>
+  </div>
+</div>
