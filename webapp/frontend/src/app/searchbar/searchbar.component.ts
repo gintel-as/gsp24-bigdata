@@ -250,7 +250,7 @@ export class SearchbarComponent {
       // Extract sessionID for server_logs
       if (source === 'server_logs') {
         log.sessionID = this.extractSessionID(log.log_message);
-      } else if (source === 'cdr_logs') {
+      } else if (source === 'cdr_logs' || source === 'edr_logs') {
         log.timestamp = this.formatDateString(log.callEndTime);
         log.time_parsed = log.callEndTime;
         log.log_message = this.selectedFields.map(field => `${field} = ${log[field]}`).join(', ');
