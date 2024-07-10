@@ -12,6 +12,8 @@ export class SourceFiltersComponent {
   @Input() showAdapterLogs: boolean = true;
   @Input() showServerLogs: boolean = true;
   @Input() showSIPLogs: boolean = true;
+  @Input() showCDRLogs: boolean = true;
+  @Input() showEDRLogs: boolean = true;
   @Output() sourceToggle = new EventEmitter<string>();
 
   toggleSource(source: string) {
