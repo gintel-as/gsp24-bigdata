@@ -28,9 +28,10 @@
 </div>
 
 <div class="dropdown-container">
-  <app-cdr-dropdown [fields]="fields" (selectedFieldsChange)="onSelectedCdrFieldsChange($event)"></app-cdr-dropdown>
-  <app-cdr-dropdown [fields]="edrFields" (selectedFieldsChange)="onSelectedEdrFieldsChange($event)"></app-cdr-dropdown>
+  <app-cdr-dropdown [fields]="fields" [label]="'Select CDR Fields'" (selectedFieldsChange)="onSelectedCdrFieldsChange($event)"></app-cdr-dropdown>
+  <app-cdr-dropdown [fields]="edrFields" [label]="'Select EDR Fields'" (selectedFieldsChange)="onSelectedEdrFieldsChange($event)"></app-cdr-dropdown>
 </div>
+
 
 
 <app-session-tree [incomingEvents]="incomingEvents"></app-session-tree>
