@@ -44,7 +44,7 @@ app.get('/correlation-ids/:sessionID', async (req, res) => {
   const { sessionID } = req.params;
   try {
     const result = await client.search({
-      index: 'adapter_logs-2024.07.09', // Replace with your actual index
+      index: 'adapter_logs-2024.07.10', // Replace with your actual index
       query: {
         bool: {
           must: [
@@ -70,7 +70,7 @@ app.get('/correlation-ids/:sessionID', async (req, res) => {
 
     try {
       const incomingEventResult = await client.search({
-        index: 'adapter_logs-2024.07.09', // Replace with your actual index
+        index: 'adapter_logs-2024.07.10', // Replace with your actual index
         query: {
           bool: {
             must: [
