@@ -15,6 +15,11 @@ export class PlotMethodService {
       "name": "Logs",
       "photo": "assets/logs.png",
       "id"  : 1
+    },
+    {
+      "name": "Call List",
+      "photo": "assets/call_list_logo.jfif",
+      "id"  : 2
     }
   ];
   constructor() { }
