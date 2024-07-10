@@ -15,58 +15,64 @@
     display: flex;
     flex-direction: column;
   }
-  
+
   h1 {
     text-align: center;
     color: #333;
   }
 
   .log-header {
-    display: flex; 
-    padding: 10px; 
-    border-bottom: 1px solid #ddd; 
-    font-weight: bold; 
-    background-color: #f7f7f7; 
+    display: flex;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+    background-color: #f7f7f7;
   }
-  
+
   .header {
-    border-right: 1px solid #ddd; 
+    border-right: 1px solid #ddd;
   }
-  
+
   .header:last-child {
-    border-right: none; 
+    border-right: none;
   }
-  
+
   .log {
     overflow-y: auto;
     border-top: 1px solid #ddd;
+
   }
-  
+
+  .message {
+    font-family: 'Courier New', Courier, monospace;
+    white-space: pre-wrap; /* Preserve spaces and line breaks */
+    word-wrap: break-word; /* Ensure words break to fit within the container */
+  }
   .log-line {
     display: flex;
     padding: 10px;
     border-bottom: 1px solid #ddd;
     transition: background-color 0.3s ease;
   }
-  
+
   .log-line:nth-child(odd) {
     background-color: #f9f9f9;
   }
   .log-line:hover {
-    background-color: #f1f1f1; 
+    background-color: #f1f1f1;
   }
-  
+
   .timestamp, .header.timestamp {
     width: 80px;
     color: #888;
     font-size: 0.9em;
     border-right: 1px solid #ddd;
     padding-right: 10px;
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  
+
   .type, .header.type {
     width: 80px;
     text-align: center;
@@ -75,24 +81,29 @@
     font-weight: bold;
     margin-right: 10px;
     border-right: 1px solid #ddd;
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
     }
-  
+
   .type.adapter_logs {
     background-color: #d9edf7;
     color: #31708f;
   }
-  
+
   .type.sip_logs {
     background-color: #fcf8e3;
     color: #8a6d3b;
   }
-  
+
   .type.server_logs {
     background-color: #f2dede;
     color: #a94442;
+  }
+
+  .type.cdr_logs {
+    background-color: #dff0d8; /* Light green background */
+    color: #3c763d; /* Dark green text */
   }
 
   .log_level, .header.log_level {
@@ -101,37 +112,37 @@
     border-right: 1px solid #ddd;
     padding-right: 10px;
     margin-right: 10px;
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  
+
   .session_id, .header.session_id {
     width: 75px;
     text-align: center;
     border-right: 1px solid #ddd;
     padding-right: 10px;
     margin-right: 10px;
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  
+
   .message, .header.message {
     flex: 1;
     padding-left: 10px;
-    
+
   }
   .header.message{
-    align-items: center; 
-    display: flex; 
+    align-items: center;
+    display: flex;
   }
-  
-  
+
+
   .log-line, .log-header {
     border-left: 5px solid #ccc;
   }
-  
+
 
   .pagination {
     position: fixed;
@@ -139,11 +150,11 @@
     justify-content: center;
     align-items: center;
     margin-top: 20px;
-    flex-shrink: 0; 
-    position: sticky; 
-    bottom: 0; 
-    background-color: #fff; 
-    padding: 10px 0; 
+    flex-shrink: 0;
+    position: sticky;
+    bottom: 0;
+    background-color: #fff;
+    padding: 10px 0;
 }
 
 .pagination button {
@@ -166,7 +177,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
 
 .controls label {
@@ -177,18 +188,18 @@
 }
 
 .controls select {
-  padding: 5px 10px; 
-  border-radius: 4px; 
+  padding: 5px 10px;
+  border-radius: 4px;
   border: 1px solid #ccc;
   background-color: #f9f9f9;
-  font-size: 16px; 
+  font-size: 16px;
   color: #333;
   outline: none;
-  transition: border-color 0.3s; 
+  transition: border-color 0.3s;
 }
 
 .controls select:focus {
-  border-color: #007bff; 
+  border-color: #007bff;
 }
 
 .dropdown {

@@ -76,7 +76,7 @@ export class SessionTreeComponent implements OnInit, OnChanges {
     if (treeElement) {
       d3.select(treeElement).selectAll('*').remove();
 
-      const svg = d3.select(treeElement).append('svg').attr('width', 10000).attr('height', 250),
+      const svg = d3.select(treeElement).append('svg').attr('width', 2000).attr('height', 250),
         g = svg.append('g').attr('transform', 'translate(140,40)');
 
       const tree = d3.tree<TreeNode>()

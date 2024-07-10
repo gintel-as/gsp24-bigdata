@@ -48,7 +48,6 @@ export class SearchbarComponent {
   showAdapterLogs: boolean = true;
   showServerLogs: boolean = true;
   showSIPLogs: boolean = true;
-  showCDRLogs: boolean = true;
   removeFluff: boolean = false;
   removeCSTAFluff: boolean = false;
 
@@ -108,11 +107,11 @@ export class SearchbarComponent {
         `http://localhost:3000/correlation-ids/${this.searchQuery}`
       ).subscribe(
         data => {
-          console.log("incomingEvents", data);
           this.incomingEvents = data;
           data.forEach(result => {
             this.correlationIDs.add(result.currentSessionId);
             this.correlationIDs.add(result.retriggeredFromSessionId);
+            console.log(this.correlationIDs)
           });
           if (this.showCorrelationLogs && this.correlationIDs.size > 0) {
             this.performCorrelationSearch();
@@ -129,9 +128,8 @@ export class SearchbarComponent {
     }
   }
 
-
-
   performCorrelationSearch() {
+    console.log(this.correlationIDs)
     if (this.correlationIDs.size > 0) {
       Array.from(this.correlationIDs).forEach(correlationID => {
         this.searchLogs(correlationID);
@@ -140,7 +138,7 @@ export class SearchbarComponent {
   }
 
   searchLogs(query: string) {
-    this.elasticsearchService.search('adapter_logs-2024.07.09', 'sessionID', query).subscribe(
+    this.elasticsearchService.search('adapter_logs', 'sessionID', query).subscribe(
       response => {
         this.processResults(response, 'adapter_logs');
       },
@@ -149,16 +147,7 @@ export class SearchbarComponent {
       }
     );
 
-    this.elasticsearchService.search('adapter_logs-2024.07.09', 'log_message', query).subscribe(
-      response => {
-        this.processResults(response, 'adapter_logs');
-      },
-      error => {
-        console.error('Error performing adapter log search', error);
-      }
-    );
-
-    this.elasticsearchService.search('server_logs-2024.07.09', 'log_message', query).subscribe(
+    this.elasticsearchService.search('server_logs', 'log_message', query).subscribe(
       response => {
         this.processResults(response, 'server_logs');
       },
@@ -167,7 +156,7 @@ export class SearchbarComponent {
       }
     );
 
-    this.elasticsearchService.search('sip_logs-2024.07.09', 'sessionID', query).subscribe(
+    this.elasticsearchService.search('sip_logs', 'sessionID', query).subscribe(
       response => {
         this.processResults(response, 'sip_logs');
       },
@@ -176,7 +165,7 @@ export class SearchbarComponent {
       }
     );
 
-    this.elasticsearchService.search('cdr_logs-2024.07.09', 'sessionID', query).subscribe(
+    this.elasticsearchService.search('cdr_logs', 'sessionID', query).subscribe(
       response => {
         this.processResults(response, 'cdr_logs');
       },
@@ -250,7 +239,7 @@ export class SearchbarComponent {
         (this.showAdapterLogs && result.source === 'adapter_logs') ||
         (this.showServerLogs && result.source === 'server_logs') ||
         (this.showSIPLogs && result.source === 'sip_logs') ||
-        (this.showCDRLogs && result.source === 'cdr_logs') ||
+        (result.source === 'cdr_logs') ||
         (this.showCorrelationLogs && result.source === 'correlation_logs'))
       .filter(result => {
         return this.searchTerms.every(term => {
@@ -287,8 +276,6 @@ export class SearchbarComponent {
       this.showServerLogs = !this.showServerLogs;
     } else if (source === 'sip') {
       this.showSIPLogs = !this.showSIPLogs;
-    } else if (source === 'cdr') {
-      this.showCDRLogs = !this.showCDRLogs;
     }
     this.applyFilters();
   }
@@ -310,6 +297,7 @@ export class SearchbarComponent {
 
     if (this.showCorrelationLogs && this.correlationIDs.size > 0) {
       this.performCorrelationSearch();
+
     } else {
       this.performSearch();
     }
