@@ -67,7 +67,21 @@ export class SearchbarComponent {
     "counterPartyId", "twoStepLeg2Number", "servedUserPrimary"
   ];
 
+  edrFields: string[] = [
+    "record_type", "callType", "id", "sessionID", "sequenceNumber", "aNumber", 
+    "bNumber", "cNumber", "servedUser", "redirectNumber", "genericNumber", "a_clir", 
+    "originallyCalledNumberClir", "genericNumber", "genericNumberDisplayed", 
+    "term_code", "callStartTime", "mrfAnswerTime", "overheadTime", "pagingTime", "ringingTime", 
+    "calledPartyAnswerTime", "connectTime", "chargeClass", "payingParty", 
+    "release_code", "mscAddress", "vlrNumber", 
+    "vpnScenario", "aProvider", "cProvider", "sno", "cid", 
+    "oname", "userResponseHistory", "serviceKey", "subServiceId", "edrType", 
+    "operation", "serviceProvider", "noConnectCause", 
+    "cellGlobalId", "pani", "generatedPani", "usedLocation", "sipCause", "pcv"
+  ];
+
   selectedFields: string[] = [];
+  selectedEdrFields: string[] = [];
   searchTerms: { log: string, term: string }[] = [];
 
   showMenu: boolean = false;
@@ -83,8 +97,12 @@ export class SearchbarComponent {
     this.performSearch();
   }
 
-  onSelectedFieldsChange(selectedFields: string[]) {
+  onSelectedCdrFieldsChange(selectedFields: string[]) {
     this.selectedFields = selectedFields;
+    this.updateLogMessages();
+  }
+  onSelectedEdrFieldsChange(selectedEdrFields: string[]) {
+    this.selectedEdrFields = selectedEdrFields;
     this.updateLogMessages();
   }
 
@@ -92,6 +110,9 @@ export class SearchbarComponent {
     this.results.forEach(log => {
       if (log.source === 'cdr_logs') {
         log.log_message = this.selectedFields.map(field => `${field} = ${log[field]}`).join(', ');
+      }
+      if (log.source === 'edr_logs') {
+        log.log_message = this.selectedEdrFields.map(field => `${field} = ${log[field]}`).join(', ');
       }
     });
     this.applyFilters();
