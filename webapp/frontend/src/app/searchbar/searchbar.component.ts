@@ -161,7 +161,7 @@ export class SearchbarComponent {
   }
 
   searchLogs(query: string) {
-    this.elasticsearchService.search('adapter_logs-2024.07.10', 'sessionID', query).subscribe(
+    this.elasticsearchService.search('adapter_logs', 'sessionID', query).subscribe(
       response => {
         this.processResults(response, 'adapter_logs');
       },
@@ -170,7 +170,7 @@ export class SearchbarComponent {
       }
     );
 
-    this.elasticsearchService.search('adapter_logs-2024.07.10', 'log_message', query).subscribe(
+    this.elasticsearchService.search('adapter_logs', 'log_message', query).subscribe(
       response => {
         this.processResults(response, 'adapter_logs');
       },
@@ -179,7 +179,7 @@ export class SearchbarComponent {
       }
     );
 
-    this.elasticsearchService.search('server_logs-2024.07.10', 'log_message', query).subscribe(
+    this.elasticsearchService.search('server_logs', 'log_message', query).subscribe(
       response => {
         this.processResults(response, 'server_logs');
       },
@@ -188,7 +188,7 @@ export class SearchbarComponent {
       }
     );
 
-    this.elasticsearchService.search('sip_logs-2024.07.10', 'sessionID', query).subscribe(
+    this.elasticsearchService.search('sip_logs', 'sessionID', query).subscribe(
       response => {
         this.processResults(response, 'sip_logs');
       },
@@ -197,7 +197,7 @@ export class SearchbarComponent {
       }
     );
 
-    this.elasticsearchService.search('cdr_logs-2024.07.10', 'sessionID', query).subscribe(
+    this.elasticsearchService.search('cdr_logs', 'sessionID', query).subscribe(
       response => {
         this.processResults(response, 'cdr_logs');
       },
@@ -206,7 +206,7 @@ export class SearchbarComponent {
       }
     );
 
-    this.elasticsearchService.search('edr_logs-2024.07.10', 'sessionID', query).subscribe(  
+    this.elasticsearchService.search('edr_logs', 'sessionID', query).subscribe(  
       response => {
         this.processResults(response, 'edr_logs'); 
       },
