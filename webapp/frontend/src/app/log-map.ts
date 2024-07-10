@@ -3,6 +3,7 @@ export const logTypeMap = new Map<string, string>([
     ['adapter_logs', 'ADAPTER'],
     ['server_logs', 'CSTA'],
     ['cdr_logs', 'CDR'],
-    ['access_logs', 'ACCESS']
+    ['access_logs', 'ACCESS'],
+    ['edr_logs', 'EDR']
   ]);
   

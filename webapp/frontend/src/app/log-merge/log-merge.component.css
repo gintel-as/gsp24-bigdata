@@ -95,6 +95,12 @@
     color: #a94442;
   }
 
+  .type.cdr_logs {
+    background-color: #dff0d8;
+    color: #3c763d; 
+  }
+
+
   .log_level, .header.log_level {
     width: 50px;
     text-align: center;

@@ -49,6 +49,7 @@ export class SearchbarComponent {
   showServerLogs: boolean = true;
   showSIPLogs: boolean = true;
   showCDRLogs: boolean = true;
+  showEDRLogs: boolean = true; 
   removeFluff: boolean = false;
   removeCSTAFluff: boolean = false;
 
@@ -129,8 +130,6 @@ export class SearchbarComponent {
     }
   }
 
-
-
   performCorrelationSearch() {
     if (this.correlationIDs.size > 0) {
       Array.from(this.correlationIDs).forEach(correlationID => {
@@ -184,6 +183,15 @@ export class SearchbarComponent {
         console.error('Error performing CDR log search', error);
       }
     );
+
+    this.elasticsearchService.search('edr_logs-2024.07.10', 'sessionID', query).subscribe(  
+      response => {
+        this.processResults(response, 'edr_logs'); 
+      },
+      error => {
+        console.error('Error performing EDR log search', error);  
+      }
+    );
   }
 
   onFilterChange(event: { type: string, levels: string[] }) {
@@ -234,7 +242,6 @@ export class SearchbarComponent {
   }
 
   applyFilters() {
-    console.log(this.selectedAdapterLogLevels)
     this.filteredResults = this.results
       .filter(result => {
         if (result.source === 'adapter_logs') {
@@ -251,6 +258,7 @@ export class SearchbarComponent {
         (this.showServerLogs && result.source === 'server_logs') ||
         (this.showSIPLogs && result.source === 'sip_logs') ||
         (this.showCDRLogs && result.source === 'cdr_logs') ||
+        (this.showEDRLogs && result.source === 'edr_logs') || 
         (this.showCorrelationLogs && result.source === 'correlation_logs'))
       .filter(result => {
         return this.searchTerms.every(term => {
@@ -277,7 +285,6 @@ export class SearchbarComponent {
 
   sortResultsByTimestamp() {
     this.filteredResults.sort((a, b) => new Date(a.time_parsed).getTime() - new Date(b.time_parsed).getTime());
-    console.log(this.filteredResults);
   }
 
   toggleSource(source: string) {
@@ -289,6 +296,8 @@ export class SearchbarComponent {
       this.showSIPLogs = !this.showSIPLogs;
     } else if (source === 'cdr') {
       this.showCDRLogs = !this.showCDRLogs;
+    } else if (source === 'edr') {  
+      this.showEDRLogs = !this.showEDRLogs;  
     }
     this.applyFilters();
   }
