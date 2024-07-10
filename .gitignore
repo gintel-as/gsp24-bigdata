@@ -1,0 +1,7 @@
+
+*.gz
+/logstash_ingest_data/cdr
+/logstash_ingest_data/O2
+/logstash_ingest_data/tsg
+*.crt
+logstash_ingest_data/logstash_completed.log
