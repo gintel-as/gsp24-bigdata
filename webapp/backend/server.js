@@ -128,3 +128,27 @@ function extractServiceKey(logMessage) {
   const match = logMessage.match(/serviceKey='([^']+)'/);
   return match ? match[1] : null;
 }
+
+
+app.get('/calls/create', async (req, res) => {
+  try {
+    const result = await client.search({
+      index: 'adapter_logs', // Replace with your actual index
+      query: {
+        bool: {
+          must: [
+            {
+              term: { sessionID: sessionID }
+            },
+            {
+              wildcard: { log_message: '*eventincomingcall*' }
+            }
+          ]
+        }
+      },
+      size: 10000
+    });
+}  catch (error) {
+    res.status(500).json({ error: error.message });
+  }})
+
