@@ -154,36 +154,29 @@ app.get('/calls/create', async (req, res) => {
     const callsList = [];
 
     for (let event of incomingEvents) {
-      for (let retriggeredFromSessionId of event.retriggeredFromSessionIds) {
-        console.log(event.retriggeredFromSessionIds);
-        if (retriggeredFromSessionId === null || retriggeredFromSessionId === '-1') {
-          continue;
-        }
-
-        let call = callsList.find(call => call.sessionIDs.includes(event.currentSessionId) || call.sessionIDs.includes(retriggeredFromSessionId));
-
-        if (!call) {
-          // If call doesn't exist, create a new one
-          call = {
-            sessionIDs: [retriggeredFromSessionId, event.currentSessionId],
-            earliestTime: event.timestamp,
-            latestTime: event.timestamp,
-            serviceKey: event.serviceKey,
-            success: true
-          };
-          callsList.push(call);
-        } else {
-          // Update the existing call with new sessionID and update timestamps if necessary
-          call.sessionIDs.push(event.currentSessionId);
-          call.sessionIDs.push(retriggeredFromSessionId);
-          call.sessionIDs = [...new Set(call.sessionIDs)]; // Ensure uniqueness
-          call.earliestTime = new Date(Math.min(new Date(call.earliestTime).getTime(), new Date(event.timestamp).getTime()));
-          call.latestTime = new Date(Math.max(new Date(call.latestTime).getTime(), new Date(event.timestamp).getTime()));
-        }
+      console.log(event.retriggeredFromSessionIds);
+      let call = callsList.find(call => call.sessionIDs.includes(event.currentSessionId) || call.sessionIDs.some(r=> event.retriggeredFromSessionIds.includes(r)));
+      if (!call) {
+        // If call doesn't exist, create a new one
+        call = {
+          sessionIDs: [...event.retriggeredFromSessionIds, event.currentSessionId],
+          earliestTime: event.timestamp,
+          latestTime: event.timestamp,
+          serviceKey: event.serviceKey,
+          success: true
+        };
+        callsList.push(call);
+      } else {
+        // Update the existing call with new sessionID and update timestamps if necessary
+        call.sessionIDs.push(event.currentSessionId);
+        call.sessionIDs.push(...event.retriggeredFromSessionIds);
+        call.sessionIDs = [...new Set(call.sessionIDs)]; // Ensure uniqueness
+        call.earliestTime = new Date(Math.min(new Date(call.earliestTime).getTime(), new Date(event.timestamp).getTime()));
+        call.latestTime = new Date(Math.max(new Date(call.latestTime).getTime(), new Date(event.timestamp).getTime()));
       }
     }
 
-    res.status(200).json({ message: 'Calls created/updated successfully.', callsList });
+  res.status(200).json({ message: 'Calls created/updated successfully.', callsList });
 
   } catch (error) {
     res.status(500).json({ error: error.message });
