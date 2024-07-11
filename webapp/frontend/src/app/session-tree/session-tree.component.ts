@@ -19,14 +19,17 @@ export class SessionTreeComponent implements OnInit, OnChanges {
   sessionIDs: string[] = [];
 
   ngOnInit() {
-    if (this.incomingEvents.length > 0) {
-      this.buildTree();
-      this.renderTree();
-    }
+    this.updateTree();
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['incomingEvents'] && this.incomingEvents.length > 0) {
+    if (changes['incomingEvents']) {
+      this.updateTree();
+    }
+  }
+
+  updateTree() {
+    if (this.incomingEvents.length > 0) {
       this.buildTree();
       this.renderTree();
     }
@@ -81,7 +84,7 @@ export class SessionTreeComponent implements OnInit, OnChanges {
 
       const tree = d3.tree<TreeNode>()
         .size([200, 1600])
-        .separation((a, b) => 100); // Ensure even spacing
+        .separation((a, b) => 100);
 
       const root = d3.hierarchy<TreeNode>(this.treeData);
       tree(root);
@@ -102,22 +105,25 @@ export class SessionTreeComponent implements OnInit, OnChanges {
         .attr('class', 'node')
         .attr('transform', d => `translate(${d.y},${d.x})`);
 
+      node.append('circle')
+        .attr('r', 5)
+        .attr('class', d => d.children ? 'root' : 'leaf');
+
       node.append('text')
-        .attr('dy', '-1em') // Position above sessionID
+        .attr('dy', '-1em')
         .attr('x', d => d.children ? -10 : 10)
         .style('text-anchor', d => d.children ? 'end' : 'start')
-        .text(d => d.data.callType || '') // Use dictionary for callType
-        .style('font-size', '14px');
+        .text(d => d.data.callType || '')
+        .attr('class', 'call-type');
 
       node.append('text')
         .attr('dy', '.35em')
         .attr('x', d => d.children ? -10 : 10)
         .style('text-anchor', d => d.children ? 'end' : 'start')
         .text(d => d.data.id)
-        .style('font-size', '14px')
         .call((text: any) => {
           this.wrapText(text, 100);
-        }); // Adjust the width as necessary
+        });
     }
   }
 
