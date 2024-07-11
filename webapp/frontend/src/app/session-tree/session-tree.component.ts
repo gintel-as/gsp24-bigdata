@@ -69,6 +69,7 @@ export class SessionTreeComponent implements OnInit, OnChanges {
     this.treesData = rootIds.map(rootId => nodeMap[rootId]).filter(tree => tree !== undefined) as TreeNode[];
     console.log('Trees Data:', this.treesData);
   }
+
   renderTrees() {
     if (!this.treesData.length) {
       console.error('Trees data is not initialized');
@@ -79,34 +80,34 @@ export class SessionTreeComponent implements OnInit, OnChanges {
     if (treeElement) {
       d3.select(treeElement).selectAll('*').remove();
 
-      const svg = d3.select(treeElement).append('svg').attr('width', 2000).attr('height', 250 * this.treesData.length),
+      const totalNodes = this.treesData.reduce((acc, treeData) => acc + this.countNodes(treeData), 0);
+      const height = totalNodes * 60; // Dynamic height based on the number of nodes, increased for extra space
+      const svg = d3.select(treeElement).append('svg').attr('width', 2000).attr('height', height),
         g = svg.append('g').attr('transform', 'translate(140,40)');
 
       const tree = d3.tree<TreeNode>()
-        .size([200, 1600])
+        .size([height, 1600])
         .separation((a, b) => 100); // Ensure even spacing
 
       this.treesData.forEach((treeData, index) => {
         const root = d3.hierarchy<TreeNode>(treeData);
         tree(root);
 
-        const offsetY = index * 250;
-
         const link = g.selectAll(`.link-${index}`)
           .data(root.links())
           .enter().append('line')
           .attr('class', `link-${index}`)
           .attr('x1', d => d.source.y!)
-          .attr('y1', d => (d.source.x ?? 0) + offsetY)
+          .attr('y1', d => d.source.x!)
           .attr('x2', d => d.target.y!)
-          .attr('y2', d => (d.target.x ?? 0) + offsetY)
+          .attr('y2', d => d.target.x!)
           .style('stroke', '#ccc');
 
         const node = g.selectAll(`.node-${index}`)
           .data(root.descendants())
           .enter().append('g')
           .attr('class', `node-${index}`)
-          .attr('transform', d => `translate(${d.y},${(d.x ?? 0) + offsetY})`);
+          .attr('transform', d => `translate(${d.y},${d.x})`);
 
         node.append('text')
           .attr('dy', '-1em') // Position above sessionID
@@ -126,6 +127,13 @@ export class SessionTreeComponent implements OnInit, OnChanges {
           }); // Adjust the width as necessary
       });
     }
+  }
+
+  countNodes(node: TreeNode): number {
+    if (!node.children || node.children.length === 0) {
+      return 1;
+    }
+    return 1 + node.children.reduce((acc, child) => acc + this.countNodes(child), 0);
   }
 
   wrapText = (text: any, width: number) => {
