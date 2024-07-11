@@ -1,4 +1,11 @@
-.call-container {
+:host {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .call-container {
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 10px;
@@ -28,16 +35,24 @@
     border-left: 3px solid #d6d8db;
   }
   
+  .button-container {
+    margin-bottom: 20px;
+  }
+  
   button {
+    width:10%;
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 15px 30px;
+    padding: 10px 20px; /* Adjusted padding for a smaller button */
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-bottom: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
     font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    line-height: 1.5;
+    display: inline-block; /* Ensure the button aligns to the left */
   }
   
   button:hover {
