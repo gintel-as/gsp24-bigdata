@@ -17,62 +17,61 @@ export class SessionTreeComponent implements OnInit, OnChanges {
   @Input() callsList: any[] = [];
   @Input() sessions: any[] = [];
   @Input() call: any;
-  treeData: TreeNode | null = null;
+  treesData: TreeNode[] = [];
 
   ngOnInit() {
     if (this.callsList.length > 0 && this.sessions.length > 0) {
-      this.buildTree();
-      this.renderTree();
+      this.buildTrees();
+      this.renderTrees();
     }
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if ((changes['callsList'] && this.callsList.length > 0) || (changes['sessions'] && this.sessions.length > 0)) {
-      this.buildTree();
-      this.renderTree();
+      this.buildTrees();
+      this.renderTrees();
     }
   }
 
-  buildTree() {
+  buildTrees() {
     if (!this.call || this.call.sessionIDs.length === 0) {
-      console.error('No correlation results available to build the tree');
+      console.error('No correlation results available to build the trees');
       return;
     }
 
     const nodeMap: { [key: string]: TreeNode } = {};
+    const visited: { [key: string]: boolean } = {};
 
-    this.call.sessionIDs.forEach((sessionId: any) => {
+    this.call.sessionIDs.forEach((sessionId: string) => {
       const session = this.sessions.find(s => s.sessionId === sessionId);
       if (session) {
         if (!nodeMap[session.sessionId]) {
           nodeMap[session.sessionId] = { id: session.sessionId, children: [] };
         }
         session.children.forEach((childId: string) => {
-          if (!nodeMap[childId]) {
-            nodeMap[childId] = { id: childId, children: [] };
+          if (!visited[childId]) {
+            if (!nodeMap[childId]) {
+              nodeMap[childId] = { id: childId, children: [] };
+            }
+            nodeMap[session.sessionId].children.push(nodeMap[childId]);
+            nodeMap[childId].callType = session.serviceKey;
           }
-          nodeMap[session.sessionId].children.push(nodeMap[childId]);
-          nodeMap[childId].callType = session.serviceKey;
+          visited[session.sessionId] = true;
         });
       }
     });
 
-    // Determine the root ID: the root ID will not be present as a child in any of the relationships
+    // Identify all roots: nodes that are not children of any other node
+    const allIds = new Set(this.call.sessionIDs);
     const childIds = new Set(this.call.sessionIDs.flatMap((sessionId: string) => nodeMap[sessionId]?.children.map(child => child.id) || []));
-    const rootID = this.call.sessionIDs.find((id: unknown) => !childIds.has(id));
+    const rootIds: string[] = [...allIds].filter(id => !childIds.has(id)) as string[];
 
-    if (!rootID) {
-      console.error('No root ID found');
-      return;
-    }
-
-    this.treeData = nodeMap[rootID];
-    console.log('Tree Data:', this.treeData);
+    this.treesData = rootIds.map(rootId => nodeMap[rootId]).filter(tree => tree !== undefined) as TreeNode[];
+    console.log('Trees Data:', this.treesData);
   }
-
-  renderTree() {
-    if (!this.treeData) {
-      console.error('Tree data is not initialized');
+  renderTrees() {
+    if (!this.treesData.length) {
+      console.error('Trees data is not initialized');
       return;
     }
 
@@ -80,48 +79,52 @@ export class SessionTreeComponent implements OnInit, OnChanges {
     if (treeElement) {
       d3.select(treeElement).selectAll('*').remove();
 
-      const svg = d3.select(treeElement).append('svg').attr('width', 2000).attr('height', 250),
+      const svg = d3.select(treeElement).append('svg').attr('width', 2000).attr('height', 250 * this.treesData.length),
         g = svg.append('g').attr('transform', 'translate(140,40)');
 
       const tree = d3.tree<TreeNode>()
         .size([200, 1600])
         .separation((a, b) => 100); // Ensure even spacing
 
-      const root = d3.hierarchy<TreeNode>(this.treeData);
-      tree(root);
+      this.treesData.forEach((treeData, index) => {
+        const root = d3.hierarchy<TreeNode>(treeData);
+        tree(root);
 
-      const link = g.selectAll('.link')
-        .data(root.links())
-        .enter().append('line')
-        .attr('class', 'link')
-        .attr('x1', d => d.source.y!)
-        .attr('y1', d => d.source.x!)
-        .attr('x2', d => d.target.y!)
-        .attr('y2', d => d.target.x!)
-        .style('stroke', '#ccc');
+        const offsetY = index * 250;
 
-      const node = g.selectAll('.node')
-        .data(root.descendants())
-        .enter().append('g')
-        .attr('class', 'node')
-        .attr('transform', d => `translate(${d.y},${d.x})`);
+        const link = g.selectAll(`.link-${index}`)
+          .data(root.links())
+          .enter().append('line')
+          .attr('class', `link-${index}`)
+          .attr('x1', d => d.source.y!)
+          .attr('y1', d => (d.source.x ?? 0) + offsetY)
+          .attr('x2', d => d.target.y!)
+          .attr('y2', d => (d.target.x ?? 0) + offsetY)
+          .style('stroke', '#ccc');
 
-      node.append('text')
-        .attr('dy', '-1em') // Position above sessionID
-        .attr('x', d => d.children ? -10 : 10)
-        .style('text-anchor', 'middle')
-        .text(d => d.data.callType || '') // Use dictionary for callType
-        .style('font-size', '14px');
+        const node = g.selectAll(`.node-${index}`)
+          .data(root.descendants())
+          .enter().append('g')
+          .attr('class', `node-${index}`)
+          .attr('transform', d => `translate(${d.y},${(d.x ?? 0) + offsetY})`);
 
-      node.append('text')
-        .attr('dy', '.35em')
-        .attr('x', d => d.children ? -10 : 10)
-        .style('text-anchor', 'middle')
-        .text(d => d.data.id)
-        .style('font-size', '14px')
-        .call((text: any) => {
-          this.wrapText(text, 100);
-        }); // Adjust the width as necessary
+        node.append('text')
+          .attr('dy', '-1em') // Position above sessionID
+          .attr('x', d => d.children ? -10 : 10)
+          .style('text-anchor', 'middle')
+          .text(d => d.data.callType || '') // Use dictionary for callType
+          .style('font-size', '14px');
+
+        node.append('text')
+          .attr('dy', '.35em')
+          .attr('x', d => d.children ? -10 : 10)
+          .style('text-anchor', 'middle')
+          .text(d => d.data.id)
+          .style('font-size', '14px')
+          .call((text: any) => {
+            this.wrapText(text, 100);
+          }); // Adjust the width as necessary
+      });
     }
   }
 
