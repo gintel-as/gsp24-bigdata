@@ -129,7 +129,7 @@ export class SearchbarComponent {
   }
 
   performCorrelationSearch() {
-    console.log(this.correlationIDs)
+    console.log("correlation IDs" + this.correlationIDs)
     if (this.correlationIDs.size > 0) {
       Array.from(this.correlationIDs).forEach(correlationID => {
         this.searchLogs(correlationID);
