@@ -14,46 +14,52 @@ interface TreeNode {
   styleUrls: ['./session-tree.component.css']
 })
 export class SessionTreeComponent implements OnInit, OnChanges {
-  @Input() incomingEvents: { currentSessionId: string, retriggeredFromSessionId: string, serviceKey: string }[] = [];
+  @Input() callsList: any[] = [];
+  @Input() sessions: any[] = [];
+  @Input() call: any;
   treeData: TreeNode | null = null;
-  sessionIDs: string[] = [];
 
   ngOnInit() {
-    if (this.incomingEvents.length > 0) {
+    if (this.callsList.length > 0 && this.sessions.length > 0) {
       this.buildTree();
       this.renderTree();
     }
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['incomingEvents'] && this.incomingEvents.length > 0) {
+    if ((changes['callsList'] && this.callsList.length > 0) || (changes['sessions'] && this.sessions.length > 0)) {
       this.buildTree();
       this.renderTree();
     }
   }
 
   buildTree() {
-    if (!this.incomingEvents || this.incomingEvents.length === 0) {
+    if (!this.call || this.call.sessionIDs.length === 0) {
       console.error('No correlation results available to build the tree');
       return;
     }
 
     const nodeMap: { [key: string]: TreeNode } = {};
 
-    this.incomingEvents.forEach(result => {
-      if (!nodeMap[result.currentSessionId]) {
-        nodeMap[result.currentSessionId] = { id: result.currentSessionId, children: [] };
+    this.call.sessionIDs.forEach((sessionId: any) => {
+      const session = this.sessions.find(s => s.sessionId === sessionId);
+      if (session) {
+        if (!nodeMap[session.sessionId]) {
+          nodeMap[session.sessionId] = { id: session.sessionId, children: [] };
+        }
+        session.children.forEach((childId: string) => {
+          if (!nodeMap[childId]) {
+            nodeMap[childId] = { id: childId, children: [] };
+          }
+          nodeMap[session.sessionId].children.push(nodeMap[childId]);
+          nodeMap[childId].callType = session.serviceKey;
+        });
       }
-      if (!nodeMap[result.retriggeredFromSessionId]) {
-        nodeMap[result.retriggeredFromSessionId] = { id: result.retriggeredFromSessionId, children: [] };
-      }
-      nodeMap[result.retriggeredFromSessionId].children.push(nodeMap[result.currentSessionId]);
-      nodeMap[result.currentSessionId].callType = result.serviceKey;
     });
 
     // Determine the root ID: the root ID will not be present as a child in any of the relationships
-    const childIds = new Set(this.incomingEvents.map(result => result.currentSessionId));
-    const rootID = this.incomingEvents.find(result => !childIds.has(result.retriggeredFromSessionId))?.retriggeredFromSessionId;
+    const childIds = new Set(this.call.sessionIDs.flatMap((sessionId: string) => nodeMap[sessionId]?.children.map(child => child.id) || []));
+    const rootID = this.call.sessionIDs.find((id: unknown) => !childIds.has(id));
 
     if (!rootID) {
       console.error('No root ID found');
@@ -61,9 +67,7 @@ export class SessionTreeComponent implements OnInit, OnChanges {
     }
 
     this.treeData = nodeMap[rootID];
-    this.sessionIDs = Object.keys(nodeMap);
     console.log('Tree Data:', this.treeData);
-    console.log('Session IDs:', this.sessionIDs);
   }
 
   renderTree() {
@@ -105,14 +109,14 @@ export class SessionTreeComponent implements OnInit, OnChanges {
       node.append('text')
         .attr('dy', '-1em') // Position above sessionID
         .attr('x', d => d.children ? -10 : 10)
-        .style('text-anchor', d => d.children ? 'end' : 'start')
+        .style('text-anchor', 'middle')
         .text(d => d.data.callType || '') // Use dictionary for callType
         .style('font-size', '14px');
 
       node.append('text')
         .attr('dy', '.35em')
         .attr('x', d => d.children ? -10 : 10)
-        .style('text-anchor', d => d.children ? 'end' : 'start')
+        .style('text-anchor', 'middle')
         .text(d => d.data.id)
         .style('font-size', '14px')
         .call((text: any) => {

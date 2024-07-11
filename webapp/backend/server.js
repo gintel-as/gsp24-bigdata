@@ -131,7 +131,7 @@ app.get('/calls/create', async (req, res) => {
     const result = await client.search({
       index: 'adapter_logs', // Replace with your actual index
       query: {
-        wildcard: { log_message: '*eventincomingcall*' }
+        wildcard: {log_message: '*eventincomingcall*'}
       },
       size: 10000
     });
@@ -152,20 +152,78 @@ app.get('/calls/create', async (req, res) => {
     }).filter(event => event.retriggeredFromSessionIds.length > 0 && !event.retriggeredFromSessionIds.includes('-1'));
 
     const callsList = [];
-
+    const sessions = new Map(); // Map to store session objects
+    let i = 0;
     for (let event of incomingEvents) {
       console.log(event.retriggeredFromSessionIds);
-      let call = callsList.find(call => call.sessionIDs.includes(event.currentSessionId) || call.sessionIDs.some(r=> event.retriggeredFromSessionIds.includes(r)));
+
+      // Iterate through the retriggeredFromSessionIds array
+      let parentSessionId = null;
+      for (let retriggeredSessionId of event.retriggeredFromSessionIds) {
+        if (!sessions.has(retriggeredSessionId)) {
+          sessions.set(retriggeredSessionId, {
+            sessionId: retriggeredSessionId,
+            parents: parentSessionId ? [parentSessionId] : [],
+            children: [],
+            serviceKey: null,
+            timestamp: null
+          });
+        } else if (parentSessionId) {
+          const session = sessions.get(retriggeredSessionId);
+          if (!session.parents.includes(parentSessionId)) {
+            session.parents.push(parentSessionId);
+          }
+        }
+
+        if (parentSessionId) {
+          const parentSession = sessions.get(parentSessionId);
+          if (!parentSession.children.includes(retriggeredSessionId)) {
+            parentSession.children.push(retriggeredSessionId);
+          }
+        }
+
+        parentSessionId = retriggeredSessionId;
+      }
+
+      // Handle the current session ID
+      if (!sessions.has(event.currentSessionId)) {
+        sessions.set(event.currentSessionId, {
+          sessionId: event.currentSessionId,
+          parents: parentSessionId ? [parentSessionId] : [],
+          children: [],
+          serviceKey: event.serviceKey,
+          timestamp: event.timestamp
+        });
+      } else {
+        const currentSession = sessions.get(event.currentSessionId);
+        currentSession.serviceKey = event.serviceKey;
+        currentSession.timestamp = event.timestamp;
+        if (parentSessionId && !currentSession.parents.includes(parentSessionId)) {
+          currentSession.parents.push(parentSessionId);
+        }
+      }
+
+      if (parentSessionId) {
+        const parentSession = sessions.get(parentSessionId);
+        if (!parentSession.children.includes(event.currentSessionId)) {
+          parentSession.children.push(event.currentSessionId);
+        }
+      }
+
+      let call = callsList.find(call => call.sessionIDs.includes(event.currentSessionId) || call.sessionIDs.some(r => event.retriggeredFromSessionIds.includes(r)));
       if (!call) {
         // If call doesn't exist, create a new one
         call = {
+          id: i,
           sessionIDs: [...event.retriggeredFromSessionIds, event.currentSessionId],
           earliestTime: event.timestamp,
           latestTime: event.timestamp,
           serviceKey: event.serviceKey,
           success: true
         };
+        i += 1
         callsList.push(call);
+
       } else {
         // Update the existing call with new sessionID and update timestamps if necessary
         call.sessionIDs.push(event.currentSessionId);
@@ -176,10 +234,14 @@ app.get('/calls/create', async (req, res) => {
       }
     }
 
-  res.status(200).json({ message: 'Calls created/updated successfully.', callsList });
+    res.status(200).json({
+      message: 'Calls created/updated successfully.',
+      callsList,
+      sessions: Array.from(sessions.values())
+    });
 
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({error: error.message});
   }
 });
 
