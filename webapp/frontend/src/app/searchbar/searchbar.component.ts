@@ -67,13 +67,12 @@ export class SearchbarComponent {
     "counterPartyId", "twoStepLeg2Number", "servedUserPrimary"
   ];
 
-  edrFields: string[] = [
+  edrFields: string[] =  [
     "record_type", "callType", "id", "sessionID", "sequenceNumber", "aNumber", 
     "bNumber", "cNumber", "servedUser", "redirectNumber", "genericNumber", "a_clir", 
-    "originallyCalledNumberClir", "genericNumber", "genericNumberDisplayed", 
     "term_code", "callStartTime", "mrfAnswerTime", "overheadTime", "pagingTime", "ringingTime", 
     "calledPartyAnswerTime", "connectTime", "chargeClass", "payingParty", 
-    "release_code", "mscAddress", "vlrNumber", 
+    "release_code", "mscAddress", "vlrAddress", "transferCapability", "layer1Capability", 
     "vpnScenario", "aProvider", "cProvider", "sno", "cid", 
     "oname", "userResponseHistory", "serviceKey", "subServiceId", "edrType", 
     "operation", "serviceProvider", "noConnectCause", 
