@@ -16,15 +16,20 @@
     (sourceToggle)="toggleSource($event)"
   ></app-source-filters>
 
-  <div>
-    <label>
-      <input type="checkbox" [checked]="removeFluff" (change)="toggleRemoveFluff()"> Remove Fluff
-    </label>
-    <label>
-      <input type="checkbox" [checked]="showCorrelationLogs" (change)="toggleCorrelationLogs()"> Include Correlation Logs
-    </label>
+  <div class="filter-container">
+    <div class="filter-column">
+      <label class="filter-label">
+        <input type="checkbox" [checked]="removeFluff" (change)="toggleRemoveFluff()"> Remove Adapter Fluff
+      </label>
+      <label class="filter-label">
+        <input type="checkbox" [checked]="removeCSTAFluff" (change)="toggleRemoveCSTAFluff()"> Remove CSTA Fluff
+      </label>
+      <label class="filter-label">
+        <input type="checkbox" [checked]="showCorrelationLogs" (change)="toggleCorrelationLogs()"> Include Correlation Logs
+      </label>
+    </div>
   </div>
-</div>
+  
 
 <div class="dropdown-container">
   <app-cdr-dropdown [fields]="fields" [label]="'Select CDR Fields'" (selectedFieldsChange)="onSelectedCdrFieldsChange($event)"></app-cdr-dropdown>

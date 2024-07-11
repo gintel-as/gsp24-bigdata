@@ -43,11 +43,6 @@
 
   }
 
-  .message {
-    font-family: 'Courier New', Courier, monospace;
-    white-space: pre-wrap; /* Preserve spaces and line breaks */
-    word-wrap: break-word; /* Ensure words break to fit within the container */
-  }
   .log-line {
     display: flex;
     padding: 10px;
@@ -138,6 +133,11 @@
   .header.message{
     align-items: center;
     display: flex;
+  }
+  .message {
+    font-family: 'Courier New', Courier, monospace;
+    white-space: pre-wrap; 
+    word-wrap: break-word; 
   }
 
 
