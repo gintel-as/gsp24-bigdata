@@ -19,7 +19,10 @@
   <div class="filter-container">
     <div class="filter-column">
       <label class="filter-label">
-        <input type="checkbox" [checked]="removeFluff" (change)="toggleRemoveFluff()"> Remove Fluff
+        <input type="checkbox" [checked]="removeFluff" (change)="toggleRemoveFluff()"> Remove Adapter Fluff
+      </label>
+      <label class="filter-label">
+        <input type="checkbox" [checked]="removeCSTAFluff" (change)="toggleRemoveCSTAFluff()"> Remove CSTA Fluff
       </label>
       <label class="filter-label">
         <input type="checkbox" [checked]="showCorrelationLogs" (change)="toggleCorrelationLogs()"> Include Correlation Logs
