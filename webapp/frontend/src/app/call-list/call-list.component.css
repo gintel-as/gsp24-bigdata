@@ -1,0 +1,51 @@
+.call-container {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    background-color: #f7f7f7;
+  }
+  
+  .call-header {
+    cursor: pointer;
+    margin: 0;
+    padding: 10px;
+    background-color: #f7f7f7;
+    color: #333;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .call-header:hover {
+    background-color: #e2e3e5;
+  }
+  
+  .session-tree-container {
+    margin-left: 20px;
+    padding: 10px;
+    background-color: #f7f7f7;
+    border-left: 3px solid #d6d8db;
+  }
+  
+  button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
