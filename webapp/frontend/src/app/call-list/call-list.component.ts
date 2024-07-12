@@ -8,7 +8,7 @@ import { of } from 'rxjs';
 @Component({
   selector: 'app-call-list',
   standalone: true,
-  imports: [CommonModule, SessionTreeComponent],
+  imports: [CommonModule, SessionTreeComponent, SessionTreeComponent],
   template: `
     <button (click)="createCalls()">
       Create Calls
@@ -16,6 +16,8 @@ import { of } from 'rxjs';
     <div *ngFor="let call of callsList; let i = index" class="call-container">
       <h3 (click)="toggleTree(call.id)" class="call-header">Call ID: {{ call.id }} (Click to toggle)</h3>
       <div *ngIf="callVisible[call.id]" class="session-tree-container">
+        <p>Earliest event: {{ call.earliestTime }}</p>
+        <p>Latest event: {{ call.latestTime }}</p>
         <app-session-tree [callsList]="callsList" [sessions]="sessions" [call]="call"></app-session-tree>
       </div>
     </div>

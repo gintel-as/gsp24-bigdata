@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, ViewChildren, ElementRef, AfterViewInit, QueryList } from '@angular/core';
 import * as d3 from 'd3';
+import {NgForOf} from "@angular/common";
 
 interface TreeNode {
   id: string;
@@ -10,27 +11,37 @@ interface TreeNode {
 @Component({
   selector: 'app-session-tree',
   standalone: true,
-  templateUrl: './session-tree.component.html',
+  template: `
+    <div *ngFor="let tree of treesData" class="tree-container">
+      <div #treeContainer></div>
+    </div>
+  `,
+  imports: [
+    NgForOf
+  ],
   styleUrls: ['./session-tree.component.css']
 })
-export class SessionTreeComponent implements OnInit, OnChanges {
+export class SessionTreeComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() callsList: any[] = [];
   @Input() sessions: any[] = [];
   @Input() call: any;
+  @ViewChildren('treeContainer') treeContainers!: QueryList<ElementRef>;
   treesData: TreeNode[] = [];
 
   ngOnInit() {
     if (this.callsList.length > 0 && this.sessions.length > 0) {
       this.buildTrees();
-      this.renderTrees();
     }
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if ((changes['callsList'] && this.callsList.length > 0) || (changes['sessions'] && this.sessions.length > 0)) {
       this.buildTrees();
-      this.renderTrees();
     }
+  }
+
+  ngAfterViewInit() {
+    this.renderTrees();
   }
 
   buildTrees() {
@@ -48,13 +59,14 @@ export class SessionTreeComponent implements OnInit, OnChanges {
       if (session) {
         if (!nodeMap[session.sessionId]) {
           nodeMap[session.sessionId] = { id: session.sessionId, children: [] };
+          nodeMap[session.sessionId].callType = session.serviceKey;
         }
         session.children.forEach((childId: string) => {
           if (!nodeMap[childId]) {
             nodeMap[childId] = { id: childId, children: [] };
           }
           nodeMap[session.sessionId].children.push(nodeMap[childId]);
-          nodeMap[childId].callType = session.serviceKey;
+          nodeMap[childId].callType = this.sessions.find(s => s.sessionId === childId).serviceKey;
           if (!parentMap[childId]) {
             parentMap[childId] = [];
           }
@@ -69,6 +81,9 @@ export class SessionTreeComponent implements OnInit, OnChanges {
     const rootIds: string[] = [...allIds].filter(id => !childIds.has(id)) as string[];
 
     this.treesData = rootIds.map(rootId => this.buildTreeFromRoot(rootId, nodeMap, new Set())).filter(tree => tree !== undefined) as TreeNode[];
+
+    // Render trees after building them
+    this.renderTrees();
   }
 
   buildTreeFromRoot(rootId: string, nodeMap: { [key: string]: TreeNode }, visited: Set<string>): TreeNode | undefined {
@@ -93,58 +108,65 @@ export class SessionTreeComponent implements OnInit, OnChanges {
       return;
     }
 
-    const treeElement = document.getElementById('tree');
-    if (treeElement) {
-      d3.select(treeElement).selectAll('*').remove();
-
-      this.treesData.forEach((treeData, index) => {
-        const totalNodes = this.countNodes(treeData);
-        const height = totalNodes * 60; // Dynamic height based on the number of nodes, increased for extra space
-
-        const svg = d3.select(treeElement).append('svg').attr('width', 2000).attr('height', height),
-          g = svg.append('g').attr('transform', `translate(140,${index * height + 40})`); // Adjust position for each tree
-
-        const tree = d3.tree<TreeNode>()
-          .size([height, 1600])
-          .separation((a, b) => 100); // Ensure even spacing
-
-        const root = d3.hierarchy<TreeNode>(treeData);
-        tree(root);
-
-        const link = g.selectAll(`.link-${index}`)
-          .data(root.links())
-          .enter().append('line')
-          .attr('class', `link-${index}`)
-          .attr('x1', d => d.source.y!)
-          .attr('y1', d => d.source.x!)
-          .attr('x2', d => d.target.y!)
-          .attr('y2', d => d.target.x!)
-          .style('stroke', '#ccc');
-
-        const node = g.selectAll(`.node-${index}`)
-          .data(root.descendants())
-          .enter().append('g')
-          .attr('class', `node-${index}`)
-          .attr('transform', d => `translate(${d.y},${d.x})`);
-
-        node.append('text')
-          .attr('dy', '-1em') // Position above sessionID
-          .attr('x', d => d.children ? -10 : 10)
-          .style('text-anchor', 'middle')
-          .text(d => d.data.callType || '') // Use dictionary for callType
-          .style('font-size', '14px');
-
-        node.append('text')
-          .attr('dy', '.35em')
-          .attr('x', d => d.children ? -10 : 10)
-          .style('text-anchor', 'middle')
-          .text(d => d.data.id)
-          .style('font-size', '14px')
-          .call((text: any) => {
-            this.wrapText(text, 100);
-          }); // Adjust the width as necessary
-      });
+    if (!this.treeContainers || this.treeContainers.length === 0) {
+      console.error('No tree containers found');
+      return;
     }
+
+    this.treeContainers.forEach((treeContainer, index) => {
+      const treeData = this.treesData[index];
+      const totalNodes = this.countNodes(treeData);
+      const height = totalNodes * 60; // Dynamic height based on the number of nodes, increased for extra space
+
+      const svg = d3.select(treeContainer.nativeElement).append('svg').attr('width', 2000).attr('height', height),
+        g = svg.append('g').attr('transform', `translate(140,40)`); // Adjust position for each tree
+
+      const tree = d3.tree<TreeNode>()
+        .size([height, 1600])
+        .separation((a, b) => 100); // Ensure even spacing
+
+      const root = d3.hierarchy<TreeNode>(treeData);
+      tree(root);
+
+      const link = g.selectAll(`.link-${index}`)
+        .data(root.links())
+        .enter().append('line')
+        .attr('class', `link-${index}`)
+        .attr('x1', d => d.source.y!)
+        .attr('y1', d => d.source.x!)
+        .attr('x2', d => d.target.y!)
+        .attr('y2', d => d.target.x!)
+        .style('stroke', '#ccc');
+
+      const node = g.selectAll(`.node-${index}`)
+        .data(root.descendants())
+        .enter().append('g')
+        .attr('class', `node-${index}`)
+        .attr('transform', d => `translate(${d.y},${d.x})`);
+
+      node.append('text')
+        .attr('dy', '-1em') // Position above sessionID
+        .attr('x', d => d.children ? -10 : 10)
+        .style('text-anchor', 'middle')
+        .text(d => d.data.callType || '') // Use dictionary for callType
+        .style('font-size', '14px');
+
+      node.append('text')
+        .attr('dy', '.35em')
+        .attr('x', d => d.children ? -10 : 10)
+        .style('text-anchor', 'middle')
+        .text(d => d.data.id)
+        .style('font-size', '14px')
+        .style('fill', d => this.getSessionSuccessColor(d.data.id)) // Set color based on success
+        .call((text: any) => {
+          this.wrapText(text, 100);
+        }); // Adjust the width as necessary
+    });
+  }
+
+  getSessionSuccessColor(sessionId: string): string {
+    const session = this.sessions.find(s => s.sessionId === sessionId);
+    return session && session.success ? 'green' : 'red';
   }
 
   countNodes(node: TreeNode): number {
