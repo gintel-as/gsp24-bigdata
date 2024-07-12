@@ -28,26 +28,27 @@
 
 <app-cdr-dropdown [fields]="fields" (selectedFieldsChange)="onSelectedFieldsChange($event)"></app-cdr-dropdown>
 
-<div>
-  <button (click)="showMenu = !showMenu">Add Search Term</button>
-  <div *ngIf="showMenu">
-    <label>
+<div class="search-term-container">
+  <button class="toggle-button" (click)="showMenu = !showMenu">Add Search Term</button>
+  <div *ngIf="showMenu" class="menu">
+    <label class="menu-item">
       Log:
       <select [(ngModel)]="selectedLog">
         <option *ngFor="let log of ['adapter_logs', 'server_logs', 'sip_logs']" [value]="log">{{ log }}</option>
       </select>
     </label>
-    <label>
+    <label class="menu-item">
       Term:
       <input type="text" [(ngModel)]="searchTerm">
     </label>
-    <button (click)="addSearchTerm(selectedLog, searchTerm); showMenu = false;">Add</button>
+    <button class="add-button" (click)="addSearchTerm(selectedLog, searchTerm); showMenu = false;">Add</button>
   </div>
 </div>
 
 <div *ngFor="let term of searchTerms; let i = index" class="tag">
-  {{ term.log }}: {{ term.term }} <span (click)="removeSearchTerm(i)">x</span>
+  {{ term.log }}: {{ term.term }} <span class="remove-tag" (click)="removeSearchTerm(i)">x</span>
 </div>
+
 
 
 <app-results-display [results]="filteredResults" [getBackgroundColor]="getBackgroundColor"></app-results-display>
