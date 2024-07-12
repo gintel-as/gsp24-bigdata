@@ -40,8 +40,9 @@ export class SessionTreeComponent implements OnInit, OnChanges {
     }
 
     const nodeMap: { [key: string]: TreeNode } = {};
-    const visited: { [key: string]: boolean } = {};
+    const parentMap: { [key: string]: string[] } = {};
 
+    // Build node map and parent-child relationships
     this.call.sessionIDs.forEach((sessionId: string) => {
       const session = this.sessions.find(s => s.sessionId === sessionId);
       if (session) {
@@ -49,25 +50,41 @@ export class SessionTreeComponent implements OnInit, OnChanges {
           nodeMap[session.sessionId] = { id: session.sessionId, children: [] };
         }
         session.children.forEach((childId: string) => {
-          if (!visited[childId]) {
-            if (!nodeMap[childId]) {
-              nodeMap[childId] = { id: childId, children: [] };
-            }
-            nodeMap[session.sessionId].children.push(nodeMap[childId]);
-            nodeMap[childId].callType = session.serviceKey;
+          if (!nodeMap[childId]) {
+            nodeMap[childId] = { id: childId, children: [] };
           }
-          visited[session.sessionId] = true;
+          nodeMap[session.sessionId].children.push(nodeMap[childId]);
+          nodeMap[childId].callType = session.serviceKey;
+          if (!parentMap[childId]) {
+            parentMap[childId] = [];
+          }
+          parentMap[childId].push(session.sessionId);
         });
       }
     });
 
-    // Identify all roots: nodes that are not children of any other node
-    const allIds = new Set(this.call.sessionIDs);
-    const childIds = new Set(this.call.sessionIDs.flatMap((sessionId: string) => nodeMap[sessionId]?.children.map(child => child.id) || []));
+    // Identify all root IDs: nodes that are not children of any other node
+    const allIds: Set<string> = new Set(this.call.sessionIDs);
+    const childIds = new Set(Object.keys(parentMap));
     const rootIds: string[] = [...allIds].filter(id => !childIds.has(id)) as string[];
 
-    this.treesData = rootIds.map(rootId => nodeMap[rootId]).filter(tree => tree !== undefined) as TreeNode[];
-    console.log('Trees Data:', this.treesData);
+    this.treesData = rootIds.map(rootId => this.buildTreeFromRoot(rootId, nodeMap, new Set())).filter(tree => tree !== undefined) as TreeNode[];
+  }
+
+  buildTreeFromRoot(rootId: string, nodeMap: { [key: string]: TreeNode }, visited: Set<string>): TreeNode | undefined {
+    if (visited.has(rootId)) {
+      return undefined; // Detect circular logic and prevent infinite loops
+    }
+    visited.add(rootId);
+
+    const rootNode = nodeMap[rootId];
+    if (rootNode) {
+      rootNode.children = rootNode.children.map(child => {
+        return this.buildTreeFromRoot(child.id, nodeMap, new Set(visited));
+      }).filter(child => child !== undefined) as TreeNode[];
+      return rootNode;
+    }
+    return undefined;
   }
 
   renderTrees() {
@@ -80,16 +97,17 @@ export class SessionTreeComponent implements OnInit, OnChanges {
     if (treeElement) {
       d3.select(treeElement).selectAll('*').remove();
 
-      const totalNodes = this.treesData.reduce((acc, treeData) => acc + this.countNodes(treeData), 0);
-      const height = totalNodes * 60; // Dynamic height based on the number of nodes, increased for extra space
-      const svg = d3.select(treeElement).append('svg').attr('width', 2000).attr('height', height),
-        g = svg.append('g').attr('transform', 'translate(140,40)');
-
-      const tree = d3.tree<TreeNode>()
-        .size([height, 1600])
-        .separation((a, b) => 100); // Ensure even spacing
-
       this.treesData.forEach((treeData, index) => {
+        const totalNodes = this.countNodes(treeData);
+        const height = totalNodes * 60; // Dynamic height based on the number of nodes, increased for extra space
+
+        const svg = d3.select(treeElement).append('svg').attr('width', 2000).attr('height', height),
+          g = svg.append('g').attr('transform', `translate(140,${index * height + 40})`); // Adjust position for each tree
+
+        const tree = d3.tree<TreeNode>()
+          .size([height, 1600])
+          .separation((a, b) => 100); // Ensure even spacing
+
         const root = d3.hierarchy<TreeNode>(treeData);
         tree(root);
 
