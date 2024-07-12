@@ -1,0 +1,40 @@
+/* session-tree.component.css */
+#tree-container {
+    width: 100%;
+    height: auto;
+    overflow: auto;
+    padding: 10px;
+  }
+  
+  .node text {
+    font-family: Arial, sans-serif;
+    fill: #333;
+  }
+  
+  .node text.call-type {
+    font-weight: bold;
+    fill: #666;
+  }
+  
+  .link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 2px;
+  }
+  
+  .node circle {
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 3px;
+  }
+  
+  .node circle.root {
+    fill: steelblue;
+    stroke: #fff;
+  }
+  
+  .node circle.leaf {
+    fill: #fff;
+    stroke: steelblue;
+  }
+  
