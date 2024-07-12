@@ -129,12 +129,14 @@ app.get('/calls/create', async (req, res) => {
       const serviceKey = extractServiceKey(log_message);
       const currentSessionId = hit._source.sessionID;
       const timestamp = hit._source.timestamp;
+      const servedUser = extractServedUser(log_message);
 
       return {
         currentSessionId,
         retriggeredFromSessionIds,
         serviceKey,
-        timestamp
+        timestamp,
+        servedUser
       };
     });
 
@@ -152,6 +154,7 @@ app.get('/calls/create', async (req, res) => {
             children: [],
             serviceKey: null,
             timestamp: null,
+            servedUser: null,
             success: await checkSessionSuccess(retriggeredSessionId)
           });
         } else if (parentSessionId) {
@@ -179,12 +182,14 @@ app.get('/calls/create', async (req, res) => {
           children: [],
           serviceKey: event.serviceKey,
           timestamp: event.timestamp,
+          servedUser: event.servedUser,
           success: await checkSessionSuccess(event.currentSessionId)
         });
       } else {
         const currentSession = sessions.get(event.currentSessionId);
         currentSession.serviceKey = event.serviceKey;
         currentSession.timestamp = event.timestamp;
+        currentSession.servedUser = event.servedUser;
         if (parentSessionId && !currentSession.parents.includes(parentSessionId)) {
           currentSession.parents.push(parentSessionId);
         }
@@ -259,6 +264,11 @@ function extractRetriggeredFromSessionIds(logMessage) {
 
 function extractServiceKey(logMessage) {
   const match = logMessage.match(/serviceKey='([^']+)'/);
+  return match ? match[1] : null;
+}
+
+function extractServedUser(logMessage) {
+  const match = logMessage.match(/servedUser='([^']+)'/);
   return match ? match[1] : null;
 }
 

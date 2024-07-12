@@ -5,6 +5,7 @@ import {NgForOf} from "@angular/common";
 interface TreeNode {
   id: string;
   callType?: string;
+  servedUser?: string;
   children: TreeNode[];
 }
 
@@ -60,6 +61,8 @@ export class SessionTreeComponent implements OnInit, OnChanges, AfterViewInit {
         if (!nodeMap[session.sessionId]) {
           nodeMap[session.sessionId] = { id: session.sessionId, children: [] };
           nodeMap[session.sessionId].callType = session.serviceKey;
+          nodeMap[session.sessionId].servedUser = session.servedUser;
+
         }
         session.children.forEach((childId: string) => {
           if (!nodeMap[childId]) {
@@ -67,6 +70,8 @@ export class SessionTreeComponent implements OnInit, OnChanges, AfterViewInit {
           }
           nodeMap[session.sessionId].children.push(nodeMap[childId]);
           nodeMap[childId].callType = this.sessions.find(s => s.sessionId === childId).serviceKey;
+          nodeMap[childId].servedUser = this.sessions.find(s => s.sessionId === childId).servedUser;
+
           if (!parentMap[childId]) {
             parentMap[childId] = [];
           }
@@ -149,6 +154,13 @@ export class SessionTreeComponent implements OnInit, OnChanges, AfterViewInit {
         .attr('x', d => d.children ? -10 : 10)
         .style('text-anchor', 'middle')
         .text(d => d.data.callType || '') // Use dictionary for callType
+        .style('font-size', '14px');
+
+      node.append('text')
+        .attr('dy', '-2.25em') // Position above servedUser
+        .attr('x', d => d.children ? -10 : 10)
+        .style('text-anchor', 'middle')
+        .text(d => d.data.servedUser || '') // Use dictionary for callType
         .style('font-size', '14px');
 
       node.append('text')
