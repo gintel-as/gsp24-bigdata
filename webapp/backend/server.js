@@ -249,6 +249,7 @@ async function checkSessionSuccess(sessionId) {
           must_not: [
             { wildcard: { log_message: '*firstanswered*' } },
             { wildcard: { log_message: '*logworker*' } },
+            { wildcard: { log_message: '*eanswered*' } },
 
           ]
         }

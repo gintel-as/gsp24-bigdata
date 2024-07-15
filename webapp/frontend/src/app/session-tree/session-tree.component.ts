@@ -30,16 +30,16 @@ export class SessionTreeComponent implements OnInit, OnChanges, AfterViewInit {
   treesData: TreeNode[] = [];
 
   phoneNumberDictionary: { [key: string]: string } = {
-    '4746180309': 'A',
-    '4746180298': 'B',
-    '4746180294': 'C',
-    '4746180307': 'D',
-    '4722390386': 'E',
-    '4746180245': 'F',
+    '4746180309': ' (A)',
+    '4746180298': ' (B)',
+    '4746180294': ' (C)',
+    '4746180307': ' (D)',
+    '4722390386': ' (E)',
+    '4746180245': ' (F)',
   };
 
   replacePhoneNumber(text: string): string {
-    return this.phoneNumberDictionary[text] || text;
+    return text + this.phoneNumberDictionary[text] || text;
   }
 
 
@@ -177,8 +177,8 @@ export class SessionTreeComponent implements OnInit, OnChanges, AfterViewInit {
       node.append('text')
         .attr('dy', '-4em') // Position above servedUser
         .attr('x', d => d.children ? -10 : 10)
-        .style('text-anchor', 'middle')
         .text(d => this.replacePhoneNumber(d.data.servedUser || '')) // Use dictionary for callType
+        .style('text-anchor', 'middle')
         .style('font-size', '14px');
 
       node.append('text')
