@@ -29,6 +29,20 @@ export class SessionTreeComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChildren('treeContainer') treeContainers!: QueryList<ElementRef>;
   treesData: TreeNode[] = [];
 
+  phoneNumberDictionary: { [key: string]: string } = {
+    '4746180309': 'A',
+    '4746180298': 'B',
+    '4746180294': 'C',
+    '4746180307': 'D',
+    '4722390386': 'E',
+    '4746180245': 'F',
+  };
+
+  replacePhoneNumber(text: string): string {
+    return this.phoneNumberDictionary[text] || text;
+  }
+
+
   ngOnInit() {
     if (this.callsList.length > 0 && this.sessions.length > 0) {
       this.buildTrees();
@@ -160,7 +174,7 @@ export class SessionTreeComponent implements OnInit, OnChanges, AfterViewInit {
         .attr('dy', '-2.25em') // Position above servedUser
         .attr('x', d => d.children ? -10 : 10)
         .style('text-anchor', 'middle')
-        .text(d => d.data.servedUser || '') // Use dictionary for callType
+        .text(d => this.replacePhoneNumber(d.data.servedUser || '')) // Use dictionary for callType
         .style('font-size', '14px');
 
       node.append('text')

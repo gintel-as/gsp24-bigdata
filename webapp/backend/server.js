@@ -244,7 +244,12 @@ async function checkSessionSuccess(sessionId) {
         bool: {
           must: [
             { term: { sessionID: sessionId } },
-            { wildcard: { log_message: '*eventanswered*' } }
+            { wildcard: { log_message: '*answered*' } }
+          ],
+          must_not: [
+            { wildcard: { log_message: '*firstanswered*' } },
+            { wildcard: { log_message: '*logworker*' } },
+
           ]
         }
       },
@@ -256,6 +261,7 @@ async function checkSessionSuccess(sessionId) {
     return false;
   }
 }
+
 
 function extractRetriggeredFromSessionIds(logMessage) {
   const match = logMessage.match(/gtSessionId='([^']+)'/);
@@ -303,7 +309,6 @@ async function checkAndCreateIndex(indexName) {
           }
         }
       });
-      console.log(`Index "${indexName}" created successfully.`);
     }
   } catch (error) {
     console.error(`Error checking or creating index "${indexName}":`, error);
