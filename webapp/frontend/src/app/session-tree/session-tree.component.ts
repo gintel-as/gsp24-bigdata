@@ -126,27 +126,33 @@ export class SessionTreeComponent implements OnInit, OnChanges, AfterViewInit {
       console.error('Trees data is not initialized');
       return;
     }
-
+  
     if (!this.treeContainers || this.treeContainers.length === 0) {
       console.error('No tree containers found');
       return;
     }
-
+    
     this.treeContainers.forEach((treeContainer, index) => {
       const treeData = this.treesData[index];
       const totalNodes = this.countNodes(treeData);
+      const maxDepth = this.getMaxDepth(treeData);
+      const width = maxDepth * 300; // Dynamic width based on the depth of the tree
       const height = totalNodes * 60; // Dynamic height based on the number of nodes, increased for extra space
-
-      const svg = d3.select(treeContainer.nativeElement).append('svg').attr('width', 2000).attr('height', height),
-        g = svg.append('g').attr('transform', `translate(140,40)`); // Adjust position for each tree
-
+      console.log('Width:', width, 'Height:', height);
+  
+      const svg = d3.select(treeContainer.nativeElement).append('svg')
+        .attr('width', width)
+        .attr('height', height);
+  
+      const g = svg.append('g').attr('transform', `translate(140,40)`); // Adjust position for each tree
+  
       const tree = d3.tree<TreeNode>()
-        .size([height, 1600])
+        .size([height, width - 300]) // Adjust width here to accommodate the tree
         .separation((a, b) => 100); // Ensure even spacing
-
+  
       const root = d3.hierarchy<TreeNode>(treeData);
       tree(root);
-
+  
       const link = g.selectAll(`.link-${index}`)
         .data(root.links())
         .enter().append('line')
@@ -193,6 +199,15 @@ export class SessionTreeComponent implements OnInit, OnChanges, AfterViewInit {
         }); // Adjust the width as necessary
     });
   }
+  
+  getMaxDepth(node: TreeNode): number {
+    if (!node.children || node.children.length === 0) {
+      return 1;
+    }
+    return 1 + Math.max(...node.children.map(child => this.getMaxDepth(child)));
+  }
+  
+  
 
   getSessionSuccessColor(sessionId: string): string {
     const session = this.sessions.find(s => s.sessionId === sessionId);
