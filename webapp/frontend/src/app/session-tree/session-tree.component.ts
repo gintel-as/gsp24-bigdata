@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges, ViewChildren, ElementRef, AfterViewInit, QueryList } from '@angular/core';
 import * as d3 from 'd3';
-import {NgForOf} from "@angular/common";
+import { NgForOf } from "@angular/common";
 
 interface TreeNode {
   id: string;
@@ -12,8 +12,8 @@ interface TreeNode {
   selector: 'app-session-tree',
   standalone: true,
   template: `
-    <div *ngFor="let tree of treesData" class="tree-container">
-      <div #treeContainer></div>
+    <div *ngFor="let tree of treesData; let i = index" class="tree-container">
+      <div #treeContainer id="treeContainer{{i}}"></div>
     </div>
   `,
   imports: [
@@ -131,7 +131,7 @@ export class SessionTreeComponent implements OnInit, OnChanges, AfterViewInit {
       const link = g.selectAll(`.link-${index}`)
         .data(root.links())
         .enter().append('line')
-        .attr('class', `link-${index}`)
+        .attr('class', `link link-${index}`)
         .attr('x1', d => d.source.y!)
         .attr('y1', d => d.source.x!)
         .attr('x2', d => d.target.y!)
@@ -141,32 +141,35 @@ export class SessionTreeComponent implements OnInit, OnChanges, AfterViewInit {
       const node = g.selectAll(`.node-${index}`)
         .data(root.descendants())
         .enter().append('g')
-        .attr('class', `node-${index}`)
+        .attr('class', `node node-${index}`)
         .attr('transform', d => `translate(${d.y},${d.x})`);
 
+      node.append('circle')
+        .attr('r', 5) // Adjusted radius
+        .attr('class', d => this.getSessionSuccessColorClass(d.data.id));
+
       node.append('text')
-        .attr('dy', '-1em') // Position above sessionID
-        .attr('x', d => d.children ? -10 : 10)
+        .attr('dy', '-1.5em') // Position above the circle
+        .attr('x', 0)
         .style('text-anchor', 'middle')
         .text(d => d.data.callType || '') // Use dictionary for callType
         .style('font-size', '14px');
 
       node.append('text')
-        .attr('dy', '.35em')
-        .attr('x', d => d.children ? -10 : 10)
+        .attr('dy', '-0.5em') // Position just above the circle
+        .attr('x', 0)
         .style('text-anchor', 'middle')
         .text(d => d.data.id)
         .style('font-size', '14px')
-        .style('fill', d => this.getSessionSuccessColor(d.data.id)) // Set color based on success
         .call((text: any) => {
           this.wrapText(text, 100);
         }); // Adjust the width as necessary
     });
   }
 
-  getSessionSuccessColor(sessionId: string): string {
+  getSessionSuccessColorClass(sessionId: string): string {
     const session = this.sessions.find(s => s.sessionId === sessionId);
-    return session && session.success ? 'green' : 'red';
+    return session && session.success ? 'success' : 'failure';
   }
 
   countNodes(node: TreeNode): number {
