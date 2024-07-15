@@ -17,6 +17,10 @@ import { RouterModule } from '@angular/router';
       <img class="plot-photo" [src]="plotSection.photo">
       <h2 class="plot-name">{{plotSection.name}}</h2>
     </section>
+    <section class="plot-sections" [routerLink]="['/call-list', plotSection.id]" *ngIf="plotSection.id === 2">
+      <img class="plot-photo" [src]="plotSection.photo">
+      <h2 class="plot-name">{{plotSection.name}}</h2>
+    </section>
   </div>
   `,
   styleUrls: ['./plot-sections.component.css']
