@@ -1,13 +1,20 @@
 <div class="filter-container">
-    <h4>Filter by Source</h4>
-    <label>
+  <h4>Filter by Source</h4>
+  <div class="filter-row">
+    <label class="filter-label">
       <input type="checkbox" [checked]="showAdapterLogs" (change)="toggleSource('adapter')"> Show Adapter Logs
     </label>
-    <label>
-      <input type="checkbox" [checked]="showServerLogs" (change)="toggleSource('server')"> Show Server Logs
+    <label class="filter-label">
+      <input type="checkbox" [checked]="showServerLogs" (change)="toggleSource('server')"> Show CSTA Logs
     </label>
-    <label>
+    <label class="filter-label">
       <input type="checkbox" [checked]="showSIPLogs" (change)="toggleSource('sip')"> Show SIP Logs
     </label>
+    <label class="filter-label">
+      <input type="checkbox" [checked]="showCDRLogs" (change)="toggleSource('cdr')"> Show CDR Logs
+    </label>
+    <label class="filter-label">
+      <input type="checkbox" [checked]="showEDRLogs" (change)="toggleSource('edr')"> Show EDR Logs
+    </label>
   </div>
-  
+</div>

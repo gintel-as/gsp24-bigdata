@@ -1,0 +1,36 @@
+.tree-container {
+  margin: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  overflow-x: auto; /* Enable horizontal scrolling */
+}
+
+.tree-container svg {
+  font-family: 'Arial', sans-serif;
+}
+
+.node circle {
+  fill: steelblue;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+
+.node text {
+  font-size: 14px;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+
+.success {
+  fill: green;
+}
+
+.failure {
+  fill: red;
+}

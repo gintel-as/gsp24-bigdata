@@ -150,7 +150,7 @@ export class SessionTreeComponent implements OnInit, OnChanges, AfterViewInit {
       const link = g.selectAll(`.link-${index}`)
         .data(root.links())
         .enter().append('line')
-        .attr('class', `link-${index}`)
+        .attr('class', `link link-${index}`)
         .attr('x1', d => d.source.y!)
         .attr('y1', d => d.source.x!)
         .attr('x2', d => d.target.y!)
@@ -160,26 +160,30 @@ export class SessionTreeComponent implements OnInit, OnChanges, AfterViewInit {
       const node = g.selectAll(`.node-${index}`)
         .data(root.descendants())
         .enter().append('g')
-        .attr('class', `node-${index}`)
+        .attr('class', `node node-${index}`)
         .attr('transform', d => `translate(${d.y},${d.x})`);
 
+      node.append('circle')
+        .attr('r', 5) // Adjusted radius
+        .attr('class', d => this.getSessionSuccessColorClass(d.data.id));
+
       node.append('text')
-        .attr('dy', '-1em') // Position above sessionID
-        .attr('x', d => d.children ? -10 : 10)
+        .attr('dy', '-2.5em') // Position above the circle with more space
+        .attr('x', 0)
         .style('text-anchor', 'middle')
         .text(d => d.data.callType || '') // Use dictionary for callType
         .style('font-size', '14px');
 
       node.append('text')
-        .attr('dy', '-2.25em') // Position above servedUser
+        .attr('dy', '-4em') // Position above servedUser
         .attr('x', d => d.children ? -10 : 10)
         .style('text-anchor', 'middle')
         .text(d => this.replacePhoneNumber(d.data.servedUser || '')) // Use dictionary for callType
         .style('font-size', '14px');
 
       node.append('text')
-        .attr('dy', '.35em')
-        .attr('x', d => d.children ? -10 : 10)
+        .attr('dy', '-1em') // Position just above the circle
+        .attr('x', 0)
         .style('text-anchor', 'middle')
         .text(d => d.data.id)
         .style('font-size', '14px')
@@ -193,6 +197,11 @@ export class SessionTreeComponent implements OnInit, OnChanges, AfterViewInit {
   getSessionSuccessColor(sessionId: string): string {
     const session = this.sessions.find(s => s.sessionId === sessionId);
     return session && session.success ? 'green' : 'red';
+  }
+
+  getSessionSuccessColorClass(sessionId: string): string {
+    const session = this.sessions.find(s => s.sessionId === sessionId);
+    return session && session.success ? 'success' : 'failure';
   }
 
   countNodes(node: TreeNode): number {
