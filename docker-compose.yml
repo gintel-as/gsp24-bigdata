@@ -169,6 +169,7 @@ services:
       - ./elk/logstash_pipelines/at_logs_pipeline.conf:/usr/share/logstash/config/at_logs_pipeline.conf:ro
       - ./elk/logstash_pipelines/adapter_logs_pipeline.conf:/usr/share/logstash/config/adapter_logs_pipeline.conf:ro
       - ./elk/logstash_pipelines/sip_logs_pipeline.conf:/usr/share/logstash/config/sip_logs_pipeline.conf:ro
+      - ./elk/logstash_pipelines/edr_logs_pipeline.conf:/usr/share/logstash/config/edr_logs_pipeline.conf:ro
       - "./elk/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro"
     environment:
       - xpack.monitoring.enabled=false

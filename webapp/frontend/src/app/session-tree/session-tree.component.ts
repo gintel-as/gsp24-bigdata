@@ -149,18 +149,17 @@ export class SessionTreeComponent implements OnInit, OnChanges, AfterViewInit {
         .attr('class', d => this.getSessionSuccessColorClass(d.data.id));
 
       node.append('text')
-        .attr('dy', '-1.5em') // Position above the circle
+        .attr('dy', '-2.5em') // Position above the circle with more space
         .attr('x', 0)
         .style('text-anchor', 'middle')
         .text(d => d.data.callType || '') // Use dictionary for callType
         .style('font-size', '14px');
 
       node.append('text')
-        .attr('dy', '-0.5em') // Position just above the circle
+        .attr('dy', '-1em') // Position just above the circle
         .attr('x', 0)
         .style('text-anchor', 'middle')
         .text(d => d.data.id)
-        .style('font-size', '14px')
         .call((text: any) => {
           this.wrapText(text, 100);
         }); // Adjust the width as necessary

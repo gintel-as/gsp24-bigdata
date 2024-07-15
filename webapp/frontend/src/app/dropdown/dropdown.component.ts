@@ -7,14 +7,17 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   template: `
   <div class="dropdown">
-    <button class="dropbtn">
-      {{ selectedItem || 'Select an option' }}
-      <i class="fas fa-caret-down"></i>
-    </button>
+  <button class="dropbtn">
+    {{ selectedItem || 'Select an option' }}
+    <span class="arrow">&#9662;</span> <!-- Added arrow span -->
+  </button>
     <div class="dropdown-content">
       <a *ngFor="let item of dropdownItems" (click)="selectItem(item)">{{ item.name }}</a>
     </div>
   </div>
+
+
+
   `,
   styleUrls: ['./dropdown.component.css']
 })

@@ -43,11 +43,6 @@
 
   }
 
-  .message {
-    font-family: 'Courier New', Courier, monospace;
-    white-space: pre-wrap; /* Preserve spaces and line breaks */
-    word-wrap: break-word; /* Ensure words break to fit within the container */
-  }
   .log-line {
     display: flex;
     padding: 10px;
@@ -102,9 +97,10 @@
   }
 
   .type.cdr_logs {
-    background-color: #dff0d8; /* Light green background */
-    color: #3c763d; /* Dark green text */
+    background-color: #dff0d8;
+    color: #3c763d; 
   }
+
 
   .log_level, .header.log_level {
     width: 50px;
@@ -131,11 +127,17 @@
   .message, .header.message {
     flex: 1;
     padding-left: 10px;
-
+    word-break: break-all;
+    
   }
   .header.message{
     align-items: center;
     display: flex;
+  }
+  .message {
+    font-family: 'Courier New', Courier, monospace;
+    white-space: pre-wrap; 
+    word-wrap: break-word; 
   }
 
 

@@ -48,6 +48,8 @@ export class SearchbarComponent {
   showAdapterLogs: boolean = true;
   showServerLogs: boolean = true;
   showSIPLogs: boolean = true;
+  showCDRLogs: boolean = true;
+  showEDRLogs: boolean = true; 
   removeFluff: boolean = false;
   removeCSTAFluff: boolean = false;
 
@@ -65,7 +67,20 @@ export class SearchbarComponent {
     "counterPartyId", "twoStepLeg2Number", "servedUserPrimary"
   ];
 
+  edrFields: string[] =  [
+    "record_type", "callType", "id", "sessionID", "sequenceNumber", "aNumber", 
+    "bNumber", "cNumber", "servedUser", "redirectNumber", "genericNumber", "a_clir", 
+    "term_code", "callStartTime", "mrfAnswerTime", "overheadTime", "pagingTime", "ringingTime", 
+    "calledPartyAnswerTime", "connectTime", "chargeClass", "payingParty", 
+    "release_code", "mscAddress", "vlrAddress", "transferCapability", "layer1Capability", 
+    "vpnScenario", "aProvider", "cProvider", "sno", "cid", 
+    "oname", "userResponseHistory", "serviceKey", "subServiceId", "edrType", 
+    "operation", "serviceProvider", "noConnectCause", 
+    "cellGlobalId", "pani", "generatedPani", "usedLocation", "sipCause", "pcv"
+  ];
+
   selectedFields: string[] = [];
+  selectedEdrFields: string[] = [];
   searchTerms: { log: string, term: string }[] = [];
 
   showMenu: boolean = false;
@@ -81,8 +96,12 @@ export class SearchbarComponent {
     this.performSearch();
   }
 
-  onSelectedFieldsChange(selectedFields: string[]) {
+  onSelectedCdrFieldsChange(selectedFields: string[]) {
     this.selectedFields = selectedFields;
+    this.updateLogMessages();
+  }
+  onSelectedEdrFieldsChange(selectedEdrFields: string[]) {
+    this.selectedEdrFields = selectedEdrFields;
     this.updateLogMessages();
   }
 
@@ -90,6 +109,9 @@ export class SearchbarComponent {
     this.results.forEach(log => {
       if (log.source === 'cdr_logs') {
         log.log_message = this.selectedFields.map(field => `${field} = ${log[field]}`).join(', ');
+      }
+      if (log.source === 'edr_logs') {
+        log.log_message = this.selectedEdrFields.map(field => `${field} = ${log[field]}`).join(', ');
       }
     });
     this.applyFilters();
@@ -147,6 +169,15 @@ export class SearchbarComponent {
       }
     );
 
+    this.elasticsearchService.search('adapter_logs', 'log_message', query).subscribe(
+      response => {
+        this.processResults(response, 'adapter_logs');
+      },
+      error => {
+        console.error('Error performing adapter log search', error);
+      }
+    );
+
     this.elasticsearchService.search('server_logs', 'log_message', query).subscribe(
       response => {
         this.processResults(response, 'server_logs');
@@ -171,6 +202,15 @@ export class SearchbarComponent {
       },
       error => {
         console.error('Error performing CDR log search', error);
+      }
+    );
+
+    this.elasticsearchService.search('edr_logs', 'sessionID', query).subscribe(  
+      response => {
+        this.processResults(response, 'edr_logs'); 
+      },
+      error => {
+        console.error('Error performing EDR log search', error);  
       }
     );
   }
@@ -209,7 +249,7 @@ export class SearchbarComponent {
       // Extract sessionID for server_logs
       if (source === 'server_logs') {
         log.sessionID = this.extractSessionID(log.log_message);
-      } else if (source === 'cdr_logs') {
+      } else if (source === 'cdr_logs' || source === 'edr_logs') {
         log.timestamp = this.formatDateString(log.callEndTime);
         log.time_parsed = log.callEndTime;
         log.log_message = this.selectedFields.map(field => `${field} = ${log[field]}`).join(', ');
@@ -223,7 +263,6 @@ export class SearchbarComponent {
   }
 
   applyFilters() {
-    console.log(this.selectedAdapterLogLevels)
     this.filteredResults = this.results
       .filter(result => {
         if (result.source === 'adapter_logs') {
@@ -239,7 +278,8 @@ export class SearchbarComponent {
         (this.showAdapterLogs && result.source === 'adapter_logs') ||
         (this.showServerLogs && result.source === 'server_logs') ||
         (this.showSIPLogs && result.source === 'sip_logs') ||
-        (result.source === 'cdr_logs') ||
+        (this.showCDRLogs && result.source === 'cdr_logs') ||
+        (this.showEDRLogs && result.source === 'edr_logs') || 
         (this.showCorrelationLogs && result.source === 'correlation_logs'))
       .filter(result => {
         return this.searchTerms.every(term => {
@@ -266,7 +306,6 @@ export class SearchbarComponent {
 
   sortResultsByTimestamp() {
     this.filteredResults.sort((a, b) => new Date(a.time_parsed).getTime() - new Date(b.time_parsed).getTime());
-    console.log(this.filteredResults);
   }
 
   toggleSource(source: string) {
@@ -276,6 +315,10 @@ export class SearchbarComponent {
       this.showServerLogs = !this.showServerLogs;
     } else if (source === 'sip') {
       this.showSIPLogs = !this.showSIPLogs;
+    } else if (source === 'cdr') {
+      this.showCDRLogs = !this.showCDRLogs;
+    } else if (source === 'edr') {  
+      this.showEDRLogs = !this.showEDRLogs;  
     }
     this.applyFilters();
   }
