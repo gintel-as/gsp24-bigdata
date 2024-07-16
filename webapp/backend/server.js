@@ -112,7 +112,6 @@ function extractRetriggeredFromSessionId(logMessage) {
 }
 
 app.get('/calls/create', async (req, res) => {
-  await checkAndCreateIndex("call-list");
 
   try {
     const result = await client.search({
@@ -209,8 +208,8 @@ app.get('/calls/create', async (req, res) => {
         call = {
           id: i,
           sessionIDs: [...event.retriggeredFromSessionIds, event.currentSessionId],
-          earliestTime: event.timestamp,
-          latestTime: event.timestamp,
+          earliestTime: new Date(event.timestamp+'+02:00'),
+          latestTime: new Date(event.timestamp+'+02:00'),
           serviceKey: event.serviceKey,
           success: true
         };
@@ -220,13 +219,16 @@ app.get('/calls/create', async (req, res) => {
         call.sessionIDs.push(...event.retriggeredFromSessionIds);
         call.sessionIDs.push(event.currentSessionId);
         call.sessionIDs = [...new Set(call.sessionIDs)];
-        call.earliestTime = new Date(Math.min(new Date(call.earliestTime).getTime(), new Date(event.timestamp).getTime()));
-        call.latestTime = new Date(Math.max(new Date(call.latestTime).getTime(), new Date(event.timestamp).getTime()));
+        call.earliestTime = new Date(Math.min(new Date(call.earliestTime).getTime(), new Date(event.timestamp+'+02:00').getTime()));
+        call.latestTime = new Date(Math.max(new Date(call.latestTime).getTime(), new Date(event.timestamp+'+02:00').getTime()));
       }
 
       // Determine if the call is successful
       call.success = await determineCallSuccess(call, sessions);
     }
+
+    await createIndexAndIngest("call-list", callsList);
+
 
     res.status(200).json({
       message: 'Calls created/updated successfully.',
@@ -310,39 +312,55 @@ function extractServedUser(logMessage) {
   return match ? match[1] : null;
 }
 
-async function checkAndCreateIndex(indexName) {
+async function createIndexAndIngest(indexName, callsList) {
   try {
-    const { body: indexExists } = await client.indices.exists({ index: indexName });
+    const indexExists = await client.indices.exists({ index: indexName });
 
     if (indexExists) {
-      console.log(`Index "${indexName}" already exists.`);
+      const errorMessage = `Index "${indexName}" already exists.`;
+      console.error(errorMessage);
+      throw new Error(errorMessage);
     } else {
       await client.indices.create({
         index: indexName,
         body: {
           settings: {
             number_of_shards: 1,
-            number_of_replicas: 1
+            number_of_replicas: 1,
           },
           mappings: {
             properties: {
-              sessionIDs: {
-                type: 'nested',
-                properties: {
-                  id: { type: 'keyword' },
-                  parents: { type: 'keyword' },
-                  children: { type: 'keyword' },
-                  timestamp: { type: 'date' },
-                  serviceKey: { type: 'keyword' },
-                  success: { type: 'boolean' }
-                }
-              }
-            }
-          }
+              sessionIDs: { type: "keyword" },  // Array of strings
+              earliestTime: { type: "date" },
+              latestTime: { type: "date" },
+              serviceKey: { type: "keyword" },
+            },
+          },
+        },
+      });
+      console.log(`Index "${indexName}" created successfully.`);
+    }
+
+    // Ingest documents into the index
+    const bulkBody = [];
+    callsList.forEach(call => {
+      bulkBody.push({
+        index: {
+          _index: indexName,
+          _id: call.id
         }
       });
+      bulkBody.push(call);
+    });
+
+    const result = await client.bulk({ body: bulkBody });
+    if (result.errors) {
+      console.error('Errors occurred while ingesting documents:', bulkResponse.items);
+    } else {
+      console.log(`Successfully ingested ${callsList.length} documents into index "${indexName}".`);
     }
+
   } catch (error) {
-    console.error(`Error checking or creating index "${indexName}":`, error);
+    console.error(`Error creating index "${indexName}" and ingesting documents:`, error);
   }
 }
