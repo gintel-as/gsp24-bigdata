@@ -34,8 +34,18 @@ export class SessionTreeComponent implements OnInit, OnChanges, AfterViewInit {
     '4746180298': ' (B)',
     '4746180294': ' (C)',
     '4746180307': ' (D)',
-    '4722390386': ' (E)',
+    '4722390386': ' (E or Green Lantern)',
     '4746180245': ' (F)',
+    '4722390380': ' (Super Man)',
+    '4722390381': ' (Spider Man)',
+    '4722390382': ' (Bat Man)',
+    '4722390383': ' (The Flash)',
+    '4722390384': ' (The Hulk)',
+    '4722390385': ' (Captain America)',
+    '4722390387': ' (He Man)',
+    '4722390388': ' (Cat Woman)',
+    '4722390389': ' (Wonder Woman)',
+
   };
 
   replacePhoneNumber(text: string): string {

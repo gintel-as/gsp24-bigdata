@@ -13,8 +13,8 @@ import { of } from 'rxjs';
     <button (click)="createCalls()">
       Create Calls
     </button>
-    <div *ngFor="let call of callsList; let i = index" class="call-container">
-      <h3 (click)="toggleTree(call.id)" class="call-header">Call ID: {{ call.id }} ({{ call.earliestTime }})</h3>
+    <div *ngFor="let call of callsList; let i = index" class="call-container {{call.success}}">
+      <h4 (click)="toggleTree(call.id)" class="call-header {{call.success}}">Call ID: {{ call.id }} ({{ call.earliestTime }})</h4>
       <div *ngIf="callVisible[call.id]" class="session-tree-container">
         <p>Earliest event: {{ call.earliestTime }}</p>
         <p>Latest event: {{ call.latestTime }}</p>

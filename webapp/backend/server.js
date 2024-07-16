@@ -217,12 +217,15 @@ app.get('/calls/create', async (req, res) => {
         i += 1;
         callsList.push(call);
       } else {
-        call.sessionIDs.push(event.currentSessionId);
         call.sessionIDs.push(...event.retriggeredFromSessionIds);
+        call.sessionIDs.push(event.currentSessionId);
         call.sessionIDs = [...new Set(call.sessionIDs)];
         call.earliestTime = new Date(Math.min(new Date(call.earliestTime).getTime(), new Date(event.timestamp).getTime()));
         call.latestTime = new Date(Math.max(new Date(call.latestTime).getTime(), new Date(event.timestamp).getTime()));
       }
+
+      // Determine if the call is successful
+      call.success = await determineCallSuccess(call, sessions);
     }
 
     res.status(200).json({
@@ -261,6 +264,34 @@ async function checkSessionSuccess(sessionId) {
     console.error(`Error checking session success for ${sessionId}:`, error);
     return false;
   }
+}
+
+async function determineCallSuccess(call, sessions) {
+  const rootId = call.sessionIDs[0];
+  return checkNodeSuccess(rootId, sessions);
+}
+
+async function checkNodeSuccess(nodeId, sessions) {
+  const session = sessions.get(nodeId);
+  if (!session.success) {
+    return false;
+  }
+
+  let hasUnsuccessfulTerm = false;
+
+  for (let childId of session.children) {
+    const childSession = sessions.get(childId);
+
+    if (childSession && childSession.serviceKey && childSession.serviceKey.includes("Click2DialCoreLeg1")) {
+      hasUnsuccessfulTerm = true;
+    } else if (childSession && childSession.success) {
+      return checkNodeSuccess(childId, sessions);
+    } else if (childSession && childSession.serviceKey && childSession.serviceKey.includes("term")) {
+      hasUnsuccessfulTerm = true;
+    }
+  }
+
+  return !hasUnsuccessfulTerm;
 }
 
 
