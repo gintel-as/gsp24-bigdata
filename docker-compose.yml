@@ -160,7 +160,7 @@ services:
     volumes:
       - certs:/usr/share/logstash/certs
       - logstashdata01:/usr/share/logstash/data
-      - "./elk/logstash_ingest_data/:/usr/share/logstash/ingest_data/"
+      - ./elk/logstash_ingest_data/:/usr/share/logstash/ingest_data/
       - ./elk/pipelines.yml:/usr/share/logstash/config/pipelines.yml:ro 
       - ./elk/logstash_pipelines/api_logs_pipeline.conf:/usr/share/logstash/config/api_logs_pipeline.conf:ro
       - ./elk/logstash_pipelines/server_logs_pipeline.conf:/usr/share/logstash/config/server_logs_pipeline.conf:ro
@@ -170,7 +170,7 @@ services:
       - ./elk/logstash_pipelines/adapter_logs_pipeline.conf:/usr/share/logstash/config/adapter_logs_pipeline.conf:ro
       - ./elk/logstash_pipelines/sip_logs_pipeline.conf:/usr/share/logstash/config/sip_logs_pipeline.conf:ro
       - ./elk/logstash_pipelines/edr_logs_pipeline.conf:/usr/share/logstash/config/edr_logs_pipeline.conf:ro
-      - "./elk/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro"
+      - ./elk/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
     environment:
       - xpack.monitoring.enabled=false
       - ELASTIC_USER=elastic
