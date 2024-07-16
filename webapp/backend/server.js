@@ -325,6 +325,7 @@ function extractServedUser(logMessage) {
   return match ? match[1] : null;
 }
 
+// Utility function to create an index in Elasticsearch and ingest callsList into the index
 async function createIndexAndIngest(indexName, callsList) {
   try {
     const indexExists = await client.indices.exists({ index: indexName });
