@@ -38,36 +38,6 @@ Kibana will be available at http://localhost:5601 by default.
 
 The webapp will be available at http://localhost:4200 by default.
 
-# Quick Kibana Guide
-
-# Introduction
-Kibana is a powerful visualization and exploration tool used to analyze log data stored in Elasticsearch.
-
-## Accessing Kibana
-1. **Open Kibana**: Visit [http://localhost:5601](http://localhost:5601).
-2. **Login**: Enter your credentials to log in to Kibana (default: `elastic/changeme`).
-
-## Viewing Indexes
-1. **Go to the Management tab**.
-2. **Navigate to Index Management**.
-3. **Verify that an Index has been created**:  
-   ![Index Created](https://github.com/user-attachments/assets/8caecc7e-e1f1-49fe-b653-70169d8e35b2)
-
-## Creating a Data View
-1. **Navigate to Data Views** in the Management/Kibana tab.
-2. **Create a New Data View**.
-3. **Select a parsed timestamp as the Timestamp field**.
-4. **Save the Data View to Kibana**.
-
-## Viewing Data
-1. **Navigate to Discover** under the Analytics tab.
-2. **Search, filter, and analyze your logs**.
-
-## Creating Visualizations
-1. **Navigate to Dashboards** under the Analytics tab.
-2. **Create a new dashboard** and start creating visualizations.
-
-
 
 
 
