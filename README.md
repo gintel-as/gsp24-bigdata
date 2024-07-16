@@ -7,26 +7,6 @@ This summer project revolves around the readability and useability of the many l
 - Docker Desktop or docker+docker compose
 
 
-# Project Structure
-The project is divided into 2 parts, the ELK stack and the Web App.
-
-### ELK
-
-The ELK stack consists of Logstash, Elasticsearch, and Kibana.
-
-- **Logstash**: Processes and transforms log data from various sources before sending it to Elasticsearch.
-- **Elasticsearch**: Stores and indexes log data for fast search and retrieval.
-- **Kibana**: A UI to visualize and analyze log data stored in Elasticsearch through dashboards and graphs.
-
-
- ### Web App
- (Because we wanted more flexibility in the way we vizualize the log data, we decided to work on an Angular web application that is connected to our Elasticsearch engine through a node js server.)
- The web app has 3 pages:
- - **Kibana**: A page to demonstrate a way of accessing Kibana via a the web app. Not really in use. Would reccomend just visiting Kibana directly.
- - **Logs**: This page allows users to search for a session ID and view, as well as filter, all log entries across different log types that include the specified session ID.
- - **Call List**: This page generates a list of calls and their corresponding session tree.
- 
-
 # Setup
 
 1. **Clone the Repository**:
