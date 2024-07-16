@@ -14,10 +14,10 @@ import { of } from 'rxjs';
       Create Calls
     </button>
     <div *ngFor="let call of callsList; let i = index" class="call-container {{call.success}}">
-      <h4 (click)="toggleTree(call.id)" class="call-header {{call.success}}">Call ID: {{ call.id }} ({{ call.earliestTime }})</h4>
+      <h4 (click)="toggleTree(call.id)" class="call-header {{call.success}}">Call ID: {{ call.id }} ({{ convertCallTime(call.earliestTime) }})</h4>
       <div *ngIf="callVisible[call.id]" class="session-tree-container">
-        <p>Earliest event: {{ call.earliestTime }}</p>
-        <p>Latest event: {{ call.latestTime }}</p>
+        <p>Earliest event: {{ convertCallTime(call.earliestTime) }}</p>
+        <p>Latest event: {{ convertCallTime(call.latestTime) }}</p>
         <app-session-tree [callsList]="callsList" [sessions]="sessions" [call]="call"></app-session-tree>
       </div>
     </div>
@@ -61,5 +61,9 @@ export class CallListComponent {
 
   toggleTree(callId: string) {
     this.callVisible[callId] = !this.callVisible[callId];
+  }
+
+  convertCallTime(time: string) {
+    return time.replace("T"," ").replace("Z","")
   }
 }

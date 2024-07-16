@@ -7,6 +7,7 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
+// Initialize the Elasticsearch client with authentication and SSL/TLS settings
 const client = new Client({
   node: 'https://es01:9200',
   auth: {
@@ -19,9 +20,11 @@ const client = new Client({
   }
 });
 
+// Middleware setup: CORS for handling cross-origin requests and JSON parsing for request bodies
 app.use(cors());
 app.use(express.json());
 
+// Endpoint to handle search requests
 app.post('/search', async (req, res) => {
   const { index, field, query } = req.body;
   try {
@@ -32,12 +35,13 @@ app.post('/search', async (req, res) => {
       },
       size: 10000
     });
-    res.json(result.hits.hits);
+    res.json(result.hits.hits); // Respond with the search results
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message }); // Handle any errors
   }
 });
 
+// Endpoint to retrieve past retriggers IDs based on a session ID
 app.get('/correlation-ids/:sessionID', async (req, res) => {
   const { sessionID } = req.params;
   try {
@@ -87,30 +91,34 @@ app.get('/correlation-ids/:sessionID', async (req, res) => {
         };
       });
 
-      res.json(incomingEvents);
+      res.json(incomingEvents); // Respond with the incoming events
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({ error: error.message }); // Handle any errors
     }
 
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message }); // Handle any errors
   }
 });
 
+// Start the server and listen on the specified port
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
 
+// Utility function to extract the first gtSessionId from a log message
 function extractFirstGtSessionId(logMessage) {
   const match = logMessage.match(/gtSessionId='([^,']+)[,']/);
   return match ? match[1] : null;
 }
 
+// Utility function to extract the retriggeredFromSessionId from a log message
 function extractRetriggeredFromSessionId(logMessage) {
   const match = logMessage.match(/retriggeredFromSessionId=(\d+)/);
   return match ? match[1] : null;
 }
 
+// Endpoint to create/update call lists
 app.get('/calls/create', async (req, res) => {
 
   try {
@@ -241,6 +249,7 @@ app.get('/calls/create', async (req, res) => {
   }
 });
 
+// Utility function to check if a session was successful
 async function checkSessionSuccess(sessionId) {
   try {
     const result = await client.search({
@@ -268,11 +277,13 @@ async function checkSessionSuccess(sessionId) {
   }
 }
 
+// Utility function to determine the success of a call
 async function determineCallSuccess(call, sessions) {
   const rootId = call.sessionIDs[0];
   return checkNodeSuccess(rootId, sessions);
 }
 
+// Utility function to check the success of a node in the session tree
 async function checkNodeSuccess(nodeId, sessions) {
   const session = sessions.get(nodeId);
   if (!session.success) {
@@ -296,17 +307,19 @@ async function checkNodeSuccess(nodeId, sessions) {
   return !hasUnsuccessfulTerm;
 }
 
-
+// Utility function to extract retriggered session IDs from a log message
 function extractRetriggeredFromSessionIds(logMessage) {
   const match = logMessage.match(/gtSessionId='([^']+)'/);
   return match ? match[1].split(',').filter(id => id && id !== 'null' && id !== '-1') : [];
 }
 
+// Utility function to extract the service key from a log message
 function extractServiceKey(logMessage) {
   const match = logMessage.match(/serviceKey='([^']+)'/);
   return match ? match[1] : null;
 }
 
+// Utility function to extract the served user from a log message
 function extractServedUser(logMessage) {
   const match = logMessage.match(/servedUser='([^']+)'/);
   return match ? match[1] : null;
