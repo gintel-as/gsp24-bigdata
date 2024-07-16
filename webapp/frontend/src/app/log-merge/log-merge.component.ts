@@ -39,7 +39,6 @@ export class LogMergeComponent implements OnInit {
     if (!this.eRef.nativeElement.contains(event.target)) {
       this.isDropdownOpen = false;
     }
-    console.log("Filtered results: ",this.filteredResults);
   }
 
   calculatePageSize(): void {

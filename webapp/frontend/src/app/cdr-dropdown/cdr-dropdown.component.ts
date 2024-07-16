@@ -12,6 +12,7 @@ import {NgForOf} from "@angular/common";
 })
 export class CdrDropdownComponent {
   @Input() fields: string[] = [];
+  @Input() label: string = '';  
   @Output() selectedFieldsChange = new EventEmitter<string[]>();
 
   selectedFields: string[] = [];

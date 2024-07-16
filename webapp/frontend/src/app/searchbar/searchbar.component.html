@@ -16,19 +16,49 @@
     (sourceToggle)="toggleSource($event)"
   ></app-source-filters>
 
-  <div>
-    <label>
-      <input type="checkbox" [checked]="removeFluff" (change)="toggleRemoveFluff()"> Remove Fluff
+  <div class="filter-container">
+    <div class="filter-column">
+      <label class="filter-label">
+        <input type="checkbox" [checked]="removeFluff" (change)="toggleRemoveFluff()"> Remove Adapter Fluff
+      </label>
+      <label class="filter-label">
+        <input type="checkbox" [checked]="removeCSTAFluff" (change)="toggleRemoveCSTAFluff()"> Remove CSTA Fluff
+      </label>
+      <label class="filter-label">
+        <input type="checkbox" [checked]="showCorrelationLogs" (change)="toggleCorrelationLogs()"> Include Correlation Logs
+      </label>
+    </div>
+  </div>
+  
+
+<div class="dropdown-container">
+  <app-cdr-dropdown [fields]="fields" [label]="'Select CDR Fields'" (selectedFieldsChange)="onSelectedCdrFieldsChange($event)"></app-cdr-dropdown>
+  <app-cdr-dropdown [fields]="edrFields" [label]="'Select EDR Fields'" (selectedFieldsChange)="onSelectedEdrFieldsChange($event)"></app-cdr-dropdown>
+</div>
+
+
+
+<div class="search-term-container">
+  <button class="toggle-button" (click)="showMenu = !showMenu">Add Search Term</button>
+  <div *ngIf="showMenu" class="menu">
+    <label class="menu-item">
+      Log:
+      <select [(ngModel)]="selectedLog">
+        <option *ngFor="let log of ['adapter_logs', 'server_logs', 'sip_logs']" [value]="log">{{ log }}</option>
+      </select>
     </label>
-    <label>
-      <input type="checkbox" [checked]="showCorrelationLogs" (change)="toggleCorrelationLogs()"> Include Correlation Logs
+    <label class="menu-item">
+      Term:
+      <input type="text" [(ngModel)]="searchTerm">
     </label>
+    <button class="add-button" (click)="addSearchTerm(selectedLog, searchTerm); showMenu = false;">Add</button>
   </div>
 </div>
 
-<app-cdr-dropdown [fields]="fields" (selectedFieldsChange)="onSelectedFieldsChange($event)"></app-cdr-dropdown>
+<div *ngFor="let term of searchTerms; let i = index" class="tag">
+  {{ term.log }}: {{ term.term }} <span class="remove-tag" (click)="removeSearchTerm(i)">x</span>
+</div>
 
-<app-session-tree [incomingEvents]="incomingEvents"></app-session-tree>
 
 
 <app-results-display [results]="filteredResults" [getBackgroundColor]="getBackgroundColor"></app-results-display>
