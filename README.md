@@ -38,6 +38,6 @@ Visit the [wiki](https://github.com/gintel-as/gsp24-bigdata/wiki) for more info.
 4. **Wait for All Containers to Set Up**:
     - The setup process will take a few minutes. Monitor the logs in the terminal to track the progress.
 
-Kibana will be available at http://localhost:5601 by default. 
+Kibana will be available at http://localhost:5601 by default. Visit our [Kibana Guide](https://github.com/gintel-as/gsp24-bigdata/wiki/Kibana-Guide) for quick introduction to Kibana.
 
-The webapp will be available at http://localhost:4200 by default.
+The webapp will be available at http://localhost:4200 by default. Visit our [Web App Guide](https://github.com/gintel-as/gsp24-bigdata/wiki/Web-App-Guide) for more guidance.
