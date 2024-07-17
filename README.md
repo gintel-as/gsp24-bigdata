@@ -1,5 +1,7 @@
 # Gintel summer project - Big Data
 
+Originally forked from [Elk Ninja](https://github.com/elkninja/elastic-stack-docker-part-one)
+
 This summer project revolves around the readability and useability of the many logs produced at Gintel. With logs containing useful data scattered around their many servers, the only way to inspect them is to manually retrieve each log, and open them individually in Notepad or similar tools. Gintel envisions a solution where all logs are automatically stored in a centralized engine. This would make the logs more easily accessible for developers to debug, and facilitate the generation of aggregated statistics for better insights and analysis.
 
 
