@@ -7,6 +7,7 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
+// Initialize the Elasticsearch client with authentication and SSL/TLS settings
 const client = new Client({
   node: 'https://es01:9200',
   auth: {
@@ -19,9 +20,11 @@ const client = new Client({
   }
 });
 
+// Middleware setup: CORS for handling cross-origin requests and JSON parsing for request bodies
 app.use(cors());
 app.use(express.json());
 
+// Endpoint to handle search requests
 app.post('/search', async (req, res) => {
   const { index, field, query } = req.body;
   try {
@@ -32,12 +35,13 @@ app.post('/search', async (req, res) => {
       },
       size: 10000
     });
-    res.json(result.hits.hits);
+    res.json(result.hits.hits); // Respond with the search results
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message }); // Handle any errors
   }
 });
 
+// Endpoint to retrieve past retriggers IDs based on a session ID
 app.get('/correlation-ids/:sessionID', async (req, res) => {
   const { sessionID } = req.params;
   try {
@@ -87,32 +91,35 @@ app.get('/correlation-ids/:sessionID', async (req, res) => {
         };
       });
 
-      res.json(incomingEvents);
+      res.json(incomingEvents); // Respond with the incoming events
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({ error: error.message }); // Handle any errors
     }
 
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message }); // Handle any errors
   }
 });
 
+// Start the server and listen on the specified port
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
 
+// Utility function to extract the first gtSessionId from a log message
 function extractFirstGtSessionId(logMessage) {
   const match = logMessage.match(/gtSessionId='([^,']+)[,']/);
   return match ? match[1] : null;
 }
 
+// Utility function to extract the retriggeredFromSessionId from a log message
 function extractRetriggeredFromSessionId(logMessage) {
   const match = logMessage.match(/retriggeredFromSessionId=(\d+)/);
   return match ? match[1] : null;
 }
 
+// Endpoint to create/update call lists
 app.get('/calls/create', async (req, res) => {
-  await checkAndCreateIndex("call-list");
 
   try {
     const result = await client.search({
@@ -209,8 +216,8 @@ app.get('/calls/create', async (req, res) => {
         call = {
           id: i,
           sessionIDs: [...event.retriggeredFromSessionIds, event.currentSessionId],
-          earliestTime: event.timestamp,
-          latestTime: event.timestamp,
+          earliestTime: new Date(event.timestamp+'+02:00'),
+          latestTime: new Date(event.timestamp+'+02:00'),
           serviceKey: event.serviceKey,
           success: true
         };
@@ -220,13 +227,16 @@ app.get('/calls/create', async (req, res) => {
         call.sessionIDs.push(...event.retriggeredFromSessionIds);
         call.sessionIDs.push(event.currentSessionId);
         call.sessionIDs = [...new Set(call.sessionIDs)];
-        call.earliestTime = new Date(Math.min(new Date(call.earliestTime).getTime(), new Date(event.timestamp).getTime()));
-        call.latestTime = new Date(Math.max(new Date(call.latestTime).getTime(), new Date(event.timestamp).getTime()));
+        call.earliestTime = new Date(Math.min(new Date(call.earliestTime).getTime(), new Date(event.timestamp+'+02:00').getTime()));
+        call.latestTime = new Date(Math.max(new Date(call.latestTime).getTime(), new Date(event.timestamp+'+02:00').getTime()));
       }
 
       // Determine if the call is successful
       call.success = await determineCallSuccess(call, sessions);
     }
+
+    await createIndexAndIngest("call-list", callsList);
+
 
     res.status(200).json({
       message: 'Calls created/updated successfully.',
@@ -239,6 +249,7 @@ app.get('/calls/create', async (req, res) => {
   }
 });
 
+// Utility function to check if a session was successful
 async function checkSessionSuccess(sessionId) {
   try {
     const result = await client.search({
@@ -266,11 +277,13 @@ async function checkSessionSuccess(sessionId) {
   }
 }
 
+// Utility function to determine the success of a call
 async function determineCallSuccess(call, sessions) {
   const rootId = call.sessionIDs[0];
   return checkNodeSuccess(rootId, sessions);
 }
 
+// Utility function to check the success of a node in the session tree
 async function checkNodeSuccess(nodeId, sessions) {
   const session = sessions.get(nodeId);
   if (!session.success) {
@@ -294,55 +307,74 @@ async function checkNodeSuccess(nodeId, sessions) {
   return !hasUnsuccessfulTerm;
 }
 
-
+// Utility function to extract retriggered session IDs from a log message
 function extractRetriggeredFromSessionIds(logMessage) {
   const match = logMessage.match(/gtSessionId='([^']+)'/);
   return match ? match[1].split(',').filter(id => id && id !== 'null' && id !== '-1') : [];
 }
 
+// Utility function to extract the service key from a log message
 function extractServiceKey(logMessage) {
   const match = logMessage.match(/serviceKey='([^']+)'/);
   return match ? match[1] : null;
 }
 
+// Utility function to extract the served user from a log message
 function extractServedUser(logMessage) {
   const match = logMessage.match(/servedUser='([^']+)'/);
   return match ? match[1] : null;
 }
 
-async function checkAndCreateIndex(indexName) {
+// Utility function to create an index in Elasticsearch and ingest callsList into the index
+async function createIndexAndIngest(indexName, callsList) {
   try {
-    const { body: indexExists } = await client.indices.exists({ index: indexName });
+    const indexExists = await client.indices.exists({ index: indexName });
 
     if (indexExists) {
-      console.log(`Index "${indexName}" already exists.`);
+      const errorMessage = `Index "${indexName}" already exists.`;
+      console.error(errorMessage);
+      throw new Error(errorMessage);
     } else {
       await client.indices.create({
         index: indexName,
         body: {
           settings: {
             number_of_shards: 1,
-            number_of_replicas: 1
+            number_of_replicas: 1,
           },
           mappings: {
             properties: {
-              sessionIDs: {
-                type: 'nested',
-                properties: {
-                  id: { type: 'keyword' },
-                  parents: { type: 'keyword' },
-                  children: { type: 'keyword' },
-                  timestamp: { type: 'date' },
-                  serviceKey: { type: 'keyword' },
-                  success: { type: 'boolean' }
-                }
-              }
-            }
-          }
+              sessionIDs: { type: "keyword" },  // Array of strings
+              earliestTime: { type: "date" },
+              latestTime: { type: "date" },
+              serviceKey: { type: "keyword" },
+            },
+          },
+        },
+      });
+      console.log(`Index "${indexName}" created successfully.`);
+    }
+
+    // Ingest documents into the index
+    const bulkBody = [];
+    callsList.forEach(call => {
+      bulkBody.push({
+        index: {
+          _index: indexName,
+          _id: call.id
         }
       });
+      bulkBody.push(call);
+    });
+
+    const result = await client.bulk({ body: bulkBody });
+    if (result.errors) {
+      console.error('Errors occurred while ingesting documents:', bulkResponse.items);
+    } else {
+      console.log(`Successfully ingested ${callsList.length} documents into index "${indexName}".`);
     }
+
   } catch (error) {
-    console.error(`Error checking or creating index "${indexName}":`, error);
+    console.error(`Error creating index "${indexName}" and ingesting documents:`, error);
   }
 }
