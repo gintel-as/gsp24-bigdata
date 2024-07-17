@@ -40,6 +40,6 @@ Kibana will be available at http://localhost:5601 by default.
 
 The webapp will be available at http://localhost:4200 by default.
 
+5. **Add data to the ingest folder**
 
-
-
+Place data in `elk/logstash_ingest_data` and edit the path in `elk/logstash_pipelines`
