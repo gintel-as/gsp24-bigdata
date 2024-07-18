@@ -4,6 +4,8 @@ Originally forked from [Elk Ninja](https://github.com/elkninja/elastic-stack-doc
 
 This summer project revolves around the readability and useability of the many logs produced at Gintel. With logs containing useful data scattered around their many servers, the only way to inspect them is to manually retrieve each log, and open them individually in Notepad or similar tools. Gintel envisions a solution where all logs are automatically stored in a centralized engine. This would make the logs more easily accessible for developers to debug, and facilitate the generation of aggregated statistics for better insights and analysis.
 
+Visit the [wiki](https://github.com/gintel-as/gsp24-bigdata/wiki) for more info.
+
 
 # Prerequisites
 - Docker Desktop or docker+docker compose
@@ -18,7 +20,7 @@ This summer project revolves around the readability and useability of the many l
     ```
 2. **Input your data**:
 
-    Drop your data in elk/logstash_ingest_data folder. Make sure the logstash pipelines are configured correctly.
+    Drop your data in elk/logstash_ingest_data folder. Make sure the logstash pipelines are configured correctly. Check out this [wiki page](https://github.com/gintel-as/gsp24-bigdata/wiki/Logstash-Pipelines) for more guidance.
 
 
 2. **Navigate to the Project Directory**:
@@ -36,10 +38,6 @@ This summer project revolves around the readability and useability of the many l
 4. **Wait for All Containers to Set Up**:
     - The setup process will take a few minutes. Monitor the logs in the terminal to track the progress.
 
-Kibana will be available at http://localhost:5601 by default. 
+Kibana will be available at http://localhost:5601 by default. Visit our [Kibana Guide](https://github.com/gintel-as/gsp24-bigdata/wiki/Kibana-Guide) for quick introduction to Kibana.
 
-The webapp will be available at http://localhost:4200 by default.
-
-5. **Add data to the ingest folder**
-
-Place data in `elk/logstash_ingest_data` and edit the path in `elk/logstash_pipelines`
+The webapp will be available at http://localhost:4200 by default. Visit our [Web App Guide](https://github.com/gintel-as/gsp24-bigdata/wiki/Web-App-Guide) for more guidance.
