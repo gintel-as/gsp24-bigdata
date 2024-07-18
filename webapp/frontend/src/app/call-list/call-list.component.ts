@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import { FormsModule } from '@angular/forms';
 import { SessionTreeComponent } from '../session-tree/session-tree.component';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -8,8 +12,14 @@ import { of } from 'rxjs';
 @Component({
   selector: 'app-call-list',
   standalone: true,
-  imports: [CommonModule, SessionTreeComponent, SessionTreeComponent],
+  imports: [CommonModule, FormsModule, MatDatepickerModule, MatInputModule, MatNativeDateModule, SessionTreeComponent],
   template: `
+    <mat-form-field appearance="fill">
+      <mat-label>Select Date</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
     <button (click)="createCalls()">
       Create Calls
     </button>
@@ -28,11 +38,13 @@ export class CallListComponent {
   callsList: any[] = [];
   sessions: any[] = [];
   callVisible: { [key: string]: boolean } = {};
+  selectedDate: Date | null = null;
 
   constructor(private http: HttpClient) {}
 
   createCalls() {
-    this.http.get('http://localhost:3000/calls/create').pipe(
+    const dateString = this.selectedDate ? this.formatDate(this.selectedDate) : '';
+    this.http.get(`http://localhost:3000/calls/create?date=${dateString}`).pipe(
       catchError(error => {
         console.error('Error creating calls:', error);
         return of({ callsList: [], sessions: [] });
@@ -46,6 +58,13 @@ export class CallListComponent {
         this.resetCallVisibility();
       }
     );
+  }
+
+  formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 
   sortCallsByEarliestTime() {

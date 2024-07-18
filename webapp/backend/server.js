@@ -120,15 +120,29 @@ function extractRetriggeredFromSessionId(logMessage) {
 
 // Endpoint to create/update call lists
 app.get('/calls/create', async (req, res) => {
-
+  const { date } = req.query; // Get the date from the query parameter
+  console.log(date)
   try {
     const result = await client.search({
       index: 'adapter_logs',
       query: {
-        wildcard: { log_message: '*eventincomingcall*' }
+        bool: {
+          must: [
+            { wildcard: { log_message: '*eventincomingcall*' } },
+            {
+              bool: {
+                should: [
+                  { range: { time_parsed: { gte: `${date}T00:00:00.000Z`, lte: `${date}T23:59:59.999Z` } } },
+                ]
+              }
+            }
+          ]
+        }
       },
       size: 10000
     });
+
+    console.log(result)
 
     const incomingEvents = result.hits.hits.map(hit => {
       const log_message = hit._source.log_message;
@@ -235,14 +249,12 @@ app.get('/calls/create', async (req, res) => {
       call.success = await determineCallSuccess(call, sessions);
     }
 
-    await createIndexAndIngest("call-list", callsList);
-
-
     res.status(200).json({
       message: 'Calls created/updated successfully.',
       callsList,
       sessions: Array.from(sessions.values())
     });
+    await createIndexAndIngest("call-list", callsList);
 
   } catch (error) {
     res.status(500).json({ error: error.message });
