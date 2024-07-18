@@ -7,6 +7,10 @@
   padding: 20px;
 }
 
+.container {
+  width: 100%;
+}
+
 .call-container {
   width: 100%;
   border: 1px solid #ddd;
@@ -108,3 +112,28 @@ button:disabled {
     display: inline-block;
     text-align: center;
   }
+
+  .spinner::before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  border-top-color: #333;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

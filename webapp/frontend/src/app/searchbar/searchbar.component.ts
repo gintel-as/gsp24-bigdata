@@ -1,4 +1,5 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ElasticsearchService } from '../elastic.service';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
@@ -32,7 +33,7 @@ import { CdrDropdownComponent } from '../cdr-dropdown/cdr-dropdown.component';
   templateUrl: './searchbar.component.html',
   styleUrls: ['./searchbar.component.css']
 })
-export class SearchbarComponent {
+export class SearchbarComponent implements OnInit {
   searchQuery: string = '';
   results: any[] = [];
   filteredResults: any[] = [];
@@ -49,9 +50,10 @@ export class SearchbarComponent {
   showServerLogs: boolean = true;
   showSIPLogs: boolean = true;
   showCDRLogs: boolean = true;
-  showEDRLogs: boolean = true; 
+  showEDRLogs: boolean = true;
   removeFluff: boolean = false;
   removeCSTAFluff: boolean = false;
+  initialSearchPerformed: boolean = false;
 
   fields: string[] = [
     "callType", "sessionID", "correlationID", "sequenceNumber", "aNumber",
@@ -68,14 +70,14 @@ export class SearchbarComponent {
   ];
 
   edrFields: string[] =  [
-    "record_type", "callType", "id", "sessionID", "sequenceNumber", "aNumber", 
-    "bNumber", "cNumber", "servedUser", "redirectNumber", "genericNumber", "a_clir", 
-    "term_code", "callStartTime", "mrfAnswerTime", "overheadTime", "pagingTime", "ringingTime", 
-    "calledPartyAnswerTime", "connectTime", "chargeClass", "payingParty", 
-    "release_code", "mscAddress", "vlrAddress", "transferCapability", "layer1Capability", 
-    "vpnScenario", "aProvider", "cProvider", "sno", "cid", 
-    "oname", "userResponseHistory", "serviceKey", "subServiceId", "edrType", 
-    "operation", "serviceProvider", "noConnectCause", 
+    "record_type", "callType", "id", "sessionID", "sequenceNumber", "aNumber",
+    "bNumber", "cNumber", "servedUser", "redirectNumber", "genericNumber", "a_clir",
+    "term_code", "callStartTime", "mrfAnswerTime", "overheadTime", "pagingTime", "ringingTime",
+    "calledPartyAnswerTime", "connectTime", "chargeClass", "payingParty",
+    "release_code", "mscAddress", "vlrAddress", "transferCapability", "layer1Capability",
+    "vpnScenario", "aProvider", "cProvider", "sno", "cid",
+    "oname", "userResponseHistory", "serviceKey", "subServiceId", "edrType",
+    "operation", "serviceProvider", "noConnectCause",
     "cellGlobalId", "pani", "generatedPani", "usedLocation", "sipCause", "pcv"
   ];
 
@@ -87,9 +89,45 @@ export class SearchbarComponent {
   selectedLog: string = '';
   searchTerm: string = '';
 
+  callsList: any[] = [];
+  sessions: any[] = [];
+  callVisible: { [key: string]: boolean } = {};
+
   @Output() filteredResultsChange: EventEmitter<any[]> = new EventEmitter<any[]>();
 
-  constructor(private elasticsearchService: ElasticsearchService, private http: HttpClient) {}
+  constructor(private elasticsearchService: ElasticsearchService, private http: HttpClient, private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      const id = params['sessionID'];
+      if (id && !this.initialSearchPerformed) {
+        this.searchQuery = id;
+        this.initialSearchPerformed = true;
+        this.performSearch();
+      }
+    });
+
+    this.fetchCalls();
+  }
+
+  fetchCalls() {
+    this.http.get('http://localhost:3000/calls/createfast').subscribe(
+      (response: any) => {
+        this.callsList = response.callsList || [];
+        this.resetCallVisibility();
+      },
+      error => {
+        console.error('Error fetching calls:', error);
+      }
+    );
+  }
+
+  resetCallVisibility() {
+    this.callVisible = {};
+    this.callsList.forEach(call => {
+      this.callVisible[call.id] = false;
+    });
+  }
 
   onSearch(query: string) {
     this.searchQuery = query;
@@ -100,6 +138,7 @@ export class SearchbarComponent {
     this.selectedFields = selectedFields;
     this.updateLogMessages();
   }
+
   onSelectedEdrFieldsChange(selectedEdrFields: string[]) {
     this.selectedEdrFields = selectedEdrFields;
     this.updateLogMessages();
@@ -118,40 +157,30 @@ export class SearchbarComponent {
   }
 
   performSearch() {
-    this.results = []; // Clear results before each search
+    this.results = [];
     this.filteredResults = [];
     this.incomingEvents = [];
     this.correlationIDs.clear();
 
     if (this.searchQuery.trim()) {
-      // Fetch correlation IDs and perform another search if the checkbox is checked
-      this.http.get<{ currentSessionId: string, retriggeredFromSessionId: string, serviceKey: string }[]>(
-        `http://localhost:3000/correlation-ids/${this.searchQuery}`
-      ).subscribe(
-        data => {
-          this.incomingEvents = data;
-          data.forEach(result => {
-            this.correlationIDs.add(result.currentSessionId);
-            this.correlationIDs.add(result.retriggeredFromSessionId);
-            console.log(this.correlationIDs)
-          });
-          if (this.showCorrelationLogs && this.correlationIDs.size > 0) {
-            this.performCorrelationSearch();
-          } else {
-            this.searchLogs(this.searchQuery);
-          }
-        },
-        error => {
-          console.error('Error fetching correlation IDs', error);
-          this.correlationIDs.add(this.searchQuery);
+      const foundCall = this.callsList.find(call => call.sessionIDs.includes(this.searchQuery));
+
+      if (foundCall) {
+        foundCall.sessionIDs.forEach((sessionID: string) => {
+          this.correlationIDs.add(sessionID);
+        });
+        if (this.showCorrelationLogs && this.correlationIDs.size > 0) {
+          this.performCorrelationSearch();
+        } else {
           this.searchLogs(this.searchQuery);
         }
-      );
+      } else {
+        this.searchLogs(this.searchQuery);
+      }
     }
   }
 
   performCorrelationSearch() {
-    console.log("correlation IDs" + this.correlationIDs)
     if (this.correlationIDs.size > 0) {
       Array.from(this.correlationIDs).forEach(correlationID => {
         this.searchLogs(correlationID);
@@ -205,12 +234,12 @@ export class SearchbarComponent {
       }
     );
 
-    this.elasticsearchService.search('edr_logs', 'sessionID', query).subscribe(  
+    this.elasticsearchService.search('edr_logs', 'sessionID', query).subscribe(
       response => {
-        this.processResults(response, 'edr_logs'); 
+        this.processResults(response, 'edr_logs');
       },
       error => {
-        console.error('Error performing EDR log search', error);  
+        console.error('Error performing EDR log search', error);
       }
     );
   }
@@ -279,7 +308,7 @@ export class SearchbarComponent {
         (this.showServerLogs && result.source === 'server_logs') ||
         (this.showSIPLogs && result.source === 'sip_logs') ||
         (this.showCDRLogs && result.source === 'cdr_logs') ||
-        (this.showEDRLogs && result.source === 'edr_logs') || 
+        (this.showEDRLogs && result.source === 'edr_logs') ||
         (this.showCorrelationLogs && result.source === 'correlation_logs'))
       .filter(result => {
         return this.searchTerms.every(term => {
@@ -317,8 +346,8 @@ export class SearchbarComponent {
       this.showSIPLogs = !this.showSIPLogs;
     } else if (source === 'cdr') {
       this.showCDRLogs = !this.showCDRLogs;
-    } else if (source === 'edr') {  
-      this.showEDRLogs = !this.showEDRLogs;  
+    } else if (source === 'edr') {
+      this.showEDRLogs = !this.showEDRLogs;
     }
     this.applyFilters();
   }
