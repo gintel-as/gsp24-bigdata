@@ -81,6 +81,7 @@ export class CallListComponent {
         this.sessions = response.sessions || [];
         this.sortCallsByEarliestTime();
         this.resetCallVisibility();
+        this.isLoading = false;
       }
     );
   }
