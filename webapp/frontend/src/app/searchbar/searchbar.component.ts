@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ElasticsearchService } from '../elastic.service';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
@@ -95,14 +95,19 @@ export class SearchbarComponent implements OnInit {
 
   @Output() filteredResultsChange: EventEmitter<any[]> = new EventEmitter<any[]>();
 
-  constructor(private elasticsearchService: ElasticsearchService, private http: HttpClient, private route: ActivatedRoute) {}
+  constructor(private elasticsearchService: ElasticsearchService, private http: HttpClient, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      const id = params['sessionID'];
-      if (id && !this.initialSearchPerformed) {
+      const id = params['sessionID']|| '';
+      const url_id = params['id'] || '';
+      if (id) {
         this.searchQuery = id;
         this.initialSearchPerformed = true;
+        this.performSearch();
+      }
+      if (url_id) {
+        this.searchQuery = url_id;
         this.performSearch();
       }
     });
@@ -131,6 +136,11 @@ export class SearchbarComponent implements OnInit {
 
   onSearch(query: string) {
     this.searchQuery = query;
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { sessionID: this.searchQuery },
+      queryParamsHandling: 'merge',
+    });
     this.performSearch();
   }
 

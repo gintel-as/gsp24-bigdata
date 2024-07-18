@@ -185,10 +185,18 @@ export class SessionTreeComponent implements OnInit, OnChanges, AfterViewInit {
         .attr('transform', d => `translate(${d.y},${d.x})`);
 
       node.append('circle')
-        .attr('r', 5) // Adjusted radius
-        .attr('class', d => this.getSessionSuccessColorClass(d.data.id))
-        .on('click', (event, d) => this.onNodeClick(d.data.id));  // Add click event // Add click event
-
+      .attr('r', 5) // Initial radius
+      .attr('class', d => this.getSessionSuccessColorClass(d.data.id))
+      .style('cursor', 'pointer') // Change cursor to pointer on hover
+      .on('click', (event, d) => this.onNodeClick(d.data.id)) // Add click event
+      .on('mouseover', function(event, d) {
+          d3.select(this).attr('r', 6.5); // Increase radius on hover
+      })
+      .on('mouseout', function(event, d) {
+          d3.select(this).attr('r', 5); // Revert radius when not hovering
+      });
+    
+    
       node.append('text')
         .attr('dy', '-2.5em') // Position above the circle with more space
         .attr('x', 0)

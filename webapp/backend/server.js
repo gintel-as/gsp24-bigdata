@@ -407,6 +407,8 @@ async function checkNodeSuccess(nodeId, sessions) {
 
     if (childSession && childSession.serviceKey && childSession.serviceKey.includes("Click2DialCoreLeg1")) {
       hasUnsuccessfulTerm = true;
+    } else if (childSession && childSession.serviceKey && childSession.serviceKey.includes("Click") && !childSession.success) {
+      return false;
     } else if (childSession && childSession.success) {
       return checkNodeSuccess(childId, sessions);
     } else if (childSession && childSession.serviceKey && childSession.serviceKey.includes("term")) {
