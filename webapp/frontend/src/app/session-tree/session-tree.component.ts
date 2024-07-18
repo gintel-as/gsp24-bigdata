@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges, ViewChildren, ElementRef, AfterViewInit, QueryList } from '@angular/core';
 import * as d3 from 'd3';
 import {NgForOf} from "@angular/common";
+import { Router } from '@angular/router';
+
 
 interface TreeNode {
   id: string;
@@ -29,6 +31,8 @@ export class SessionTreeComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() call: any;
   @ViewChildren('treeContainer') treeContainers!: QueryList<ElementRef>;
   treesData: TreeNode[] = [];
+
+  constructor(private router: Router) {}
 
   /* phoneNumberDictionary: { [key: string]: string } = {
     '4746180309': ' (A)',
@@ -182,7 +186,8 @@ export class SessionTreeComponent implements OnInit, OnChanges, AfterViewInit {
 
       node.append('circle')
         .attr('r', 5) // Adjusted radius
-        .attr('class', d => this.getSessionSuccessColorClass(d.data.id));
+        .attr('class', d => this.getSessionSuccessColorClass(d.data.id))
+        .on('click', (event, d) => this.onNodeClick(d.data.id));  // Add click event // Add click event
 
       node.append('text')
         .attr('dy', '-2.5em') // Position above the circle with more space
@@ -235,6 +240,10 @@ export class SessionTreeComponent implements OnInit, OnChanges, AfterViewInit {
       return 1;
     }
     return 1 + node.children.reduce((acc, child) => acc + this.countNodes(child), 0);
+  }
+
+  onNodeClick(sessionId: string) {
+    this.router.navigate(['/log-merge/1'], { queryParams: { sessionID: sessionId } });
   }
 
   wrapText = (text: any, width: number) => {

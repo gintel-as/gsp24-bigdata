@@ -249,6 +249,103 @@ app.get('/calls/create', async (req, res) => {
   }
 });
 
+app.get('/calls/createfast', async (req, res) => {
+
+  try {
+    const result = await client.search({
+      index: 'adapter_logs',
+      query: {
+        wildcard: { log_message: '*eventincomingcall*' }
+      },
+      size: 10000
+    });
+
+    const incomingEvents = result.hits.hits.map(hit => {
+      const log_message = hit._source.log_message;
+      const retriggeredFromSessionIds = extractRetriggeredFromSessionIds(log_message);
+      const currentSessionId = hit._source.sessionID;
+
+      return {
+        currentSessionId,
+        retriggeredFromSessionIds,
+      };
+    });
+
+    const callsList = [];
+    const sessions = new Map();
+    let i = 0;
+
+    for (let event of incomingEvents) {
+      let parentSessionId = null;
+      for (let retriggeredSessionId of event.retriggeredFromSessionIds) {
+        if (!sessions.has(retriggeredSessionId)) {
+          sessions.set(retriggeredSessionId, {
+            sessionId: retriggeredSessionId,
+            parents: parentSessionId ? [parentSessionId] : [],
+            children: [],
+          });
+        } else if (parentSessionId) {
+          const session = sessions.get(retriggeredSessionId);
+          if (!session.parents.includes(parentSessionId)) {
+            session.parents.push(parentSessionId);
+          }
+        }
+        if (parentSessionId) {
+          const parentSession = sessions.get(parentSessionId);
+          if (!parentSession.children.includes(retriggeredSessionId)) {
+            parentSession.children.push(retriggeredSessionId);
+          }
+        }
+
+        parentSessionId = retriggeredSessionId;
+      }
+
+      // Handle the current session ID
+      if (!sessions.has(event.currentSessionId)) {
+        sessions.set(event.currentSessionId, {
+          sessionId: event.currentSessionId,
+          parents: parentSessionId ? [parentSessionId] : [],
+          children: [],
+        });
+      } else {
+        const currentSession = sessions.get(event.currentSessionId);
+        if (parentSessionId && !currentSession.parents.includes(parentSessionId)) {
+          currentSession.parents.push(parentSessionId);
+        }
+      }
+
+      if (parentSessionId) {
+        const parentSession = sessions.get(parentSessionId);
+        if (!parentSession.children.includes(event.currentSessionId)) {
+          parentSession.children.push(event.currentSessionId);
+        }
+      }
+
+      let call = callsList.find(call => call.sessionIDs.includes(event.currentSessionId) || call.sessionIDs.some(r => event.retriggeredFromSessionIds.includes(r)));
+      if (!call) {
+        call = {
+          id: i,
+          sessionIDs: [...event.retriggeredFromSessionIds, event.currentSessionId],
+          serviceKey: event.serviceKey,
+        };
+        i += 1;
+        callsList.push(call);
+      } else {
+        call.sessionIDs.push(...event.retriggeredFromSessionIds);
+        call.sessionIDs.push(event.currentSessionId);
+        call.sessionIDs = [...new Set(call.sessionIDs)];
+      }
+    }
+
+    res.status(200).json({
+      message: 'Calls created/updated successfully.',
+      callsList
+    });
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 // Utility function to check if a session was successful
 async function checkSessionSuccess(sessionId) {
   try {
