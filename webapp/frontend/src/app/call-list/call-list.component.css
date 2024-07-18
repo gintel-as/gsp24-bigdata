@@ -97,3 +97,14 @@ button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }
+
+  .tree-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .centered-tree {
+    display: inline-block;
+    text-align: center;
+  }
