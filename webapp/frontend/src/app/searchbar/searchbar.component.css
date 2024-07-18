@@ -145,3 +145,14 @@
 .remove-tag:hover {
   color: darkred;
 }
+
+.filter-label{
+  width:220px;
+}
+
+.filter-label:hover {
+  color: #007bff;
+  transform: translateY(-2px);
+  cursor: pointer;
+}
+
