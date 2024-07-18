@@ -74,6 +74,11 @@
   color: #333; /* Black text */
 }
 
+.no-calls-message {
+  font-size: 20px;
+  text-align: center;
+}
+
 
 
 button {
@@ -95,6 +100,12 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+
+.no-calls-message {
+  font-size: 20px;
+  color: #333;
+  margin-top: 20px;
 }
 
 button:disabled {
@@ -137,3 +148,4 @@ button:disabled {
     transform: rotate(360deg);
   }
 }
+

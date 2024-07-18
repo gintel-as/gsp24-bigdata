@@ -29,6 +29,9 @@ import { of } from 'rxjs';
       ></div>
     </button>
     <div *ngIf="!isLoading" class="container">
+      <div *ngIf="callsList.length === 0 && isSearched && selectedDate" class="no-calls-message">
+        No calls for {{ selectedDate.toLocaleDateString('en-GB', { year: 'numeric', day: '2-digit', month: 'short' }) }}
+      </div>
       <div
         *ngFor="let call of callsList; let i = index"
         class="call-container {{ call.success }}"
@@ -59,12 +62,18 @@ export class CallListComponent {
   sessions: any[] = [];
   callVisible: { [key: string]: boolean } = {};
   isLoading: boolean = false;
+  isSearched: boolean = false;
   selectedDate: Date | null = null;
 
   constructor(private http: HttpClient) {}
 
   createCalls() {
-    const dateString = this.selectedDate ? this.formatDate(this.selectedDate) : '';
+    if (this.selectedDate === null) {
+      console.log('Please select a date');
+      return;
+    }
+
+    const dateString = this.formatDate(this.selectedDate);
     this.isLoading = true;
     this.http
       .get(`http://localhost:3000/calls/create?date=${dateString}`)
@@ -72,6 +81,7 @@ export class CallListComponent {
         catchError((error) => {
           console.error('Error creating calls:', error);
           this.isLoading = false;
+          this.isSearched = true;
           return of({ callsList: [], sessions: [] });
         })
       )
@@ -82,8 +92,8 @@ export class CallListComponent {
         this.sortCallsByEarliestTime();
         this.resetCallVisibility();
         this.isLoading = false;
-      }
-    );
+        this.isSearched = true;
+      });
   }
 
   formatDate(date: Date): string {
@@ -125,4 +135,5 @@ export class CallListComponent {
 
     return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
   }
+  
 }

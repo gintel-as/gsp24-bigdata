@@ -254,6 +254,7 @@ app.get('/calls/create', async (req, res) => {
       callsList,
       sessions: Array.from(sessions.values())
     });
+    
     await createIndexAndIngest("call-list", callsList);
 
   } catch (error) {
@@ -437,6 +438,10 @@ function extractServedUser(logMessage) {
 // Utility function to create an index in Elasticsearch and ingest callsList into the index
 async function createIndexAndIngest(indexName, callsList) {
   try {
+
+    if (callsList.length === 0) {
+      throw new Error('No calls to ingest.');
+    }
     const indexExists = await client.indices.exists({ index: indexName });
 
     if (indexExists) {
