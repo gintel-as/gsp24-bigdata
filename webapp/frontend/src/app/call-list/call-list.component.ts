@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { SessionTreeComponent } from '../session-tree/session-tree.component';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { DateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-call-list',
@@ -65,7 +66,9 @@ export class CallListComponent {
   isSearched: boolean = false;
   selectedDate: Date | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private dateAdapter: DateAdapter<Date>) {
+    this.dateAdapter.setLocale('en-GB'); //dd/MM/yyyy
+  }
 
   createCalls() {
     if (this.selectedDate === null) {
