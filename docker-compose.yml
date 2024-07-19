@@ -203,6 +203,9 @@ services:
       - ./webapp/backend:/usr/src/app
       - /usr/src/app/node_modules
       - certs:/usr/src/app/certs
+      - ./elk/logstash_ingest_data/:/usr/share/logstash/ingest_data/
+
+
     environment:
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
       - CHOKIDAR_USEPOLLING=true
