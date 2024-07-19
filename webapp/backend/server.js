@@ -3,7 +3,8 @@ const { Client } = require('@elastic/elasticsearch');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
-
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 const app = express();
 const port = 3000;
 
@@ -359,33 +360,31 @@ app.get('/calls/createfast', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-// Utility function to check if a session was successful
-async function checkSessionSuccess(sessionId) {
-  try {
-    const result = await client.search({
-      index: 'adapter_logs',
-      query: {
-        bool: {
-          must: [
-            { term: { sessionID: sessionId } },
-            { wildcard: { log_message: '*answered*' } }
-          ],
-          must_not: [
-            { wildcard: { log_message: '*firstanswered*' } },
-            { wildcard: { log_message: '*logworker*' } },
-            { wildcard: { log_message: '*eanswered*' } },
 
-          ]
-        }
-      },
-      size: 1
+app.post('/upload', upload.single('file'), (req, res) => {
+  const tempPath = req.file.path;
+  const targetPath = path.join(__dirname, 'uploads', req.file.originalname);
+  const logstashDataPath = path.join('/usr/share/logstash/ingest_data', req.file.originalname);
+
+  fs.rename(tempPath, targetPath, err => {
+    if (err) return res.status(500).send(err);
+
+    // Move the file to the Logstash data directory
+    fs.rename(targetPath, logstashDataPath, err => {
+      if (err) return res.status(500).send(err);
+
+      res.json({ message: 'File uploaded and moved successfully', filePath: logstashDataPath });
     });
-    return result.hits.total.value > 0;
-  } catch (error) {
-    console.error(`Error checking session success for ${sessionId}:`, error);
-    return false;
-  }
-}
+  });
+});
+
+app.get('/uploaded-files', (req, res) => {
+  fs.readdir(path.join('/usr/share/logstash/data'), (err, files) => {
+    if (err) return res.status(500).send(err);
+    res.json(files);
+  });
+});
+
 
 // Utility function to determine the success of a call
 async function determineCallSuccess(call, sessions) {
