@@ -133,6 +133,10 @@
   margin-right: 5px;
   margin-bottom: 5px;
   font-size: 14px;
+  min-width: 100px;
+  max-width: fit-content;
+  width: auto;
+  white-space: nowrap; 
 }
 
 .remove-tag {
