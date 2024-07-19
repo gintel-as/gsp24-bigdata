@@ -55,9 +55,13 @@
   </div>
 </div>
 
-<div *ngFor="let term of searchTerms; let i = index" class="tag">
-  {{ term.log }}: {{ term.term }} <span class="remove-tag" (click)="removeSearchTerm(i)">x</span>
+<div class="tags-container">
+  <div *ngFor="let term of searchTerms; let i = index" class="tag">
+    {{ term.log }}: {{ term.term }} 
+    <span class="remove-tag" (click)="removeSearchTerm(i)">x</span>
+  </div>
 </div>
+
 
 
 
