@@ -255,7 +255,7 @@ app.get('/calls/create', async (req, res) => {
       sessions: Array.from(sessions.values())
     });
     
-    await createIndexAndIngest("call-list", callsList);
+    await createIndexAndIngest("call-list", callsList, date);
 
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -438,38 +438,36 @@ function extractServedUser(logMessage) {
 }
 
 // Utility function to create an index in Elasticsearch and ingest callsList into the index
-async function createIndexAndIngest(indexName, callsList) {
+async function createIndexAndIngest(indexName, callsList, date) {
   try {
-
+    indexName = indexName + "-" + date
     if (callsList.length === 0) {
       throw new Error('No calls to ingest.');
     }
-    const indexExists = await client.indices.exists({ index: indexName });
+    const indexExists = await client.indices.exists({ index: indexName});
 
     if (indexExists) {
-      const errorMessage = `Index "${indexName}" already exists.`;
-      console.error(errorMessage);
-      throw new Error(errorMessage);
-    } else {
-      await client.indices.create({
-        index: indexName,
-        body: {
-          settings: {
-            number_of_shards: 1,
-            number_of_replicas: 1,
-          },
-          mappings: {
-            properties: {
-              sessionIDs: { type: "keyword" },  // Array of strings
-              earliestTime: { type: "date" },
-              latestTime: { type: "date" },
-              serviceKey: { type: "keyword" },
-            },
+      const errorMessage = `Index "${indexName}" already exists, deleting now.`;
+      await client.delete(indexName)
+    }
+    await client.indices.create({
+      index: indexName,
+      body: {
+        settings: {
+          number_of_shards: 1,
+          number_of_replicas: 1,
+        },
+        mappings: {
+          properties: {
+            sessionIDs: {type: "keyword"},  // Array of strings
+            earliestTime: {type: "date"},
+            latestTime: {type: "date"},
+            serviceKey: {type: "keyword"},
           },
         },
-      });
+      }
+    })
       console.log(`Index "${indexName}" created successfully.`);
-    }
 
     // Ingest documents into the index
     const bulkBody = [];
